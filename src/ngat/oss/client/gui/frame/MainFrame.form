@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="jMenuBar">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="jmFileMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="File"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="JMenuItem closeMenuItem = new JMenuItem(&quot;Close&quot;);&#xa;closeMenuItem.setActionCommand(ACTION_CMD_CLOSE);&#xa;closeMenuItem.addActionListener(this);&#xa;jmFileMenu.add(closeMenuItem);"/>
+          </AuxValues>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmViewMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="View"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JMenuItem viewFixedGroupBookingsMenuItem = new JMenuItem(&quot;Future Fixed Groups&quot;);&#xa;viewFixedGroupBookingsMenuItem.setActionCommand(ACTION_CMD_FUTURE_FIXED_GROUPS);&#xa;viewFixedGroupBookingsMenuItem.addActionListener(this);&#xa;jmViewMenu.add(viewFixedGroupBookingsMenuItem);&#xa;&#xa;if (Session.getInstance().getUser().isSuperUser()) {&#xa;    JMenuItem viewGroupsMenuItem = new JMenuItem(&quot;Active Groups&quot;);&#xa;    viewGroupsMenuItem.setActionCommand(ACTION_CMD_ACTIVE_GROUPS);&#xa;    viewGroupsMenuItem.addActionListener(this);&#xa;    jmViewMenu.add(viewGroupsMenuItem);&#xa;}&#xa;&#xa;JMenuItem viewVersionInfoMenuItem = new JMenuItem(&quot;Version Information&quot;);&#xa;viewVersionInfoMenuItem.setActionCommand(ACTION_CMD_VERSION_INFORMATION);&#xa;viewVersionInfoMenuItem.addActionListener(this);&#xa;jmViewMenu.add(viewVersionInfoMenuItem);"/>
+          </AuxValues>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmToolsMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tools"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JMenuItem rotAngleMenuItem = new JMenuItem(&quot;Rotator Angle Chart&quot;);&#xa;rotAngleMenuItem.setActionCommand(ACTION_CMD_ROT_ANGLE_CHART);&#xa;rotAngleMenuItem.addActionListener(this);&#xa;jmToolsMenu.add(rotAngleMenuItem);&#xa;&#xa;if (Session.getInstance().getUser().isSuperUser()) {&#xa;    JMenuItem accountsMenuItem = new JMenuItem(&quot;Semester Accounts&quot;);&#xa;    accountsMenuItem.setActionCommand(ACTION_CMD_SEMESTER_ACCOUNTS);&#xa;    accountsMenuItem.addActionListener(this);&#xa;    jmToolsMenu.add(accountsMenuItem);&#xa;}"/>
+          </AuxValues>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="CONST.APP_NAME + &quot; (&quot; + CONST.CURRENT_VERSION_NUMBER.getDisplayName() + CONST.CURRENT_REVISION_LETTER + &quot;)&quot;+ &quot; [&quot; + Session.getInstance().getServiceHostName() + &quot;]&quot;" type="code"/>
+    </Property>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar"/>
+    <SyntheticProperty name="formSizePolicy" type="int" value="2"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="2"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane2" min="-2" pref="502" max="-2" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jpControlPanel" pref="530" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jcbIncludeInactiveGroups" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTabbedTreePane" min="-2" pref="275" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jpDetailPanel" pref="757" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jTabbedTreePane" min="-2" pref="482" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jcbIncludeInactiveGroups" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jpDetailPanel" min="-2" pref="502" max="-2" attributes="1"/>
+              </Group>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jpControlPanel" pref="134" max="32767" attributes="1"/>
+                  <Component id="jScrollPane2" alignment="0" pref="134" max="32767" attributes="1"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jpDetailPanel">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextPane" name="jtpMessagePane">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jpControlPanel">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+    </Container>
+    <Container class="javax.swing.JTabbedPane" name="jTabbedTreePane">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTabbedPane()"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+    </Container>
+    <Component class="javax.swing.JCheckBox" name="jcbIncludeInactiveGroups">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Include disabled groups in tree."/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbIncludeInactiveGroupsActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>
