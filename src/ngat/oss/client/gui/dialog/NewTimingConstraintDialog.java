@@ -80,6 +80,12 @@ public class NewTimingConstraintDialog extends javax.swing.JDialog implements Ac
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                try {
+                    setTimingConstraint(null);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    logger.error(ex);
+                }
                 NewTimingConstraintDialog.this.setVisible(false);
                 NewTimingConstraintDialog.this.dispose();
             }

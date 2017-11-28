@@ -602,6 +602,7 @@ private void jbtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             //no change to state model.
         }
     } else {
+        // i.e. guiState == CREATING_ACCOUNTS
         try {
             createAccounts();
             showProposalAccountsDialog();
@@ -615,6 +616,9 @@ private void jbtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jbtnCreateActionPerformed
 
     private void showProposalAccountsDialog() {
+        
+        System.err.println("showProposalAccountsDialog()");
+        
         boolean allowAccountsEditing = Session.getInstance().getUser().isSuperUser();
         AccountsDialog dialog = new AccountsDialog(true, xProposal, allowAccountsEditing);
         dialog.setVisible(true);

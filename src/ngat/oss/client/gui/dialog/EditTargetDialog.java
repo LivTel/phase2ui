@@ -8,6 +8,7 @@ package ngat.oss.client.gui.dialog;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 
@@ -59,6 +60,13 @@ public class EditTargetDialog extends javax.swing.JDialog {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                // null the target else any changes are saved in the parent frame.
+                try {
+                    EditTargetDialog.this.targetEditorPanel.setTarget(null, false, false);
+                } catch (Exception ex) {
+                    java.util.logging.Logger.getLogger(EditTargetDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                        
                 EditTargetDialog.this.setVisible(false);
                 EditTargetDialog.this.dispose();
             }

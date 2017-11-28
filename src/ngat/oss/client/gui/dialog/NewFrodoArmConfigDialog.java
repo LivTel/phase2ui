@@ -95,6 +95,8 @@ public class NewFrodoArmConfigDialog extends javax.swing.JDialog {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                dualBeamSpectrographInstrumentConfig = null;
+                
                 NewFrodoArmConfigDialog.this.setVisible(false);
                 NewFrodoArmConfigDialog.this.dispose();
             }

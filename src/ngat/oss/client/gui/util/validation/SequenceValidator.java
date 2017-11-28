@@ -562,6 +562,12 @@ class TelescopeState {
                      validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE,  "An Exposure exists using the IO:O instrument that doesn't have a Beam-Steering Config before it."));
                      } 
                      */
+                } else if (latestInstrumentConfigInstrumentName.equals(CONST.IO_I)) {
+                    if (multipleExposure.getExposureTime() < 5820) {
+                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "IO:I Exposure Times < 5820ms are not allowed."));
+                    } else if ((multipleExposure.getExposureTime() >= 7276) && (multipleExposure.getExposureTime() <= 8729)) {
+                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "IO:I Exposure Times within the range 7276ms to 8729ms are not allowed."));
+                    }
                 } else if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3)) {
                     logger.info("... latestInstrumentConfigInstrumentName == " + CONST.RINGO3);
                     validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "A Multiple Exposure exists with a RINGO instrument config before it. Use only 'Duration' type exposures for RINGO."));

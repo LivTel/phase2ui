@@ -20,7 +20,7 @@ import ngat.phase2.XVersion;
  */
 public class CONST {
 
-    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 8, 15);
+    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 8, 22);
     
     public static final String CURRENT_REVISION_LETTER = ".A";
     
@@ -50,6 +50,7 @@ public class CONST {
     public static final String RISE = "RISE";
    
     public static final String RINGO3 = "RINGO3";
+    public static final String MOPTOP = "MOPTOP";
     
     public static final String FRODO = "FRODO";
     public static final String FRODO_RED = "FRODO_RED";
@@ -89,6 +90,8 @@ public class CONST {
     //public static final String[] IMAGER_INSTRUMENTS_EXCEPT_IOI = new String[]{IO_O, RISE};
     
     public static final String[] BEAM_STEERING_INSTRUMENTS = new String[]{IO_O}; // will include IO_I but not yet.
+    // Removed MOPTOP from the list of polarimeters until we are ready to use it
+    //public static final String[] POLARIMETER_INSTRUMENTS = new String[]{RINGO3,MOPTOP}; //RINGO2 deleted 29/4/13
     public static final String[] POLARIMETER_INSTRUMENTS = new String[]{RINGO3}; //RINGO2 deleted 29/4/13
     public static final String[] DUAL_BEAM_SPECTROGRAPH_INSTRUMENTS = new String[]{FRODO};
     
@@ -168,6 +171,9 @@ public class CONST {
     public static final String[] RINGO_GAINS = new String[]{"100", "20", "5"}; 
     //public static final String[] THOR_GAINS = new String[]{"5", "20", "100"};
 
+    //dichroicState
+    public static final String[] MOPTOP_DICHROIC_STATES = new String[]{"Unknown", "Out Beam", "In Beam"}; 
+   
     public static final double INSTRUMENT_OFFSET = Math.toRadians(104);
 
     public static final String IO_SCHEMATIC_FILE_PATH = "/home/eng/bssgui/resources/IO_Small.png";
@@ -175,6 +181,7 @@ public class CONST {
 
     public static final String DEFAULT_OPTICAL_CONFIG_LOCAL_FILE_LOCATION = "/home/eng/bssgui/resources/io_optical_elements.xml";
     public static final String DEFAULT_OPTICAL_CONFIG_WEB_FILE_LOCATION = "http://161.72.57.4/launch_oss/configs/io_optical_elements.xml";
+
     
     /**
      * All instruments in IMAGER_INSTRUMENTS + POLARIMETER_INSTRUMENTS + DUAL_BEAM_SPECTROGRAPH_INSTRUMENTS

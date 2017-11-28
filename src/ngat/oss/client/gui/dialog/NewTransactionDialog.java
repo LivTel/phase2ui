@@ -120,6 +120,8 @@ public class NewTransactionDialog extends javax.swing.JDialog implements ActionL
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                transactionWrapper = null;
+                
                 NewTransactionDialog.this.setVisible(false);
                 NewTransactionDialog.this.dispose();
             }

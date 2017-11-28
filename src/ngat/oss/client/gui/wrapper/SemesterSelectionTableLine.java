@@ -49,7 +49,11 @@ public class SemesterSelectionTableLine {
     public Object getValueAt(int col) {
         switch(col) {
             case SEM_NAME_COL:
-                return semester.getName();
+                if (semester != null) {
+                    return semester.getName();
+                } else {
+                    return null;
+                }
             case SELECTED_COL:
                 return new Boolean(selected);
         }

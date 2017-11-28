@@ -44,13 +44,13 @@ public class RaEditorPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jtfRa = new javax.swing.JTextField();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "RA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 10))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder("RA"));
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 10));
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabel2.setText(" HH MM SS.sss");
 
         jtfRa.setColumns(2);
-        jtfRa.setFont(new java.awt.Font("Lucida Grande", 0, 10));
+        jtfRa.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jtfRa.setText("HH:MM:SS.ss");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);

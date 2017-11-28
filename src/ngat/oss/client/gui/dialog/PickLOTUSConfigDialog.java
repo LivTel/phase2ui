@@ -85,6 +85,8 @@ public class PickLOTUSConfigDialog extends javax.swing.JDialog {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                instrumentConfig = null;
+                
                 PickLOTUSConfigDialog.this.setVisible(false);
                 PickLOTUSConfigDialog.this.dispose();
             }

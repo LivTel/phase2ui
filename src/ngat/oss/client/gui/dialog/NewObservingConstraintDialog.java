@@ -111,6 +111,13 @@ public class NewObservingConstraintDialog extends javax.swing.JDialog implements
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                try {
+                    viewPanel.removeAll();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    logger.error(ex);
+                }
+                
                 NewObservingConstraintDialog.this.setVisible(false);
                 NewObservingConstraintDialog.this.dispose();
             }

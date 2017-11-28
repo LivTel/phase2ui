@@ -5,8 +5,9 @@
 
 package ngat.oss.client.gui.reference;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import ngat.oss.client.gui.wrapper.SlideArrangement;
-import ngat.phase2.IBeamSteeringConfig;
 import ngat.phase2.IOpticalSlideConfig;
 import ngat.phase2.ITipTiltAbsoluteOffset;
 import ngat.phase2.XBeamSteeringConfig;
@@ -40,16 +41,18 @@ public class DefaultObjectFactory {
     }
 
     public static  XDetectorConfig getDefaultDetectorConfig(String instrumentName) {
+        
         XDetectorConfig detectorConfig = new XDetectorConfig();
 
         if (instrumentName != null) {
+            
             if (instrumentName.equalsIgnoreCase(CONST.IO_O)) {
                 detectorConfig.setXBin(1);
                 detectorConfig.setYBin(1);
             } else if (instrumentName.equalsIgnoreCase(CONST.RISE)) {
                 detectorConfig.setXBin(2);
                 detectorConfig.setYBin(2);
-            }  else if (instrumentName.equalsIgnoreCase(CONST.SPRAT)) {
+            }  else if (instrumentName.equalsIgnoreCase(CONST.SPRAT)) {       
                 detectorConfig.setXBin(1);
                 detectorConfig.setYBin(1);
             }
@@ -59,6 +62,7 @@ public class DefaultObjectFactory {
             detectorConfig.setXBin(2);
             detectorConfig.setYBin(2);
         }
+        
         return detectorConfig;
     }
 

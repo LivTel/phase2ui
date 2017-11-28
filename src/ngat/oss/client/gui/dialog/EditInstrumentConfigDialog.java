@@ -8,6 +8,7 @@ package ngat.oss.client.gui.dialog;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ngat.phase2.IInstrumentConfig;
 import org.apache.log4j.Logger;
@@ -56,6 +57,13 @@ public class EditInstrumentConfigDialog extends javax.swing.JDialog {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                try {
+                    instrumentConfigEditorPanel.setInstrumentConfig(null, false, true);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    logger.error(ex);
+                }
+
                 EditInstrumentConfigDialog.this.setVisible(false);
                 EditInstrumentConfigDialog.this.dispose();
             }

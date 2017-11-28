@@ -21,6 +21,7 @@ import ngat.phase2.XDualBeamSpectrographInstrumentConfig;
 import ngat.phase2.XImagerInstrumentConfig;
 import ngat.phase2.XImagingSpectrographInstrumentConfig;
 import ngat.phase2.XBlueTwoSlitSpectrographInstrumentConfig;
+import ngat.phase2.XMoptopInstrumentConfig;
 import ngat.phase2.XPolarimeterInstrumentConfig;
 import org.apache.log4j.Logger;
 
@@ -200,6 +201,12 @@ public class InstrumentConfigEditorPanel extends javax.swing.JPanel {
             setTitle("Polarimeter Instrument Config");
             XPolarimeterInstrumentConfig polarimeterInstrumentConfig = (XPolarimeterInstrumentConfig) instrumentConfig;
             PolarimeterInstrumentConfigEditorPanel polarimeterInstrumentConfigEditorPanel = new PolarimeterInstrumentConfigEditorPanel(polarimeterInstrumentConfig, isNewInstrumentConfig);
+            viewPanel.removeAll();
+            viewPanel.add(polarimeterInstrumentConfigEditorPanel);
+        } else if (instrumentConfig instanceof XMoptopInstrumentConfig) {
+            setTitle("Polarimeter Instrument Config");
+            XMoptopInstrumentConfig moptopInstrumentConfig = (XMoptopInstrumentConfig) instrumentConfig;
+            PolarimeterInstrumentConfigEditorPanel polarimeterInstrumentConfigEditorPanel = new PolarimeterInstrumentConfigEditorPanel(moptopInstrumentConfig, isNewInstrumentConfig);
             viewPanel.removeAll();
             viewPanel.add(polarimeterInstrumentConfigEditorPanel);
         } else if (instrumentConfig instanceof XImagingSpectrographInstrumentConfig) {

@@ -33,6 +33,9 @@ public class ImagingSpectrographInstrumentConfigEditorPanel extends javax.swing.
     private final XImagingSpectrographInstrumentConfig originalImagingSpectrographInstrumentConfig;
 
     public ImagingSpectrographInstrumentConfigEditorPanel(XImagingSpectrographInstrumentConfig imagingSpectrographInstrumentConfig, boolean isNewInstrumentConfig) {
+        
+        imagingSpectrographInstrumentConfig.setInstrumentName(CONST.SPRAT);
+        
         this.originalImagingSpectrographInstrumentConfig = imagingSpectrographInstrumentConfig;
         initComponents();
         populateComponents(imagingSpectrographInstrumentConfig, isNewInstrumentConfig);

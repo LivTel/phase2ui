@@ -5,8 +5,11 @@
 
 package ngat.oss.client.gui.panel.target;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import ngat.astrometry.ReferenceFrame;
+import ngat.oss.client.gui.reference.Session;
 import ngat.oss.client.gui.util.LimitedCharactersDocument;
 import ngat.phase2.ITarget;
 import ngat.phase2.XExtraSolarTarget;
@@ -26,7 +29,7 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
         this.originalExtraSolarTarget = extraSolarTarget;
 
         initComponents();
-
+     
         jtfTargetName.setDocument(new LimitedCharactersDocument(LimitedCharactersDocument.STRICT_LIMITATION));
 
         populateComponents(extraSolarTarget, isNewTarget);
@@ -34,16 +37,28 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
 
     private void populateComponents(XExtraSolarTarget extraSolarTarget, boolean isNewTarget) {
         
-        //hide the proper motion components
-        jpPMRAPanel.setVisible(false);
-        jpPMDECPanel.setVisible(false);
+        //nrc, uncommented Dec 16.
+        //hide the proper motion components dependent upon the user type.
+        jpPMRAPanel.setVisible(Session.getInstance().getUser().isSuperUser());
+        jpPMDECPanel.setVisible(Session.getInstance().getUser().isSuperUser());
+        
+        if (Session.getInstance().getUser().isSuperUser()) {
+            double pmRa = UnitConverter.convertRadsToSecs(extraSolarTarget.getPmRA());
+            double pmDec = UnitConverter.convertRadsToArcSecs(extraSolarTarget.getPmDec());
+
+            DecimalFormat df = new DecimalFormat("#.#######");
+            df.setRoundingMode(RoundingMode.CEILING);
+
+            String pmRaStr = df.format(pmRa);
+            String pmDecStr = df.format(pmDec);
+        
+            jtfPmRA.setText(pmRaStr);
+            jtfPmDEC.setText(pmDecStr);
+        }
         
         jtfTargetName.setText(extraSolarTarget.getName());
         repRa.setRa(extraSolarTarget.getRa());
         depDec.setDec(extraSolarTarget.getDec());
-        
-        //jtfPmRA.setText(String.valueOf(UnitConverter.convertRadsToSecs(extraSolarTarget.getPmRA())));
-        //jtfPmDEC.setText(String.valueOf(UnitConverter.convertRadsToArcSecs(extraSolarTarget.getPmDec())));
         
         nepParallax.setNumber(UnitConverter.convertRadsToArcSecs(extraSolarTarget.getParallax()));
 
@@ -81,10 +96,18 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
         double ra, dec, pmRa, pmDec, parallax, radialVelocity, epoch;
         int frame;        
         
+        //set to zero
+        pmRa = 0;
+        pmDec = 0;
+        
         ra = repRa.getRa();
         dec = depDec.getDec();
-        //pmRa = UnitConverter.convertSecsToRads(Double.parseDouble(jtfPmRA.getText()));
-        //pmDec = UnitConverter.convertArcsecsToRads(Double.parseDouble(jtfPmDEC.getText()));
+        
+        if (Session.getInstance().getUser().isSuperUser()) {
+            pmRa = UnitConverter.convertSecsToRads(Double.parseDouble(jtfPmRA.getText()));
+            pmDec = UnitConverter.convertArcsecsToRads(Double.parseDouble(jtfPmDEC.getText()));
+        }
+        
         parallax = UnitConverter.convertArcsecsToRads(nepParallax.getNumber());
         
         radialVelocity = nepRadVel.getNumber();
@@ -115,13 +138,20 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
         extraSolarTarget.setName(name);
         extraSolarTarget.setRa(ra);
         extraSolarTarget.setDec(dec);
-        //extraSolarTarget.setPmRA(pmRa);
-        //extraSolarTarget.setPmDec(pmDec);
+        
+        if (Session.getInstance().getUser().isSuperUser()) {
+            extraSolarTarget.setPmRA(pmRa);
+            extraSolarTarget.setPmDec(pmDec);
+        }
+        
         extraSolarTarget.setParallax(parallax);
         extraSolarTarget.setRadialVelocity(radialVelocity);
         extraSolarTarget.setEpoch(epoch);
         extraSolarTarget.setFrame(frame);
-       return extraSolarTarget;
+        
+        System.err.println("return extraSolarTarget:" + extraSolarTarget);
+        
+        return extraSolarTarget;
     }
 
     public boolean containsValidTarget() {
@@ -157,13 +187,21 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
         
+        if (Session.getInstance().getUser().isSuperUser()) {
+            jtfPmDEC.setEnabled(enabled);
+            jtfPmRA.setEnabled(enabled);
+        } else {
+            jtfPmDEC.setEnabled(false);
+            jtfPmRA.setEnabled(false);
+        }
+        
         depDec.setEnabled(enabled);
-        //jtfPmDEC.setEnabled(enabled);
+        
         jcbRefFrame.setEnabled(enabled);
         jtfEpoch.setEnabled(enabled);
         nepRadVel.setEnabled(enabled);
         nepParallax.setEnabled(enabled);
-        //jtfPmRA.setEnabled(enabled);
+        
         repRa.setEnabled(enabled);
     }
     
@@ -194,9 +232,15 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
         jtfTargetName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
+        repRa.setEnabled(true);
+
+        depDec.setEnabled(true);
+
         nepParallax.setBorder(javax.swing.BorderFactory.createTitledBorder("Parallax (arcsec)"));
+        nepParallax.setEnabled(true);
 
         nepRadVel.setBorder(javax.swing.BorderFactory.createTitledBorder("Radial Velocity (km/s)"));
+        nepRadVel.setEnabled(true);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Reference Frame"));
 
@@ -218,7 +262,7 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
             .add(jcbRefFrame, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
 
-        jpPMRAPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Proper Motion RA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(255, 0, 0))); // NOI18N
+        jpPMRAPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Proper Motion RA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
 
         jtfPmRA.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jtfPmRA.setText("     ");
@@ -229,12 +273,12 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
         jpPMRAPanel.setLayout(jpPMRAPanelLayout);
         jpPMRAPanelLayout.setHorizontalGroup(
             jpPMRAPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jpPMRAPanelLayout.createSequentialGroup()
-                .add(10, 10, 10)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jpPMRAPanelLayout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jtfPmRA, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel1)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jpPMRAPanelLayout.setVerticalGroup(
             jpPMRAPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -243,7 +287,7 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
                 .add(jtfPmRA, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
-        jpPMDECPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Proper Motion DEC", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(255, 0, 0))); // NOI18N
+        jpPMDECPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Proper Motion DEC", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
 
         jLabel2.setText("arcsec/yr");
 
@@ -255,6 +299,7 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
         jpPMDECPanelLayout.setHorizontalGroup(
             jpPMDECPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jpPMDECPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .add(jtfPmDEC, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel2)
@@ -281,7 +326,7 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .add(jtfEpoch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Target name"));
@@ -321,15 +366,19 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
                         .add(repRa, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(depDec, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
-                        .add(nepParallax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(layout.createSequentialGroup()
+                                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                            .add(layout.createSequentialGroup()
+                                .add(nepParallax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .add(3, 3, 3)))
                         .add(nepRadVel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(210, Short.MAX_VALUE))
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -344,17 +393,16 @@ public class ExtraSolarTargetEditorPanel extends javax.swing.JPanel {
                     .add(jpPMRAPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jpPMDECPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(nepParallax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(nepRadVel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(4, 4, 4)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(nepParallax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, Short.MAX_VALUE)
+                        .add(nepRadVel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
-
-        layout.linkSize(new java.awt.Component[] {jPanel1, nepParallax, nepRadVel}, org.jdesktop.layout.GroupLayout.VERTICAL);
-
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcbRefFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbRefFrameActionPerformed

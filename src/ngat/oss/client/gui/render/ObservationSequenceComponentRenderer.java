@@ -46,6 +46,7 @@ import ngat.phase2.XOrbitalElementsTarget;
 import ngat.phase2.XPeriodExposure;
 import ngat.phase2.XPeriodRunAtExposure;
 import ngat.phase2.XPolarimeterInstrumentConfig;
+import ngat.phase2.XMoptopInstrumentConfig;
 import ngat.phase2.XPositionOffset;
 import ngat.phase2.XRotatorConfig;
 import ngat.phase2.XSlaNamedPlanetTarget;
@@ -231,6 +232,9 @@ public class ObservationSequenceComponentRenderer {
                         postText += " " + getFilterSpecShortText(imagerInstrumentConfig.getFilterSpec());
                     } else if (instrumentConfig.getClass().equals(XPolarimeterInstrumentConfig.class)) {
                         shortText="[Polarimeter Instrument Config] ";
+                        postText = "Name: " + instrumentConfig.getName();
+                    } else if (instrumentConfig.getClass().equals(XMoptopInstrumentConfig.class)) {
+                        shortText="[Moptop Polarimeter Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
                     } else if (instrumentConfig.getClass().equals(XSpectrographInstrumentConfig.class)) {
                         shortText = "[Spectrograph Instrument Config] ";

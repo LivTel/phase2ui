@@ -47,6 +47,8 @@ public class NewExposureDialog extends javax.swing.JDialog {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                frodoExposureWrapper = null;
+                
                 NewExposureDialog.this.setVisible(false);
                 NewExposureDialog.this.dispose();
             }

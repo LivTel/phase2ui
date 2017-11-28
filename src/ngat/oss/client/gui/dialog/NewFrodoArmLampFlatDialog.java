@@ -49,6 +49,8 @@ public class NewFrodoArmLampFlatDialog extends javax.swing.JDialog {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
 
             public void windowClosing(java.awt.event.WindowEvent e) {
+                lampFlat = null;
+                
                 NewFrodoArmLampFlatDialog.this.setVisible(false);
                 NewFrodoArmLampFlatDialog.this.dispose();
             }

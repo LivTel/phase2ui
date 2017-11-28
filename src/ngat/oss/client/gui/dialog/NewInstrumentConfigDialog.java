@@ -60,7 +60,8 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
         addListeners();
     }
 
-    private void setupForInstrument(String instrumentName) {
+    private void setupForInstrument(String instrumentName) 
+    {
         
         boolean isImager = false;
         boolean isPolarimeter = false;
@@ -72,25 +73,42 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
         if (instrumentName.equals(CONST.RATCAM)) {
             isImager = true;
         */
-        if (instrumentName.equals(CONST.RISE)) {
+        if (instrumentName.equals(CONST.RISE)) 
+        {
             isImager = true;
             
-        } else if (instrumentName.equals(CONST.IO_O)) {
+        } 
+        else if (instrumentName.equals(CONST.IO_O)) 
+        {
             isImager = true;
             
-        } else if (instrumentName.equals(CONST.IO_I)) {
+        } 
+        else if (instrumentName.equals(CONST.IO_I)) 
+        {
             isImager = true;
             
-        } else if (instrumentName.equals(CONST.RINGO3) ) {
+        } 
+        else if (instrumentName.equals(CONST.RINGO3) ) 
+        {
             isPolarimeter = true;
             
-        } else if (instrumentName.equals(CONST.FRODO) || instrumentName.equals(CONST.FRODO_BLUE) || instrumentName.equals(CONST.FRODO_RED)) {
+        } else if (instrumentName.equals(CONST.MOPTOP) ) 
+        {
+            isPolarimeter = true;
+            
+        } 
+        else if (instrumentName.equals(CONST.FRODO) || instrumentName.equals(CONST.FRODO_BLUE) || instrumentName.equals(CONST.FRODO_RED)) 
+        {
             isDualBeamSpectrograph = true;
             
-        } else if (instrumentName.equals(CONST.SPRAT)) {
+        } 
+        else if (instrumentName.equals(CONST.SPRAT)) 
+        {
             isImagingSpectrograph = true;
         
-        } else if (instrumentName.equals(CONST.LOTUS) ) {
+        } 
+        else if (instrumentName.equals(CONST.LOTUS) ) 
+        {
             isTwoSlitSpectrograph = true;
         } 
 
@@ -100,7 +118,8 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
         
         //build default instrument config for a known instrument
         XInstrumentConfig instrumentConfig = null;
-        if (isImager) {
+        if (isImager) 
+        {
             jrbImager.setSelected(true);
             jrbImager.setEnabled(true);
             jrbTwoSlitSpectrograph.setEnabled(false);
@@ -111,7 +130,9 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
             imagerInstrumentConfig.setInstrumentName(instrumentName);
             instrumentConfig = imagerInstrumentConfig;
             
-        } else if (isPolarimeter) {
+        } 
+        else if (isPolarimeter) 
+        {
             jrbPolarimeter.setSelected(true);
             jrbPolarimeter.setEnabled(true);
             jrbTwoSlitSpectrograph.setEnabled(false);
@@ -123,15 +144,20 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
             instrumentConfig = polarimeterInstrumentConfig;
             canChangeInstrument = false;
             
-        } else if (isDualBeamSpectrograph) {
-            if (instrumentName.equalsIgnoreCase(CONST.FRODO)) {
+        } 
+        else if (isDualBeamSpectrograph) 
+        {
+            if (instrumentName.equalsIgnoreCase(CONST.FRODO)) 
+            {
                 jrbDualBeamSpec.setSelected(true);
                 jrbDualBeamSpec.setEnabled(true);
                 jrbPolarimeter.setEnabled(false);
                 jrbImagingSpectrograph.setEnabled(false);
                 jrbImager.setEnabled(false);
                 instrumentConfig = new XDualBeamSpectrographInstrumentConfig();
-            } else if (instrumentName.equalsIgnoreCase(CONST.FRODO_RED) || (instrumentName.equalsIgnoreCase(CONST.FRODO_BLUE))) {
+            } 
+            else if (instrumentName.equalsIgnoreCase(CONST.FRODO_RED) || (instrumentName.equalsIgnoreCase(CONST.FRODO_BLUE))) 
+            {
                 jrbDualBeamSpec.setSelected(true);
                 jrbDualBeamSpec.setEnabled(true);
                 jrbPolarimeter.setEnabled(false);
@@ -140,12 +166,16 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
                 instrumentConfig = new XDualBeamSpectrographInstrumentConfig();
                 instrumentConfig.setInstrumentName(instrumentName);
                 canChangeInstrument = false;
-            } else {
+            } 
+            else 
+            {
                 JOptionPane.showMessageDialog(this, "instrument name " + instrumentName + " not implemented" );
                 return;
             }   
             
-        } else if (isImagingSpectrograph) {
+        } 
+        else if (isImagingSpectrograph) 
+        {
             jrbImagingSpectrograph.setSelected(true);
             jrbImagingSpectrograph.setEnabled(false);
             jrbTwoSlitSpectrograph.setEnabled(false);
@@ -157,7 +187,9 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
             instrumentConfig = imagingSpectrographInstrumentConfig;
             canChangeInstrument = false;
             
-        } else if (isTwoSlitSpectrograph) {
+        } 
+        else if (isTwoSlitSpectrograph) 
+        {
             jrbTwoSlitSpectrograph.setEnabled(true);
             jrbTwoSlitSpectrograph.setSelected(true);
             jrbImagingSpectrograph.setEnabled(false);
@@ -168,14 +200,19 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
             blueTwoSlitSpectrographInstrumentConfig.setInstrumentName(instrumentName);
             instrumentConfig = blueTwoSlitSpectrographInstrumentConfig;
             canChangeInstrument = false;
-        } else {
+        } 
+        else 
+        {
             JOptionPane.showMessageDialog(this, "UNKNOWN instrument type");
             return;
         }
 
-        try {
+        try 
+        {
             instrumentConfigEditorPanel.setInstrumentConfig(instrumentConfig, true, canChangeInstrument);
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) 
+        {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
@@ -189,6 +226,15 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
     }
 
     private void addListeners() {
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                wasKilled = true;
+                NewInstrumentConfigDialog.this.setVisible(false);
+                NewInstrumentConfigDialog.this.dispose();
+            }
+        });
+        
         jrbImager.addActionListener(this);
         jrbPolarimeter.addActionListener(this);
         jrbDualBeamSpec.addActionListener(this);
