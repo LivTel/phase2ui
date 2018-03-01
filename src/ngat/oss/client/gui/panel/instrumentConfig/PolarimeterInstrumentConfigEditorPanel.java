@@ -149,8 +149,13 @@ public class PolarimeterInstrumentConfigEditorPanel extends javax.swing.JPanel i
         throw new Exception(this.getClass().getName()+"getInstrumentConfig:Unknown Polarimeter Type:"+selectedInstrumentName);
     }
     
-    public boolean containsValidInstrumentConfig() {
-
+    public boolean containsValidInstrumentConfig() 
+    {
+        // check instrument config name is not null
+        if (jtfInstrumentConfigName.getText().trim().length() ==0) 
+        {
+            return false;
+        }
         return true;
     }
     
