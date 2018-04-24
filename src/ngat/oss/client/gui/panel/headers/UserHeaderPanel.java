@@ -50,15 +50,7 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -66,17 +58,7 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
         jtfUserName = new javax.swing.JTextField();
         jtfFirstName = new javax.swing.JTextField();
         jtfLastName = new javax.swing.JTextField();
-        jtfDepartment = new javax.swing.JTextField();
-        jtfAddress = new javax.swing.JTextField();
-        jtfCity = new javax.swing.JTextField();
-        jtfRegion = new javax.swing.JTextField();
-        jtfCountry = new javax.swing.JTextField();
-        jtfPostcode = new javax.swing.JTextField();
         jtfEmail = new javax.swing.JTextField();
-        jtfTelephone = new javax.swing.JTextField();
-        jtfFax = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jtfOrganisation = new javax.swing.JTextField();
         jpfPassword = new javax.swing.JPasswordField();
         jbtnEdit = new javax.swing.JButton();
         jbtnSubmit = new javax.swing.JButton();
@@ -88,32 +70,8 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 10)); // NOI18N
         jLabel1.setText("USER");
 
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel6.setText("Department");
-
-        jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel8.setText("Address");
-
-        jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel9.setText("City");
-
-        jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel10.setText("Region");
-
-        jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel11.setText("Country");
-
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel12.setText("Postcode");
-
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabel13.setText("Email");
-
-        jLabel14.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel14.setText("Telephone");
-
-        jLabel15.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel15.setText("Fax");
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabel4.setText("First Name");
@@ -137,38 +95,8 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
         jtfLastName.setEditable(false);
         jtfLastName.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
 
-        jtfDepartment.setEditable(false);
-        jtfDepartment.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
-        jtfAddress.setEditable(false);
-        jtfAddress.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
-        jtfCity.setEditable(false);
-        jtfCity.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
-        jtfRegion.setEditable(false);
-        jtfRegion.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
-        jtfCountry.setEditable(false);
-        jtfCountry.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
-        jtfPostcode.setEditable(false);
-        jtfPostcode.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
         jtfEmail.setEditable(false);
         jtfEmail.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
-        jtfTelephone.setEditable(false);
-        jtfTelephone.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
-        jtfFax.setEditable(false);
-        jtfFax.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-
-        jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        jLabel7.setText("Organization");
-
-        jtfOrganisation.setEditable(false);
-        jtfOrganisation.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
 
         jpfPassword.setEditable(false);
 
@@ -211,54 +139,48 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
                             .add(jLabel5)
                             .add(jLabel4)
                             .add(jLabel2)
-                            .add(jLabel3)
-                            .add(jLabel15)
-                            .add(jLabel14)
-                            .add(jLabel13)
-                            .add(jLabel12)
-                            .add(jLabel11)
-                            .add(jLabel10)
-                            .add(jLabel9)
-                            .add(jLabel8)
-                            .add(jLabel7)
-                            .add(jLabel6))
-                        .add(12, 12, 12)
+                            .add(jLabel3))
+                        .add(23, 23, 23)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jpfPassword)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jtfUserName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
-                            .add(jtfCity, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                            .add(jtfAddress)
-                            .add(jtfOrganisation)
-                            .add(jtfDepartment)
                             .add(jtfLastName)
                             .add(jtfFirstName)
-                            .add(jtfFax)
-                            .add(jtfTelephone)
-                            .add(jtfEmail)
-                            .add(jtfPostcode)
-                            .add(jtfCountry)
-                            .add(jtfRegion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jtfEmail))
                         .add(36, 36, 36)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jbtnDelete, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                             .add(jbtnSubmit, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(jbtnEdit, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
-                        .add(36, 36, 36))
-                    .add(jLabel1))
-                .add(302, 302, 302))
+                        .add(338, 338, 338))
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel1)
+                        .add(302, 302, 302))))
             .add(layout.createSequentialGroup()
-                .add(110, 110, 110)
-                .add(jlblSU)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(110, 110, 110)
+                        .add(jlblSU))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jLabel13)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(new java.awt.Component[] {jtfAddress, jtfCity, jtfCountry, jtfDepartment, jtfEmail, jtfFax, jtfFirstName, jtfLastName, jtfOrganisation, jtfPostcode, jtfRegion, jtfTelephone, jtfUserName}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+        layout.linkSize(new java.awt.Component[] {jtfEmail, jtfFirstName, jtfLastName, jtfUserName}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(32, 32, 32)
+                        .add(jbtnEdit)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jbtnSubmit)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jbtnDelete))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(jLabel1)
@@ -279,55 +201,12 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
                             .add(jLabel5)
                             .add(jtfLastName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel6)
-                            .add(jtfDepartment, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel7)
-                            .add(jtfOrganisation, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel8)
-                            .add(jtfAddress, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel9)
-                            .add(jtfCity, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel10)
-                            .add(jtfRegion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel11)
-                            .add(jtfCountry, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel12)
-                            .add(jtfPostcode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel13)
-                            .add(jtfEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel14)
-                            .add(jtfTelephone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel15)
-                            .add(jtfFax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(layout.createSequentialGroup()
-                        .add(32, 32, 32)
-                        .add(jbtnEdit)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jbtnSubmit)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jbtnDelete)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                            .add(jtfEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jlblSU, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(279, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -403,18 +282,18 @@ private void jbtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     setEnabled(false, false);
     String formPassword = new String(jpfPassword.getPassword());
     formPassword.trim();
-    String address = jtfAddress.getText().trim();
-    String city = jtfCity.getText().trim();
-    String country = jtfCountry.getText().trim();
-    String department = jtfDepartment.getText().trim();
+    //String address = jtfAddress.getText().trim();
+    //String city = jtfCity.getText().trim();
+    //String country = jtfCountry.getText().trim();
+    //String department = jtfDepartment.getText().trim();
     String email = jtfEmail.getText().trim();
-    String fax = jtfFax.getText().trim();
+    //String fax = jtfFax.getText().trim();
     String firstName = jtfFirstName.getText().trim();
     String lastName = jtfLastName.getText().trim();
-    String org = jtfOrganisation.getText().trim();
-    String postcode = jtfPostcode.getText().trim();
-    String region = jtfRegion.getText().trim();
-    String phone = jtfTelephone.getText().trim();
+    //String org = jtfOrganisation.getText().trim();
+    //String postcode = jtfPostcode.getText().trim();
+    //String region = jtfRegion.getText().trim();
+    //String phone = jtfTelephone.getText().trim();
 
     String originalPassword = user.getPassword();
 
@@ -437,18 +316,18 @@ private void jbtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }
 
     user.setPassword(formPassword);
-    user.setAddress(address);
-    user.setCity(city);
-    user.setCountry(country);
-    user.setDepartment(department);
+    user.setAddress("");
+    user.setCity("");
+    user.setCountry("");
+    user.setDepartment("");
     user.setEmail(email);
-    user.setFax(fax);
+    user.setFax("");
     user.setFirstName(firstName);
     user.setLastName(lastName);
-    user.setOrganization(org);
-    user.setPostalCode(postcode);
-    user.setRegion(region);
-    user.setTelephone(phone);
+    user.setOrganization("");
+    user.setPostalCode("");
+    user.setRegion("");
+    user.setTelephone("");
 
     try {
         accessModelClient.updateUser(user);
@@ -475,18 +354,18 @@ private void setEnabled(boolean editable, boolean usernameEditable) {
     jtfUserName.setEditable(usernameEditable);
     
     jpfPassword.setEditable(editable);
-    jtfAddress.setEditable(editable);
-    jtfCity.setEditable(editable);
-    jtfCountry.setEditable(editable);
-    jtfDepartment.setEditable(editable);
+    //jtfAddress.setEditable(editable);
+    //jtfCity.setEditable(editable);
+    //jtfCountry.setEditable(editable);
+    //jtfDepartment.setEditable(editable);
     jtfEmail.setEditable(editable);
-    jtfFax.setEditable(editable);
+    //jtfFax.setEditable(editable);
     jtfFirstName.setEditable(editable);
     jtfLastName.setEditable(editable);
-    jtfOrganisation.setEditable(editable);
-    jtfPostcode.setEditable(editable);
-    jtfRegion.setEditable(editable);
-    jtfTelephone.setEditable(editable);
+    //jtfOrganisation.setEditable(editable);
+    //jtfPostcode.setEditable(editable);
+    //jtfRegion.setEditable(editable);
+    //jtfTelephone.setEditable(editable);
     jtfUserName.setEditable(editable);
     
     jbtnSubmit.setEnabled(editable);
@@ -501,18 +380,18 @@ private void setEnabled(boolean editable, boolean usernameEditable) {
         jbtnEdit.setFocusable(false);
         
         jpfPassword.setText(user.getPassword());
-        jtfAddress.setText(user.getAddress());
-        jtfCity.setText(user.getCity());
-        jtfCountry.setText(user.getCountry());
-        jtfDepartment.setText(user.getDepartment());
+        //jtfAddress.setText(user.getAddress());
+        //jtfCity.setText(user.getCity());
+        //jtfCountry.setText(user.getCountry());
+        //jtfDepartment.setText(user.getDepartment());
         jtfEmail.setText(user.getEmail());
-        jtfFax.setText(user.getFax());
+        //jtfFax.setText(user.getFax());
         jtfFirstName.setText(user.getFirstName());
         jtfLastName.setText(user.getLastName());
-        jtfOrganisation.setText(user.getOrganization());
-        jtfPostcode.setText(user.getPostalCode());
-        jtfRegion.setText(user.getRegion());
-        jtfTelephone.setText(user.getTelephone());
+        //jtfOrganisation.setText(user.getOrganization());
+        //jtfPostcode.setText(user.getPostalCode());
+        //jtfRegion.setText(user.getRegion());
+        //jtfTelephone.setText(user.getTelephone());
         jtfUserName.setText(user.getName());
 
         //only show delete button if the logged in user is a super user
@@ -523,37 +402,19 @@ private void setEnabled(boolean editable, boolean usernameEditable) {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JButton jbtnDelete;
     private javax.swing.JButton jbtnEdit;
     private javax.swing.JButton jbtnSubmit;
     private javax.swing.JLabel jlblSU;
     private javax.swing.JPasswordField jpfPassword;
-    private javax.swing.JTextField jtfAddress;
-    private javax.swing.JTextField jtfCity;
-    private javax.swing.JTextField jtfCountry;
-    private javax.swing.JTextField jtfDepartment;
     private javax.swing.JTextField jtfEmail;
-    private javax.swing.JTextField jtfFax;
     private javax.swing.JTextField jtfFirstName;
     private javax.swing.JTextField jtfLastName;
-    private javax.swing.JTextField jtfOrganisation;
-    private javax.swing.JTextField jtfPostcode;
-    private javax.swing.JTextField jtfRegion;
-    private javax.swing.JTextField jtfTelephone;
     private javax.swing.JTextField jtfUserName;
     // End of variables declaration//GEN-END:variables
     
