@@ -133,10 +133,18 @@ public class NewProposalDialog extends javax.swing.JDialog implements ActionList
             //get today's semester period
             ISemesterPeriod semesterPeriod = accountModelClient.getSemesterPeriodOfDate(new Date().getTime());
             if (!semesterPeriod.isOverlap()) {
-                //not overlapping at the mo.
-                //so set the start time to the start of the semester following this one.
+                // not overlapping at the mo.
+                // so set the start time to the start of the semester following this one.
+                // Assume here that the semesters were inserted in the correct order
+                // New code added here as there is a gap in the semester IDs (19B / 20A). Fault #2596
                 long firstSemesterId = semesterPeriod.getFirstSemester().getID();
-                ISemester secondSemester = accountModelClient.getSemester(firstSemesterId + 1);
+                long secondSemesterId = firstSemesterId+1;
+                ISemester secondSemester = null;
+                while(secondSemester == null)
+                {
+                        secondSemester = accountModelClient.getSemester(secondSemesterId);
+                        secondSemesterId++;
+                }
                 startDate = secondSemester.getStartDate();
                 //and set the end time to the end of the semester following this one.
                 endDate = secondSemester.getEndDate() - 1000; //less 1 second
