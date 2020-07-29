@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://ltsite2.astro.livjm.ac.uk/launch_oss" href="launch_phase2gui.jnlp">
+    <information>
+        <title>Phase2UI</title>
+        <vendor>Liverpool Telescope</vendor>
+        <homepage href="http://telescope.livjm.ac.uk/Info/PropInst/phase2.php"/>
+        <description>Liverpool Telescope Phase 2 data entry and editing suite.</description>
+        <description kind="short">Phase2UI</description>
+    </information>
+    <security>
+        <all-permissions/>
+    </security>
+    <resources>
+        <j2se version="1.5+" java-vm-args="-Xmx1024m"/>
+        <jar href="Phase2UI.jar" main="true" download="eager"/>
+        <jar href="lib/bcel.jar" download="eager"/>
+        <jar href="lib/jcommon-1.0.18.jar" download="eager"/>
+        <jar href="lib/jfreechart-1.0.14.jar" download="eager"/>
+        <jar href="lib/jibx-bind.jar" download="eager"/>
+        <jar href="lib/jibx-extras.jar" download="eager"/>
+        <jar href="lib/jibx-genbinding.jar" download="eager"/>
+        <jar href="lib/jibx-genschema.jar" download="eager"/>
+        <jar href="lib/jibx-run.jar" download="eager"/>
+        <jar href="lib/jibx-soap.jar" download="eager"/>
+        <jar href="lib/log4j-1.2.14.jar" download="eager"/>
+        <jar href="lib/ngat_astrometry.jar" download="eager"/>
+        <jar href="lib/ngat_new_astrometry.jar" download="eager"/>
+        <jar href="lib/ngat_new_oss.jar" download="eager"/>
+        <jar href="lib/ngat_new_oss_client.jar" download="eager"/>
+        <jar href="lib/ngat_new_phase2.jar" download="eager"/>
+        <jar href="lib/ngat_sms.jar" download="eager"/>
+        <jar href="lib/ngat_util.jar" download="eager"/>
+        <jar href="lib/ngat_util_logging.jar" download="eager"/>
+        <jar href="lib/oss_client_images.jar" download="eager"/>
+        <jar href="lib/stax-api.jar" download="eager"/>
+        <jar href="lib/swing-layout-1.0.4.jar" download="eager"/>
+        <jar href="lib/wstx-asl.jar" download="eager"/>
+        <jar href="lib/xmlpull_1_1_4.jar" download="eager"/>
+        <jar href="lib/xpp3.jar" download="eager"/>
+    </resources>
+    <application-desc main-class="ngat.oss.client.gui.frame.LoginFrame">
+    </application-desc>
+</jnlp>
