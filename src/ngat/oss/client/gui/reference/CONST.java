@@ -90,9 +90,7 @@ public class CONST {
     //public static final String[] IMAGER_INSTRUMENTS_EXCEPT_IOI = new String[]{IO_O, RISE};
     
     public static final String[] BEAM_STEERING_INSTRUMENTS = new String[]{IO_O}; // will include IO_I but not yet.
-    // Removed MOPTOP from the list of polarimeters until we are ready to use it
-    //public static final String[] POLARIMETER_INSTRUMENTS = new String[]{RINGO3,MOPTOP}; //RINGO2 deleted 29/4/13
-    public static final String[] POLARIMETER_INSTRUMENTS = new String[]{RINGO3}; //RINGO2 deleted 29/4/13
+    public static final String[] POLARIMETER_INSTRUMENTS = new String[]{RINGO3,MOPTOP}; 
     public static final String[] DUAL_BEAM_SPECTROGRAPH_INSTRUMENTS = new String[]{FRODO};
     
     
@@ -121,7 +119,12 @@ public class CONST {
     public static final String ND1_5 = "ND1.5";
     public static final String ND3_0 = "ND3";
     public static final String H = "H";
-    
+    public static final String MOP_R = "MOP-R";
+    public static final String MOP_V = "MOP-V";
+    public static final String MOP_B = "MOP-B";
+    public static final String MOP_I = "MOP-I";
+    public static final String MOP_L = "MOP-L";
+            
     //filter wheel lists
     public static final String[] RATCAM_FW1_ITEMS = new String[]{CLEAR, SDSS_I, H_ALPHA_100, SDSS_Z, SDSS_R};
     public static final String[] RATCAM_FW2_ITEMS = new String[]{CLEAR, BESSELL_V, SDSS_U, SDSS_G, BESSELL_B};
@@ -130,6 +133,7 @@ public class CONST {
     //public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, GG475_KG3_Pol};
     public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, H_ALPHA_6822}; //22/10/15
     public static final String[] I_FW_ITEMS = new String[]{H};
+    public static final String[] MOPTOP_FW_ITEMS = new String[]{MOP_R,MOP_V,MOP_B,MOP_I,MOP_L};
     
     //IO:O neutral density slides
     public static final String[] O_UPPER_ND_ITEMS = new String[]{CLEAR, ND3_0};
