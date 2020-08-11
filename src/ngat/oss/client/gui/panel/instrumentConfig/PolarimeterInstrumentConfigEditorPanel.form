@@ -21,7 +21,8 @@
                   <Component id="jPanel6" alignment="0" max="32767" attributes="1"/>
                   <Component id="jPanel5" alignment="0" max="32767" attributes="1"/>
                   <Component id="jGainPanel" alignment="0" max="32767" attributes="1"/>
-                  <Component id="jDichroicStatePanel" alignment="0" max="32767" attributes="1"/>
+                  <Component id="jRotorSpeedPanel" alignment="0" max="32767" attributes="1"/>
+                  <Component id="jFilterWheelPanel1" alignment="0" max="32767" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -36,8 +37,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jGainPanel" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jDichroicStatePanel" min="-2" pref="55" max="-2" attributes="0"/>
+              <Component id="jRotorSpeedPanel" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jFilterWheelPanel1" min="-2" pref="55" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -108,7 +111,7 @@
                   <Component id="jtfInstrumentConfigName" min="-2" pref="362" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="44" max="32767" attributes="0"/>
+                  <EmptySpace pref="39" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -153,7 +156,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jcbGain" min="-2" pref="123" max="-2" attributes="0"/>
-                  <EmptySpace pref="387" max="32767" attributes="0"/>
+                  <EmptySpace pref="406" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -179,11 +182,59 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jDichroicStatePanel">
+    <Container class="javax.swing.JPanel" name="jRotorSpeedPanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Dichroic State">
+            <TitledBorder title="Rotor Speed">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Rotor Speed"/>
+      </AccessibilityProperties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jcbRotorSpeed" min="-2" pref="123" max="-2" attributes="0"/>
+                  <EmptySpace pref="406" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jcbRotorSpeed" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JComboBox" name="jcbRotorSpeed">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel(CONST.MOPTOP_ROTOR_SPEEDS)" type="code"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbRotorSpeedActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jFilterWheelPanel1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Filter Wheel">
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
               </Border>
@@ -197,29 +248,29 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jcbDichroicState" min="-2" pref="123" max="-2" attributes="0"/>
-                  <EmptySpace pref="404" max="32767" attributes="0"/>
+                  <Component id="jcbFilterWheel1" min="-2" pref="123" max="-2" attributes="0"/>
+                  <EmptySpace pref="406" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jcbDichroicState" min="-2" max="-2" attributes="0"/>
+                  <Component id="jcbFilterWheel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JComboBox" name="jcbDichroicState">
+        <Component class="javax.swing.JComboBox" name="jcbFilterWheel1">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(CONST.MOPTOP_DICHROIC_STATES)" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(CONST.MOPTOP_FW_ITEMS)" type="code"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbDichroicStateActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbFilterWheel1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

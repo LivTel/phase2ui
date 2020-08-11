@@ -175,8 +175,8 @@ public class CONST {
     public static final String[] RINGO_GAINS = new String[]{"100", "20", "5"}; 
     //public static final String[] THOR_GAINS = new String[]{"5", "20", "100"};
 
-    //dichroicState
-    public static final String[] MOPTOP_DICHROIC_STATES = new String[]{"Unknown", "Out Beam", "In Beam"}; 
+    // Moptop rotor speeds
+    public static final String[] MOPTOP_ROTOR_SPEEDS = new String[]{"Unknown", "Slow", "Fast"}; 
    
     public static final double INSTRUMENT_OFFSET = Math.toRadians(104);
 
