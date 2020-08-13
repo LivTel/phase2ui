@@ -62,24 +62,29 @@ import ngat.phase2.util.Rounder;
  *
  * @author nrc
  */
-public class ObservationSequenceComponentRenderer {
+public class ObservationSequenceComponentRenderer 
+{
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy HH:mm z");
     private static ObservationSequenceComponentRenderer instance;
 
-    public static ObservationSequenceComponentRenderer getInstance() {
-        if (instance == null) {
+    public static ObservationSequenceComponentRenderer getInstance() 
+    {
+        if (instance == null) 
+        {
             instance = new ObservationSequenceComponentRenderer();
         }
         return instance;
     }
 
-    private ObservationSequenceComponentRenderer() {
+    private ObservationSequenceComponentRenderer() 
+    {
         dateFormat.setDateFormatSymbols(new DateFormatSymbols(Locale.UK)); //make sure months are spelt in English
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
-    public String getTextRendering(Object  value) {
+    public String getTextRendering(Object  value) 
+    {
         return getTextRendering(value, false);
     }
 
@@ -90,17 +95,21 @@ public class ObservationSequenceComponentRenderer {
     }
     */
 
-    public String getTextRendering(Object value, boolean shortDescription) {
+    public String getTextRendering(Object value, boolean shortDescription) 
+    {
         String shortText = "";
         String postText = "";
-        if (value == null) {
+        if (value == null) 
+        {
             return "";
         }
-        if (value.getClass() == null) {
+        if (value.getClass() == null) 
+        {
             return "";
         }
         
-        if (value.getClass().equals(String.class)) {
+        if (value.getClass().equals(String.class)) 
+        {
             shortText = (String) value; //in the case of root nodes created by DefaultTreeModel
         /*
         } else if (value.getClass().equals(MosTableStartOfIteratorComponent.class)) {
@@ -110,25 +119,33 @@ public class ObservationSequenceComponentRenderer {
             MosTableEndOfIteratorComponent mosTableEndOfIteratorComponent = (MosTableEndOfIteratorComponent) value;
             shortText = "----- END (" + mosTableEndOfIteratorComponent.getDepth() + ")";
         */
-        } else if (value.getClass().equals(XIteratorComponent.class)) {
+        } 
+        else if (value.getClass().equals(XIteratorComponent.class)) 
+        {
             XIteratorComponent iteratorComponent = (XIteratorComponent)value;
             String description = iteratorComponent.getComponentName();
             XIteratorRepeatCountCondition repeatCountCondition= (XIteratorRepeatCountCondition) iteratorComponent.getCondition();
             int repeatCount = repeatCountCondition.getCount();
             shortText="[ITERATOR] ";
             postText ="REPEAT COUNT, repeats=" + repeatCount + " " + description;
-        } else if (value.getClass().equals(XBranchComponent.class)) {
+        } 
+        else if (value.getClass().equals(XBranchComponent.class)) 
+        {
             XBranchComponent xBranchComponent = (XBranchComponent)value;
              shortText="[BRANCH] ";
              postText = xBranchComponent.getComponentName();
-        } else if (value.getClass().equals(XExecutiveComponent.class)) {
+        } 
+        else if (value.getClass().equals(XExecutiveComponent.class)) 
+        {
             XExecutiveComponent executiveComponent = (XExecutiveComponent)value;
             IExecutiveAction executiveAction = executiveComponent.getExecutiveAction();
-            if (executiveAction.getClass().equals(XAcquisitionConfig.class)) {
+            if (executiveAction.getClass().equals(XAcquisitionConfig.class)) 
+            {
                 XAcquisitionConfig acquisitionConfig = (XAcquisitionConfig)executiveAction;
                 int mode = acquisitionConfig.getMode();
                 String precision;
-                switch (mode) {
+                switch (mode) 
+                {
                     case IAcquisitionConfig.BRIGHTEST:
                             shortText ="[Fine Tune] ";
                             postText ="Mode: BRIGHTEST, ";
@@ -136,13 +153,20 @@ public class ObservationSequenceComponentRenderer {
                             postText += ", Science Instrument: " +acquisitionConfig.getTargetInstrumentName();
                             postText += ", Allow alt.: " +acquisitionConfig.getAllowAlternative();
                             
-                            if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_HIGH){
+                            if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_HIGH)
+                            {
                                 precision = "HIGH_PRECISION";
-                            } else if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_NORMAL){
+                            } 
+                            else if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_NORMAL)
+                            {
                                 precision = "NORMAL_PRECISION";
-                            } else if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_NOT_SET){
+                            } 
+                            else if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_NOT_SET)
+                            {
                                 precision = "NO_PRECISION_SET";
-                            } else {
+                            } 
+                            else 
+                            {
                                 precision = "UNKNOWN";
                             }
                             postText += ", Precision: " + precision;
@@ -154,13 +178,20 @@ public class ObservationSequenceComponentRenderer {
                             postText += ", Science Instrument: " +acquisitionConfig.getTargetInstrumentName();
                             postText += ", Allow alt.: " +acquisitionConfig.getAllowAlternative();
                             
-                            if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_HIGH){
+                            if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_HIGH)
+                            {
                                 precision = "HIGH_PRECISION";
-                            } else if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_NORMAL){
+                            } 
+                            else if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_NORMAL)
+                            {
                                 precision = "NORMAL_PRECISION";
-                            } else if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_NOT_SET){
+                            } 
+                            else if (acquisitionConfig.getPrecision() == IAcquisitionConfig.PRECISION_NOT_SET)
+                            {
                                 precision = "NO_PRECISION_SET";
-                            } else {
+                            } 
+                            else 
+                            {
                                 precision = "UNKNOWN";
                             }
                             postText += ", Precision: " + precision;
@@ -170,136 +201,200 @@ public class ObservationSequenceComponentRenderer {
                         postText = "Target Instrument: " + acquisitionConfig.getTargetInstrumentName();
                         break;
                 }
-            } else if (executiveAction.getClass().equals(XAutoguiderConfig.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XAutoguiderConfig.class)) 
+            {
                 XAutoguiderConfig autoguiderConfig = (XAutoguiderConfig)executiveAction;
                 shortText="[Autoguider Config] ";
                 postText = "Command: " + XAutoguiderConfig.toModeString(autoguiderConfig.getAutoguiderCommand());
-            } else if (executiveAction.getClass().equals(XMultipleExposure.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XMultipleExposure.class)) 
+            {
                 XMultipleExposure multipleExposure = (XMultipleExposure) executiveAction;
                 shortText="[Exposure] ";
                 postText = "(Multrun) " + (int)multipleExposure.getRepeatCount() + " x " + (double)(multipleExposure.getExposureTime()/1000) + "sec ";
-                if (multipleExposure.isStandard()) {
+                if (multipleExposure.isStandard()) 
+                {
                     postText+= "(Standard)";
                 }
-            } else if (executiveAction.getClass().equals(XPeriodExposure.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XPeriodExposure.class)) 
+            {
                 XPeriodExposure periodExposure = (XPeriodExposure) executiveAction;
                 shortText="[Exposure] ";
                 postText = "(Duration) " + (double)(periodExposure.getExposureTime()/1000) + "sec ";
-                if (periodExposure.isStandard()) {
+                if (periodExposure.isStandard()) 
+                {
                     postText+= "(Standard)";
                 }
-            } else if (executiveAction.getClass().equals(XPeriodRunAtExposure.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XPeriodRunAtExposure.class)) 
+            {
                 XPeriodRunAtExposure periodExposure = (XPeriodRunAtExposure) executiveAction;
                 shortText="[Exposure] ";
                 postText = "(Total Duration) " + (double)(periodExposure.getTotalExposureDuration()/1000) + "sec ";
                 postText+="(Length) " + (double)(periodExposure.getExposureLength()/1000) + "sec ";
 
                 long runAtTime = periodExposure.getRunAtTime();
-                if (runAtTime > 0) {
+                if (runAtTime > 0) 
+                {
                     String dateFormatted = dateFormat.format(new Date(runAtTime));
                     postText+= "(Run-At) ";
                     postText += dateFormatted;
                 }
                 
-                if (periodExposure.isStandard()) {
+                if (periodExposure.isStandard()) 
+                {
                     postText+= " (Standard)";
                 }
-            } else if (executiveAction.getClass().equals(XFocusOffset.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XFocusOffset.class)) 
+            {
                 XFocusOffset focusOffset = (XFocusOffset)executiveAction;
                 String offsetType = "";
-                if (focusOffset.isRelative()) {
+                if (focusOffset.isRelative()) 
+                {
                     offsetType = "CUMULATIVE";
-                } else {
+                } 
+                else
+                {
                     offsetType = "NON-CUMULATIVE";
                 }
                 shortText="[Focus Offset] ";
                 postText = offsetType + ", Amount: " + Rounder.round(focusOffset.getOffset(), 3) + " mm";
-            } else if (executiveAction.getClass().equals(XInstrumentConfig.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XInstrumentConfig.class)) 
+            {
                 shortText="[Instrument Config] ";
                 postText += executiveComponent.getComponentName();
-           } else if (executiveAction.getClass().equals(XInstrumentConfigSelector.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XInstrumentConfigSelector.class)) 
+            {
                 XInstrumentConfigSelector instrumentConfigSelector = (XInstrumentConfigSelector)executiveAction;
                 XInstrumentConfig instrumentConfig = (XInstrumentConfig)instrumentConfigSelector.getInstrumentConfig();
-                if (instrumentConfig != null) {
-                    if (instrumentConfig.getClass().equals(XDualBeamSpectrographInstrumentConfig.class)) {
+                if (instrumentConfig != null) 
+                {
+                    if (instrumentConfig.getClass().equals(XDualBeamSpectrographInstrumentConfig.class)) 
+                    {
                         shortText="[Dual Beam Spectrograph Config] ";
                         postText = "Name: " + instrumentConfig.getName();
-                    } else if (instrumentConfig.getClass().equals(XImagerInstrumentConfig.class)) {
+                    } 
+                    else if (instrumentConfig.getClass().equals(XImagerInstrumentConfig.class)) 
+                    {
                         shortText="[Imager Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
                         postText += " " + getDetectorConfigShortText(instrumentConfig.getDetectorConfig());
                         XImagerInstrumentConfig imagerInstrumentConfig = (XImagerInstrumentConfig) instrumentConfig;
                         postText += " " + getFilterSpecShortText(imagerInstrumentConfig.getFilterSpec());
-                    } else if (instrumentConfig.getClass().equals(XPolarimeterInstrumentConfig.class)) {
+                    } 
+                    else if (instrumentConfig.getClass().equals(XPolarimeterInstrumentConfig.class)) 
+                    {
                         shortText="[Polarimeter Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
-                    } else if (instrumentConfig.getClass().equals(XMoptopInstrumentConfig.class)) {
+                    } 
+                    else if (instrumentConfig.getClass().equals(XMoptopInstrumentConfig.class)) 
+                    {
                         shortText="[Moptop Polarimeter Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
-                    } else if (instrumentConfig.getClass().equals(XSpectrographInstrumentConfig.class)) {
+                        XMoptopInstrumentConfig moptopInstrumentConfig = (XMoptopInstrumentConfig) instrumentConfig;
+                        postText += " " + InstrumentConfigRenderer.getSummaryOfInstrumentConfig(moptopInstrumentConfig);
+                    } 
+                    else if (instrumentConfig.getClass().equals(XSpectrographInstrumentConfig.class)) 
+                    {
                         shortText = "[Spectrograph Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
-                    } else if (instrumentConfig.getClass().equals(XTipTiltImagerInstrumentConfig.class)) {
+                    } 
+                    else if (instrumentConfig.getClass().equals(XTipTiltImagerInstrumentConfig.class)) 
+                    {
                         shortText = "[Tip-Tilt Imager Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
-                    } else if (instrumentConfig.getClass().equals(XImagingSpectrographInstrumentConfig.class)) {
+                    } 
+                    else if (instrumentConfig.getClass().equals(XImagingSpectrographInstrumentConfig.class)) 
+                    {
                         shortText = "[Imaging Spectrograph Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
                         postText += " " + getDetectorConfigShortText(instrumentConfig.getDetectorConfig());
                         XImagingSpectrographInstrumentConfig imagingSpectrographInstrumentConfig = (XImagingSpectrographInstrumentConfig) instrumentConfig;
                         postText += " " + InstrumentConfigRenderer.getSummaryOfInstrumentConfig(imagingSpectrographInstrumentConfig);
-                    } else if (instrumentConfig.getClass().equals(XBlueTwoSlitSpectrographInstrumentConfig.class)) {
+                    } 
+                    else if (instrumentConfig.getClass().equals(XBlueTwoSlitSpectrographInstrumentConfig.class)) 
+                    {
                         shortText = "[Blue Two Slit Spectrograph Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
                         postText += " " + getDetectorConfigShortText(instrumentConfig.getDetectorConfig());
                         XBlueTwoSlitSpectrographInstrumentConfig blueTwoSlitSpectrographInstrumentConfig = (XBlueTwoSlitSpectrographInstrumentConfig) instrumentConfig;
                         postText += " " + InstrumentConfigRenderer.getSummaryOfInstrumentConfig(blueTwoSlitSpectrographInstrumentConfig);
-                    } else {
+                    } 
+                    else 
+                    {
                         shortText="[UNKNOWN INSTRUMENT CONFIG TYPE] ";
                         postText = instrumentConfig.getClass().getName();
                     }
-                } else {
+                } 
+                else 
+                {
                     shortText="[Null Instrument Config]";
                 }
-            } else if (executiveAction.getClass().equals(XPositionOffset.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XPositionOffset.class)) 
+            {
                 XPositionOffset positionOffset = (XPositionOffset) executiveAction;
                 double decRadOffset = positionOffset.getDecOffset();
                 double raRadOffset = positionOffset.getRAOffset();
                 double decArcSecOffset = Math.toDegrees(decRadOffset) * 3600;
                 double raArcSecOffset = Math.toDegrees(raRadOffset) * 3600;
                 String offsetType = "";
-                if (positionOffset.isRelative()) {
+                if (positionOffset.isRelative()) 
+                {
                     offsetType = "CUMULATIVE";
-                } else {
+                } 
+                else 
+                {
                     offsetType = "NON_CUMULATIVE";
                 }
                 shortText="[Position Offset] ";
                 postText = offsetType + " (" + Rounder.round(raArcSecOffset, 1) + "), (" + Rounder.round(decArcSecOffset, 1) + ")";
-            } else if (executiveAction.getClass().equals(XRotatorConfig.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XRotatorConfig.class)) 
+            {
                 shortText = getRotatorDescription((XRotatorConfig)executiveAction, shortDescription);
-            } else if (executiveAction.getClass().equals(XApertureConfig.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XApertureConfig.class)) 
+            {
                 shortText="[Aperture Offset] ";
                 postText += executiveComponent.getComponentName();
-            } else if (executiveAction.getClass().equals(XTargetSelector.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XTargetSelector.class)) 
+            {
                 ITargetSelector targetSelector = (ITargetSelector)executiveAction;
                 XTarget target = (XTarget)targetSelector.getTarget();
                 shortText = getTargetDescription(target, shortDescription);
-            } else if (executiveAction.getClass().equals(XArc.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XArc.class)) 
+            {
                 XArc arc = (XArc) executiveAction;
                 shortText="[Arc] ";
                 postText += arc.getLamp().getLampName();
-            } else if (executiveAction.getClass().equals(XBias.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XBias.class)) 
+            {
                 XBias bias = (XBias) executiveAction;
                 shortText="[Bias]";
-            } else if (executiveAction.getClass().equals(XDark.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XDark.class)) 
+            {
                 XDark dark = (XDark) executiveAction;
                 shortText="[Dark] ";
                 postText += (int)dark.getExposureTime() + "ms";
-            } else if (executiveAction.getClass().equals(XLampFlat.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XLampFlat.class)) 
+            {
                 XLampFlat lampFlat = (XLampFlat) executiveAction;
                 shortText="[Lamp Flat] ";
                 postText += lampFlat.getLamp().getLampName();
-            } else if (executiveAction.getClass().equals(XSlew.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XSlew.class)) 
+            {
                 XSlew slew = (XSlew) executiveAction;
                 String slewDescription = "[Slew]";
                 String targetText = getTargetDescription(slew.getTarget());
@@ -309,7 +404,9 @@ public class ObservationSequenceComponentRenderer {
                 String trackingText = getTrackingText(slew.usesNonSiderealTracking());
                 shortText= slewDescription;
                 postText += " " +   targetText + " " + rotatorText + " " + trackingText;
-            } else if (executiveAction.getClass().equals(XFocusControl.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XFocusControl.class)) 
+            {
                 XFocusControl focusControl = (XFocusControl) executiveAction;
                 String focusControlDescription = "[Focus Control]";
 
@@ -317,10 +414,13 @@ public class ObservationSequenceComponentRenderer {
                 String instrumentText = focusControl.getInstrumentName();
                 postText += " Instrument Name:" +   instrumentText;
 
-            } else if (executiveAction.getClass().equals(XTipTiltAbsoluteOffset.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XTipTiltAbsoluteOffset.class)) 
+            {
                 shortText= "[Tip-Tilt Absolute Offset]";
                 XTipTiltAbsoluteOffset tipTiltAbsoluteOffset = (XTipTiltAbsoluteOffset) executiveAction;
-                switch (tipTiltAbsoluteOffset.getTipTiltId()) {
+                switch (tipTiltAbsoluteOffset.getTipTiltId()) 
+                {
                     case ITipTiltAbsoluteOffset.TIPTILT_TOP:
                         postText += " " + "Tip-Tilt: UPPER";
                         break;
@@ -328,7 +428,8 @@ public class ObservationSequenceComponentRenderer {
                         postText += " " + "Tip-Tilt: LOWER";
                         break;
                 }
-                switch (tipTiltAbsoluteOffset.getOffsetType()) {
+                switch (tipTiltAbsoluteOffset.getOffsetType()) 
+                {
                     case ITipTiltAbsoluteOffset.OFFSET_TYPE_FOCAL_PLANE:
                         postText += " Type: " + "FOCAL PLANE";
                         postText += " Instrument:" + tipTiltAbsoluteOffset.getInstrumentName();
@@ -340,7 +441,9 @@ public class ObservationSequenceComponentRenderer {
                 
                 postText += " Offset: (" + Rounder.round(tipTiltAbsoluteOffset.getOffset1(), 1) + " arcsec, " + Rounder.round(tipTiltAbsoluteOffset.getOffset2(), 1) + " arcsec)";
 
-            } else if (executiveAction.getClass().equals(XBeamSteeringConfig.class)) {
+            } 
+            else if (executiveAction.getClass().equals(XBeamSteeringConfig.class)) 
+            {
                 shortText= "[Beam-Steering Config] ";
                 XBeamSteeringConfig beamSteeringConfig = (XBeamSteeringConfig) executiveAction;
                 XOpticalSlideConfig opticalSlideConfig1 =  beamSteeringConfig.getUpperSlideConfig();
@@ -349,76 +452,104 @@ public class ObservationSequenceComponentRenderer {
                 String opticalSlideConfig2Description = "Slide: " + opticalSlideConfig2.getSlideName() + " @ " + opticalSlideConfig2.getElementName();
                 postText += opticalSlideConfig1Description + " ; " + opticalSlideConfig2Description;
 
-            } else {
+            } 
+            else 
+            {
                 shortText="[UNKNOWN COMPONENT TYPE] " +executiveAction.getClass().getName();
             }
-        } else {
+        }
+        else 
+        {
             shortText="[UNKNOWN COMPONENT TYPE] " +value.getClass().getName();
         }
 
-        if (shortDescription) {
+        if (shortDescription) 
+        {
             return shortText;
-        } else {
+        } 
+        else 
+        {
             return shortText + postText;
         }
     }
 
-    private String getDetectorConfigShortText(IDetectorConfig detectorConfig) {
+    private String getDetectorConfigShortText(IDetectorConfig detectorConfig) 
+    {
         String s = "";
         s += "[" + detectorConfig.getXBin() + "x" + detectorConfig.getYBin() + "]";
         return s;
     }
 
-    private String getFilterSpecShortText(XFilterSpec filterSpec) {
+    private String getFilterSpecShortText(XFilterSpec filterSpec) 
+    {
         String s = "";
         s += "[" + filterSpec.getFiltersString();
         s += "]";
         return s;
     }
 
-    private String getTargetDescription(ITarget target) {
+    private String getTargetDescription(ITarget target) 
+    {
         return getTargetDescription(target, false);
     }
 
-    private String getTargetDescription(ITarget target, boolean shortDescription) {
+    private String getTargetDescription(ITarget target, boolean shortDescription) 
+    {
         String shortText = "";
         String postText = "";
 
-        if (target != null) {
-            if (target.getClass().equals(XEphemerisTarget.class)) {
+        if (target != null) 
+        {
+            if (target.getClass().equals(XEphemerisTarget.class)) 
+            {
                 shortText="[Ephemeris Target] ";
                 postText = target.getName();
-            } else if (target.getClass().equals(XExtraSolarTarget.class)) {
+            } 
+            else if (target.getClass().equals(XExtraSolarTarget.class)) 
+            {
                 XExtraSolarTarget extraSolarTarget = (XExtraSolarTarget)target;
                 shortText="[Extra Solar Target] ";
                 postText = target.getName();
                 postText += " RA:[" + Position.toHMSString(extraSolarTarget.getRa()) + "]";
                 postText +=  " Dec:[" + Position.toDMSString(extraSolarTarget.getDec()) + "]";
-            } else if (target.getClass().equals(XOrbitalElementsTarget.class)) {
+            } 
+            else if (target.getClass().equals(XOrbitalElementsTarget.class)) 
+            {
                 shortText="[Orbital Elements Target] ";
                 postText += target.getName();
-            } else if (target.getClass().equals(XSlaNamedPlanetTarget.class)) {
+            } 
+            else if (target.getClass().equals(XSlaNamedPlanetTarget.class)) 
+            {
                 shortText="[Sla Named Target] ";
                 postText += target.getName();
-            } else {
+            } 
+            else 
+            {
                 shortText="[UNKNOWN TARGET TYPE] " + target.getClass().getName();
             }
-        } else {
+        } 
+        else 
+        {
             shortText="[Null Target] ";
         }
 
-        if (shortDescription) {
+        if (shortDescription) 
+        {
             return shortText;
-        } else {
+        } 
+        else 
+        {
             return shortText + postText;
         }
     }
 
-    private String getRotatorDescription(IRotatorConfig rotatorConfig) {
+    private String getRotatorDescription(IRotatorConfig rotatorConfig) 
+    {
         return getRotatorDescription(rotatorConfig, false);
     }
 
-    private String getRotatorDescription(IRotatorConfig rotatorConfig, boolean shortDescription) {
+    private String getRotatorDescription(IRotatorConfig rotatorConfig, boolean shortDescription) 
+    {
         String shortText = "";
         String postText = "";
 
@@ -429,26 +560,38 @@ public class ObservationSequenceComponentRenderer {
         shortText="[Rotator] ";
 
         postText = "Mode: " + rotModeString;
-        if (rotatorConfig.getRotatorMode() == IRotatorConfig.CARDINAL) {
+        if (rotatorConfig.getRotatorMode() == IRotatorConfig.CARDINAL)
+        {
             postText += ", Aligned to: " + alignedInstrument;
-        } else if (rotatorConfig.getRotatorMode() == IRotatorConfig.MOUNT) {
+        } 
+        else if (rotatorConfig.getRotatorMode() == IRotatorConfig.MOUNT)
+        {
             postText += ", Angle: " + rotAngle + " degrees";
-        } else if (rotatorConfig.getRotatorMode() == IRotatorConfig.SKY) {
+        } 
+        else if (rotatorConfig.getRotatorMode() == IRotatorConfig.SKY) 
+        {
             postText += ", Aligned to: " + alignedInstrument + ", Angle: " + rotAngle + " degrees";
         }
 
-        if (shortDescription) {
+        if (shortDescription) 
+        {
             return shortText;
-        } else {
+        } 
+        else 
+        {
             return shortText + postText;
         }
     }
 
-    private String getTrackingText(boolean usesNonSiderealTracking) {
+    private String getTrackingText(boolean usesNonSiderealTracking) 
+    {
         String text;
-        if (usesNonSiderealTracking) {
+        if (usesNonSiderealTracking) 
+        {
             text = "[Non-Sidereal Tracking]";
-        } else {
+        }
+        else 
+        {
             text = "[Sidereal Tracking]";
         }
         return text;

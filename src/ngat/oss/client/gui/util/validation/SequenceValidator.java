@@ -43,6 +43,7 @@ import ngat.phase2.XImagerInstrumentConfig;
 import ngat.phase2.XInstrumentConfigSelector;
 import ngat.phase2.XIteratorComponent;
 import ngat.phase2.XLampFlat;
+import ngat.phase2.XMoptopInstrumentConfig;
 import ngat.phase2.XMultipleExposure;
 import ngat.phase2.XPeriodExposure;
 import ngat.phase2.XPeriodRunAtExposure;
@@ -53,8 +54,8 @@ import org.apache.log4j.Logger;
  *
  * @author nrc
  */
-public class SequenceValidator {
-
+public class SequenceValidator 
+{
     static Logger logger = Logger.getLogger(SequenceValidator.class);
     private String obsSeqName;
     private TelescopeState telescopeState;
@@ -73,7 +74,8 @@ public class SequenceValidator {
      }
      */
     //validate sequence given group (invoked from group header panel)
-    public SequenceValidator(ISequenceComponent sequenceComponent, IGroup group) throws Phase2Exception {
+    public SequenceValidator(ISequenceComponent sequenceComponent, IGroup group) throws Phase2Exception 
+    {
         this.obsSeqName = "Observation sequence of group: " + group.getName();
         rootComponent = (XIteratorComponent) sequenceComponent;
         this.group = group;
@@ -86,12 +88,14 @@ public class SequenceValidator {
         //JOptionPane.showMessageDialog(new JFrame(), "Called, knowing group");
         //if it's a fixed group timing constraint, include a validation check for overlap with other groups
         ITimingConstraint timingConstraint = group.getTimingConstraint();
-        if (timingConstraint instanceof XFixedTimingConstraint) {
+        if (timingConstraint instanceof XFixedTimingConstraint) 
+        {
             telescopeState.receiveFixedGroupTimingConstraint(group);
         }
     }
 
-    public ValidationResults getValidationResults(boolean validateProposalHeader, boolean validateGroupHeader) throws Phase2Exception {
+    public ValidationResults getValidationResults(boolean validateProposalHeader, boolean validateGroupHeader) throws Phase2Exception 
+    {
 
         logger.info("getValidationResults()");
 
@@ -111,7 +115,8 @@ public class SequenceValidator {
         //root component = rootComponent
         //easier to do some validation / look ahead using a non event parsing method of walking the sequence
         //is there a frodo-branch in the sequence? if so, inform the telescopeState
-        if (validateGroupHeader) {
+        if (validateGroupHeader) 
+        {
             //validate the group as well (just it's header, and it's proposal header) and add the results to the TelescopeState validation results
             GroupValidator groupValidator = new GroupValidator(group);
             ValidationResults groupValResults = groupValidator.getValidationResults(validateProposalHeader, false);
@@ -129,25 +134,31 @@ public class SequenceValidator {
 
         //is there an invalid supircam exposure in the sequence? if so, inform the telescopeState
         boolean containsInvalidSupircamExposure = sequenceWalker.sequenceContainsInvalidSupircamExposure();
-        if (containsInvalidSupircamExposure) {
+        if (containsInvalidSupircamExposure) 
+        {
             telescopeState.setContainsInvalidSupIRCamState();
         }
 
         //is there a slew but no exposures? if so, inform the telescopeState
         int numExposures = sequenceWalker.getExposures().size();
         int numSlews = sequenceWalker.getSlews().size();
-        if (numSlews > 0) {
-            if (numExposures == 0) {
+        if (numSlews > 0) 
+        {
+            if (numExposures == 0) 
+            {
                 telescopeState.setContainsSlewButNoExposure();
             }
         }
 
         //iterate through root component, taking each sub component and sending it for validation against the telescope state object
-        if (rootComponent != null) {
+        if (rootComponent != null) 
+        {
             List childrenList = rootComponent.listChildComponents();
-            if (childrenList != null) {
+            if (childrenList != null) 
+            {
                 Iterator childrenIterator = childrenList.iterator();
-                while (childrenIterator.hasNext()) {
+                while (childrenIterator.hasNext())
+                {
                     ISequenceComponent childComponent = (ISequenceComponent) childrenIterator.next();
                     handleComponent(childComponent);
                 }
@@ -157,16 +168,20 @@ public class SequenceValidator {
         return telescopeState.getValidationResults();
     }
 
-    private void handleComponent(ISequenceComponent component) {
+    private void handleComponent(ISequenceComponent component) 
+    {
 
         //checks the state model
         telescopeState.receiveSequenceComponent(component);
 
-        if ((component instanceof XIteratorComponent) | (component instanceof XBranchComponent)) {
+        if ((component instanceof XIteratorComponent) | (component instanceof XBranchComponent)) 
+        {
             List childrenList = component.listChildComponents();
-            if (childrenList != null) {
+            if (childrenList != null) 
+            {
                 Iterator childrenIterator = childrenList.iterator();
-                while (childrenIterator.hasNext()) {
+                while (childrenIterator.hasNext()) 
+                {
                     ISequenceComponent childComponent = (ISequenceComponent) childrenIterator.next();
                     handleComponent(childComponent);
                 }
@@ -176,7 +191,8 @@ public class SequenceValidator {
 
 }
 
-class TelescopeState {
+class TelescopeState 
+{
 
     static Logger logger = Logger.getLogger(TelescopeState.class);
 
@@ -196,91 +212,116 @@ class TelescopeState {
     private ISlew latestSlew = null;
     private IGroup group;
 
-    public TelescopeState(String objectName) {
+    public TelescopeState(String objectName) 
+    {
         logger.info("TelescopeState(" + objectName + ")");
         this.objectName = objectName;
     }
 
-    public void setGroup(IGroup group) {
+    public void setGroup(IGroup group) 
+    {
         this.group = group;
     }
 
-    public void setContainsFrodoBranch(boolean containsFrodoBranch) {
+    public void setContainsFrodoBranch(boolean containsFrodoBranch) 
+    {
         logger.info("setContainsFrodoBranch(" + containsFrodoBranch + ")");
         this.containsFrodoBranch = containsFrodoBranch;
     }
 
-    public void setIsALOTUSSequence(boolean isALotusSequence) {
+    public void setIsALOTUSSequence(boolean isALotusSequence) 
+    {
         logger.info("setIsALOTUSSequence(" + isALotusSequence + ")");
         this.isALotusSequence = isALotusSequence;
     }
 
-    public void setContainsInvalidSupIRCamState() {
+    public void setContainsInvalidSupIRCamState() 
+    {
         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "The sequence contains a SupIRCam exposure that is not surrounded by Darks of the same duration."));
     }
 
-    public void setContainsSlewButNoExposure() {
+    public void setContainsSlewButNoExposure() 
+    {
         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "The sequence contains at least one Slew, but has no defined Exposures."));
     }
 
-    public void addValidationResults(ValidationResults validationResults) {
+    public void addValidationResults(ValidationResults validationResults) 
+    {
         this.validationResults.addValidationResults(validationResults);
     }
 
-    public ValidationResults getValidationResults() {
+    public ValidationResults getValidationResults() 
+    {
         return validationResults;
     }
 
-    public void receiveFixedGroupTimingConstraint(IGroup group) {
+    public void receiveFixedGroupTimingConstraint(IGroup group) 
+    {
         logger.info("receiveFixedGroupTimingConstraint(" + group + ")");
         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "The group called " + group.getName() + " has a Fixed Timing constraint. We advise that you use the Future Fixed Groups reporting tool on the View menu to look for possible clashing groups."));
     }
 
-    public void receiveSequenceComponent(ISequenceComponent component) {
+    public void receiveSequenceComponent(ISequenceComponent component) 
+    {
         //logger.info("receiveSequenceComponent(" + component + ")");
 
-        if (component instanceof XExecutiveComponent) {
+        if (component instanceof XExecutiveComponent) 
+        {
             XExecutiveComponent xExecutiveComponent = (XExecutiveComponent) component;
             IExecutiveAction executiveAction = xExecutiveComponent.getExecutiveAction();
 
-            if (executiveAction instanceof ISlew) {
+            if (executiveAction instanceof ISlew) 
+            {
                 receiveSlew((ISlew) executiveAction);
-
-            } else if (executiveAction instanceof IRotatorConfig) {
+            } 
+            else if (executiveAction instanceof IRotatorConfig) 
+            {
                 receiveRotatorConfig((IRotatorConfig) executiveAction);
-
-            } else if (executiveAction instanceof IInstrumentConfigSelector) {
+            } 
+            else if (executiveAction instanceof IInstrumentConfigSelector) 
+            {
                 receiveInstrumentConfig((IInstrumentConfigSelector) executiveAction);
-
-            } else if (executiveAction instanceof IBeamSteeringConfig) {
+            } 
+            else if (executiveAction instanceof IBeamSteeringConfig) 
+            {
                 receiveBeamSteeringConfig((IBeamSteeringConfig) executiveAction);
-
-            } else if (executiveAction instanceof IExposure) {
+            } 
+            else if (executiveAction instanceof IExposure) 
+            {
                 receiveExposure((IExposure) executiveAction);
-
-            } else if (executiveAction instanceof IAcquisitionConfig) {
+            } 
+            else if (executiveAction instanceof IAcquisitionConfig) 
+            {
                 receiveAcquisitionConfig((IAcquisitionConfig) executiveAction);
-
-            } else if (executiveAction instanceof IAutoguiderConfig) {
+            } 
+            else if (executiveAction instanceof IAutoguiderConfig) 
+            {
                 IAutoguiderConfig autoguiderConfig = (IAutoguiderConfig) executiveAction;
-                if ((autoguiderConfig.getAutoguiderCommand() == IAutoguiderConfig.ON) || (autoguiderConfig.getAutoguiderCommand() == IAutoguiderConfig.ON_IF_AVAILABLE)) {
+                if ((autoguiderConfig.getAutoguiderCommand() == IAutoguiderConfig.ON) || (autoguiderConfig.getAutoguiderCommand() == IAutoguiderConfig.ON_IF_AVAILABLE)) 
+                {
                     receiveAutoguiderOn();
-                } else {
+                } 
+                else 
+                {
                     receiveAutoguiderOff();
                 }
-
-            } else if (executiveAction instanceof ICalibration) {
+            } 
+            else if (executiveAction instanceof ICalibration) 
+            {
                 receiveCalibration((ICalibration) executiveAction);
             }
-
-        } else if (component instanceof XBranchComponent) {
+        } 
+        else if (component instanceof XBranchComponent) 
+        {
             List childrenList = component.listChildComponents();
             XIteratorComponent firstIterator = (XIteratorComponent) childrenList.get(0);
-            if (firstIterator != null) {
+            if (firstIterator != null) 
+            {
                 receiveBranchIterator(firstIterator);
             }
             XIteratorComponent secondIterator = (XIteratorComponent) childrenList.get(1);
-            if (secondIterator != null) {
+            if (secondIterator != null) 
+            {
                 receiveBranchIterator(secondIterator);
             }
         }
@@ -288,47 +329,60 @@ class TelescopeState {
         previousComponent = component;
     }
 
-    public void receiveSlew(ISlew slew) {
+    public void receiveSlew(ISlew slew)
+    {
         logger.info("receiveSlew(" + slew + ")");
 
         this.latestSlew = slew;
         haveApertureOffsets = false;
         haveTarget = true;
 
-        if (this.autoguiderMightBeOn) {
+        if (this.autoguiderMightBeOn) 
+        {
             validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A SLEW was attempted with the Autoguider ON."));
         }
                
         IRotatorConfig rotCfg = slew.getRotatorConfig();
-        if (rotCfg != null) {
+        if (rotCfg != null) 
+        {
             String instName = rotCfg.getInstrumentName();
-            if (instName != null) {
-                if (instName.equalsIgnoreCase(CONST.RATCAM)) {
+            if (instName != null) 
+            {
+                if (instName.equalsIgnoreCase(CONST.RATCAM)) 
+                {
                     validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "A slew was found that uses a rotator config that aligns to RATCam."));
                 }
             }
         }
 
         ITarget target = slew.getTarget();
-        if (!(target instanceof XEphemerisTarget)) {
-            if (slew.usesNonSiderealTracking()) {
+        if (!(target instanceof XEphemerisTarget)) 
+        {
+            if (slew.usesNonSiderealTracking()) 
+            {
                 //warning if target is not an ephemeris target, but non-sidereal tracking is being used
                 validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A slew was found that uses non-sidereal tracking for a non-ephemeris target."));
             }
-        } else {
+        } 
+        else
+        {
             //validate Ephemeris Target
             XEphemerisTarget ephemerisTarget = (XEphemerisTarget) target;
             Iterator trackNodeIterator = ephemerisTarget.getEphemerisTrack().iterator();
             double previousRa = -1000; double previousDec = -1000;
             boolean shouldContinueIterating = true;
-            while (trackNodeIterator.hasNext() && shouldContinueIterating) {
+            while (trackNodeIterator.hasNext() && shouldContinueIterating)
+            {
                 XEphemerisTrackNode ephemerisTrackNode = (XEphemerisTrackNode) trackNodeIterator.next();
                 //System.err.println("ra=" + ephemerisTrackNode.ra + " dec=" + ephemerisTrackNode.dec);
                 
-                if (ephemerisTrackNode.ra == previousRa) {
+                if (ephemerisTrackNode.ra == previousRa)
+                {
                     shouldContinueIterating = false;
                     validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "The target " + target.getName() + " is an ephemeris target with track nodes that are too close to one another. This will cause a slew failure."));
-                } else if (ephemerisTrackNode.dec == previousDec) {
+                } 
+                else if (ephemerisTrackNode.dec == previousDec) 
+                {
                     shouldContinueIterating = false;
                     validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "The target " + target.getName() + " is an ephemeris target with track nodes that are too close to one another. This will cause a slew failure."));
                 }
@@ -339,13 +393,15 @@ class TelescopeState {
         }
     }
 
-    public void receiveInstrumentConfig(IInstrumentConfigSelector instrumentConfigSelector) {
+    public void receiveInstrumentConfig(IInstrumentConfigSelector instrumentConfigSelector)
+    {
         logger.info("receiveInstrumentConfig(" + instrumentConfigSelector + ")");
         IInstrumentConfig instrumentConfig = instrumentConfigSelector.getInstrumentConfig();
         latestInstrumentConfigInstrumentName = instrumentConfig.getInstrumentName();
 
         //return on null instrument name
-        if (latestInstrumentConfigInstrumentName == null) {
+        if (latestInstrumentConfigInstrumentName == null)
+        {
             validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "Instrument name is null"));
             return;
         }
@@ -354,51 +410,70 @@ class TelescopeState {
             validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "RATCam is no longer on the telescope"));
         }
 
-        if (latestInstrumentConfigInstrumentName.equals(CONST.IO_THOR)) {
+        if (latestInstrumentConfigInstrumentName.equals(CONST.IO_THOR))
+        {
             validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "THOR is no longer on the telescope"));
         }
 
-        if (latestInstrumentConfigInstrumentName.equals(CONST.IO_O)) {
+        if (latestInstrumentConfigInstrumentName.equals(CONST.IO_O))
+        {
             XImagerInstrumentConfig imagerInstrumentConfig = (XImagerInstrumentConfig) instrumentConfig;
 
             List filterList = imagerInstrumentConfig.getFilterSpec().getFilterList();
             Iterator i = filterList.iterator();
             boolean neutralDensityFilterWasFound = false;
-            while (i.hasNext()) {
+            while (i.hasNext())
+            {
                 XFilterDef filterDef = (XFilterDef) i.next();
                 //if there's an ND filter in there, create a warning
-                if (filterDef.getFilterName().equalsIgnoreCase(CONST.ND1_5) || filterDef.getFilterName().equalsIgnoreCase(CONST.ND3_0)) {
+                if (filterDef.getFilterName().equalsIgnoreCase(CONST.ND1_5) || filterDef.getFilterName().equalsIgnoreCase(CONST.ND3_0))
+                {
                     neutralDensityFilterWasFound = true;
                 }
             }
-            if (neutralDensityFilterWasFound) {
+            if (neutralDensityFilterWasFound)
+            {
                 validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A neutral density filter has been selected in an instrument config."));
             }
         }
 
-        if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3)) {
+        if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3))
+        {
             XPolarimeterInstrumentConfig polarimeterInstrumentConfig = (XPolarimeterInstrumentConfig) instrumentConfig;
             int gain = polarimeterInstrumentConfig.getGain();
-            if (gain != 100) {
+            if (gain != 100)
+            {
                 validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A GAIN of " + gain + " is selected in a polarimeter config, the default is 100."));
             }
         }
         
-        if (latestInstrumentConfigInstrumentName.equals(CONST.LOTUS)) {
-            if (instrumentConfig instanceof XBlueTwoSlitSpectrographInstrumentConfig) {
+        if (latestInstrumentConfigInstrumentName.equals(CONST.MOPTOP))
+        {
+            XMoptopInstrumentConfig moptopInstrumentConfig = (XMoptopInstrumentConfig) instrumentConfig;
+            int rotorSpeed = moptopInstrumentConfig.getRotorSpeed();
+            if ((rotorSpeed != XMoptopInstrumentConfig.ROTOR_SPEED_SLOW)&&(rotorSpeed != XMoptopInstrumentConfig.ROTOR_SPEED_FAST))
+            {
+                validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "MOPTOP needs a SLOW or FAST rotor speed."));
+            }
+        }
+        
+        if (latestInstrumentConfigInstrumentName.equals(CONST.LOTUS))
+        {
+            if (instrumentConfig instanceof XBlueTwoSlitSpectrographInstrumentConfig)
+            {
                 XBlueTwoSlitSpectrographInstrumentConfig blueTwoSlitSpectrographInstrumentConfig = (XBlueTwoSlitSpectrographInstrumentConfig) instrumentConfig;
                 int slitWidthNow = blueTwoSlitSpectrographInstrumentConfig.getSlitWidth();
                 
-                if (slitWidthNow != lastReceivedLOTUSSlitPosition) {
-                    if (this.autoguiderMightBeOn) {
+                if (slitWidthNow != lastReceivedLOTUSSlitPosition)
+                {
+                    if (this.autoguiderMightBeOn)
+                    {
                         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A LOTUS SLIT position change was attempted with the Autoguider ON."));
                     }
                 }
                 lastReceivedLOTUSSlitPosition = slitWidthNow;
             }
-            
         }
-
         haveInstrument = true;
     }
 
@@ -531,19 +606,29 @@ class TelescopeState {
             validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "It is recommended that you select a Target before an Exposure."));
         }
 
-        if (latestInstrumentConfigInstrumentName == null) {
+        if (latestInstrumentConfigInstrumentName == null) 
+        {
             logger.info("... latestInstrumentConfigInstrumentName = null");
             validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "An Exposure exists without an instrument Config with a valid instrument name before it."));
-        } else {
-            if (exposure instanceof XPeriodExposure) {
+        } 
+        else 
+        {
+            if (exposure instanceof XPeriodExposure) 
+            {
                 XPeriodExposure periodExposure = (XPeriodExposure) exposure;
-                //i.e. a ringo 2/3 duration exposure, make sure the last config was a ringo 2/3 one
-                if (!(latestInstrumentConfigInstrumentName.equals(CONST.RINGO3))) {
-                    logger.info("... latestInstrumentConfigInstrumentName !=" + CONST.RINGO3);
-                    validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "A Duration Exposure exists without a RINGO instrument config before it."));
+                //i.e. a ringo 2/3/moptop duration exposure, make sure the last config was a ringo 2/3 one
+                if (!(latestInstrumentConfigInstrumentName.equals(CONST.RINGO3)||
+                        latestInstrumentConfigInstrumentName.equals(CONST.MOPTOP))) 
+                {
+                    logger.info("... latestInstrumentConfigInstrumentName !=" + CONST.RINGO3 + " or " + CONST.MOPTOP);
+                    validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "A Duration Exposure exists without a RINGO/MOPTOP instrument config before it."));
                 }
-                if (periodExposure.getExposureTime() < 20000) {
-                    validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "It is recommended that RINGO3 exposures last longer than 20 seconds"));
+                if (!(latestInstrumentConfigInstrumentName.equals(CONST.RINGO3))) 
+                {
+                    if (periodExposure.getExposureTime() < 20000) 
+                    {
+                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "It is recommended that RINGO3 exposures last longer than 20 seconds"));
+                    }
                 }
             } else if (exposure instanceof XMultipleExposure) {
 
@@ -562,24 +647,30 @@ class TelescopeState {
                      validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE,  "An Exposure exists using the IO:O instrument that doesn't have a Beam-Steering Config before it."));
                      } 
                      */
-                } else if (latestInstrumentConfigInstrumentName.equals(CONST.IO_I)) {
+                } 
+                else if (latestInstrumentConfigInstrumentName.equals(CONST.IO_I)) 
+                {
                     if (multipleExposure.getExposureTime() < 5820) {
                         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "IO:I Exposure Times < 5820ms are not allowed."));
                     } else if ((multipleExposure.getExposureTime() >= 7276) && (multipleExposure.getExposureTime() <= 8729)) {
                         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "IO:I Exposure Times within the range 7276ms to 8729ms are not allowed."));
                     }
-                } else if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3)) {
+                } 
+                else if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3))
+                {
                     logger.info("... latestInstrumentConfigInstrumentName == " + CONST.RINGO3);
                     validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "A Multiple Exposure exists with a RINGO instrument config before it. Use only 'Duration' type exposures for RINGO."));
-
-                } else if (latestInstrumentConfigInstrumentName.equals(CONST.LOTUS)) {
-
-                    if (multipleExposure.getExposureTime() < 3000) {
+                } 
+                else if (latestInstrumentConfigInstrumentName.equals(CONST.LOTUS)) 
+                {
+                    if (multipleExposure.getExposureTime() < 3000) 
+                    {
                         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "LOTUS Exposure Times < 3 seconds are not allowed."));
-                    } else if (multipleExposure.getExposureTime() > 300000) {
+                    } 
+                    else if (multipleExposure.getExposureTime() > 300000)
+                    {
                         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "LOTUS Exposure Times > 300 seconds are not allowed."));
                     }
-
                 } /*else if (latestInstrumentConfigInstrumentName.equals(CONST.IO_THOR)) {
                  logger.info("... latestInstrumentConfigInstrumentName == " + CONST.IO_THOR);
                  if (multipleExposure.getExposureTime() > 10000) {
@@ -638,14 +729,16 @@ class TelescopeState {
                     validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A Multiple Exposure exists with a negative exposure time."));
                 }
 
-            } else if (exposure instanceof XPeriodRunAtExposure) {
-                //make sure that the last config was not a ringo 2 one
-                if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3)) {
-                    logger.info("... latestInstrumentConfigInstrumentName == " + CONST.RINGO3);
-                    validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "A Multiple Exposure exists with a RINGO instrument config before it. Use only 'Duration' type exposures for RINGO."));
+            } else if (exposure instanceof XPeriodRunAtExposure)
+            {
+                //make sure that the last config was not a ringo2/ringo3/moptop one
+                if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3)||
+                        latestInstrumentConfigInstrumentName.equals(CONST.MOPTOP)) 
+                {
+                    logger.info("... latestInstrumentConfigInstrumentName == " + CONST.RINGO3 +" or " + CONST.MOPTOP);
+                    validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "A Multiple Exposure exists with a RINGO3/MOPTOP instrument config before it. Use only 'Duration' type exposures for RINGO3/MOPTOP."));
                 }
                 //placeholder
-
             }
         }
     }

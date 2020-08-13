@@ -16,19 +16,32 @@ import ngat.phase2.XSpectrographInstrumentConfig;
 import ngat.phase2.XTipTiltImagerInstrumentConfig;
 
 /**
- *
- * @author nrc
+ * Routines to describe instrument configs.
+ * @author nrc,cjm
  */
-public class InstrumentConfigRenderer {
+public class InstrumentConfigRenderer 
+{
 
-
-    public static String getShortDescription(IInstrumentConfig instrumentConfig) {
+    /**
+     * Get a short description of an instrument config.
+     * @param instrumentConfig The instrument configuration to describe.
+     * @return A string containing the description.
+     * @see #getInstrumentConfigTypeDescription
+     * @see #getSummaryOfInstrumentConfig
+     */
+    public static String getShortDescription(IInstrumentConfig instrumentConfig) 
+    {
         String s = instrumentConfig.getName();
         s += " [" + getInstrumentConfigTypeDescription(instrumentConfig) + "]";
         s += " [" + getSummaryOfInstrumentConfig(instrumentConfig) + "]";
         return s;
     }
 
+    /**
+     * Get a description of what type the instrument config is.
+     * @param instrumentConfig The instrument config to describe the type of.
+     * @return A string describing the instrument type.
+     */
     public static String getInstrumentConfigTypeDescription(IInstrumentConfig instrumentConfig) 
     {
       if (instrumentConfig instanceof XDualBeamSpectrographInstrumentConfig) 
@@ -72,6 +85,11 @@ public class InstrumentConfigRenderer {
       }
     }
 
+    /**
+     * Produce a string describing the main contents of the specified instrument configuration. 
+     * @param instrumentConfig The instrument config to describe.
+     * @return A string describing the contents of the instrument configuration.
+     */
     public static String getSummaryOfInstrumentConfig(IInstrumentConfig instrumentConfig) 
     {
 
@@ -116,7 +134,8 @@ public class InstrumentConfigRenderer {
         else  if (instrumentConfig instanceof XMoptopInstrumentConfig) 
         {
             XMoptopInstrumentConfig moptopInstrumentConfig = (XMoptopInstrumentConfig) instrumentConfig;
-            s += "Dichroic State=[" + moptopInstrumentConfig.dichroicStateToString()+ "]";
+            s += "Filter=[" + moptopInstrumentConfig.getFilterSpec().getFiltersString()+ "]";
+            s += "Rotor Speed=[" + moptopInstrumentConfig.rotorSpeedToString()+ "]";
             return s;
 
         } 

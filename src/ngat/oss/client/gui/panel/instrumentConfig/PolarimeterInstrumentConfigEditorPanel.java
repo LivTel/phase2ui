@@ -146,6 +146,7 @@ public class PolarimeterInstrumentConfigEditorPanel extends javax.swing.JPanel i
             jcbFilterWheel1.setSelectedIndex(0);
             
             //show FW1
+            jcbFilterWheel1.setVisible(true);
             jFilterWheelPanel1.setVisible(true);
             
         } 
@@ -176,21 +177,9 @@ public class PolarimeterInstrumentConfigEditorPanel extends javax.swing.JPanel i
             return;
         }
 
-        //iterate through filters, selecting each found on the appropriate wheel.
-        /*
         Iterator filterListIterator = filterList.iterator();
-        XFilterDef filter = (XFilterDef) filterListIterator.next();
-        selectFilter(filter, imagerInstrumentConfig.getInstrumentName());
-
-        if (filterListIterator.hasNext()) {
-            //2 filters, do second filter
-            filter = (XFilterDef) filterListIterator.next();
-            selectFilter(filter, imagerInstrumentConfig.getInstrumentName());
-        }
-        */
-        //more than two filter wheels now (including the Neutral Density filters)
-        Iterator filterListIterator = filterList.iterator();
-        while (filterListIterator.hasNext()) {
+        while (filterListIterator.hasNext()) 
+        {
             XFilterDef filter = (XFilterDef) filterListIterator.next();
             selectFilter(filter, moptopInstrumentConfig.getInstrumentName());
         }
@@ -231,7 +220,6 @@ public class PolarimeterInstrumentConfigEditorPanel extends javax.swing.JPanel i
 
         if (selectedInstrumentName.equalsIgnoreCase(CONST.RINGO3)) 
         {
-    
             XPolarimeterInstrumentConfig polarimeterInstrumentConfig = new XPolarimeterInstrumentConfig();
         
             polarimeterInstrumentConfig.setID(originalID);
