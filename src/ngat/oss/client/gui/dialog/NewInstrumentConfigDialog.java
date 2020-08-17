@@ -21,6 +21,7 @@ import ngat.phase2.XImagerInstrumentConfig;
 import ngat.phase2.XImagingSpectrographInstrumentConfig;
 import ngat.phase2.XInstrumentConfig;
 import ngat.phase2.XPolarimeterInstrumentConfig;
+import ngat.phase2.XMoptopInstrumentConfig;
 import ngat.phase2.XTipTiltImagerInstrumentConfig;
 import org.apache.log4j.Logger;
 
@@ -34,6 +35,7 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
 
     private static final String IMAGER = "IMAGER";
     private static final String POLARIMETER = "POLARIMETER";
+    private static final String MOPTOP = "MOPTOP";
     private static final String DUAL_BEAM_SPEC = "DUAL_BEAM_SPEC";
     private static final String IMAGING_SPECTROGRAPH = "IMAGING_SPEC";
     private static final String TIP_TILT = "TIP_TILT";
@@ -92,7 +94,8 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
         {
             isPolarimeter = true;
             
-        } else if (instrumentName.equals(CONST.MOPTOP) ) 
+        } 
+        else if (instrumentName.equals(CONST.MOPTOP) ) 
         {
             isPolarimeter = true;
             
@@ -276,7 +279,7 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
         } else if (actionCommand.equals(IMAGER)) {
              instrumentConfig = new XImagerInstrumentConfig();
         } else if (actionCommand.equals(POLARIMETER)) {
-             instrumentConfig = new XPolarimeterInstrumentConfig();
+             instrumentConfig = new XMoptopInstrumentConfig();
         } else if (actionCommand.equals(IMAGING_SPECTROGRAPH)) {
              instrumentConfig = new XImagingSpectrographInstrumentConfig();
         } else if (actionCommand.equals(TIP_TILT)) {
