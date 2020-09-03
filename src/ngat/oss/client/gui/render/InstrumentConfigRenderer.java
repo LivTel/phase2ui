@@ -135,7 +135,7 @@ public class InstrumentConfigRenderer
         {
             XMoptopInstrumentConfig moptopInstrumentConfig = (XMoptopInstrumentConfig) instrumentConfig;
             s += "Filter=[" + moptopInstrumentConfig.getFilterSpec().getFiltersString()+ "]";
-            s += "Rotor Speed=[" + moptopInstrumentConfig.rotorSpeedToString()+ "]";
+            s += ", Rotor Speed=[" + moptopInstrumentConfig.rotorSpeedToString()+ "]";
             return s;
 
         } 

@@ -263,6 +263,7 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
         //jcbObsInstrument.setVisible(false);
         
         jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.POLARIMETER_INSTRUMENTS));
+        jcbObsInstrument.setSelectedItem(CONST.MOPTOP);
         
         //added 12/11/12:
         jcbObsInstrument.addActionListener(new java.awt.event.ActionListener() {

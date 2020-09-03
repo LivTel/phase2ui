@@ -22,7 +22,7 @@ public class CONST {
 
     public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 8, 26);
     
-    public static final String CURRENT_REVISION_LETTER = ".A";
+    public static final String CURRENT_REVISION_LETTER = ".B";
     
     public static final String APP_NAME = "Liverpool Telescope Phase2 UI";
 
@@ -176,8 +176,10 @@ public class CONST {
     //public static final String[] THOR_GAINS = new String[]{"5", "20", "100"};
 
     // Moptop rotor speeds
-    public static final String[] MOPTOP_ROTOR_SPEEDS = new String[]{"Unknown", "Slow", "Fast"}; 
-   
+    public static final String[] MOPTOP_ROTOR_SPEEDS = new String[]{"Slow", "Fast"}; 
+    public static final int MOPTOP_ROTOR_SPEED_INDEX_SLOW = 0;
+    public static final int MOPTOP_ROTOR_SPEED_INDEX_FAST = 1;
+    
     public static final double INSTRUMENT_OFFSET = Math.toRadians(104);
 
     public static final String IO_SCHEMATIC_FILE_PATH = "/home/eng/bssgui/resources/IO_Small.png";

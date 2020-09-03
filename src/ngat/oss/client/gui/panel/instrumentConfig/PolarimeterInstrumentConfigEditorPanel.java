@@ -97,7 +97,12 @@ public class PolarimeterInstrumentConfigEditorPanel extends javax.swing.JPanel i
         { 
             XMoptopInstrumentConfig moptopInstrumentConfig = (XMoptopInstrumentConfig)instrumentConfig;
             int rotorSpeed = moptopInstrumentConfig.getRotorSpeed();
-            jcbRotorSpeed.setSelectedIndex(rotorSpeed);
+            if(rotorSpeed == XMoptopInstrumentConfig.ROTOR_SPEED_FAST)
+                jcbRotorSpeed.setSelectedItem(CONST.MOPTOP_ROTOR_SPEEDS[CONST.MOPTOP_ROTOR_SPEED_INDEX_FAST]);
+            else if(rotorSpeed == XMoptopInstrumentConfig.ROTOR_SPEED_SLOW)
+                jcbRotorSpeed.setSelectedItem(CONST.MOPTOP_ROTOR_SPEEDS[CONST.MOPTOP_ROTOR_SPEED_INDEX_SLOW]);
+            else
+                jcbRotorSpeed.setSelectedItem(CONST.MOPTOP_ROTOR_SPEEDS[CONST.MOPTOP_ROTOR_SPEED_INDEX_SLOW]);
             jcbGain.setVisible(false);
             jGainPanel.setVisible(false);
             jcbRotorSpeed.setVisible(true);
@@ -252,9 +257,9 @@ public class PolarimeterInstrumentConfigEditorPanel extends javax.swing.JPanel i
             // set rotorspeed
             int rotorSpeed = XMoptopInstrumentConfig.ROTOR_SPEED_UNKNOWN;
            
-            if(jcbRotorSpeed.getSelectedItem().equals(CONST.MOPTOP_ROTOR_SPEEDS[1]))
+            if(jcbRotorSpeed.getSelectedItem().equals(CONST.MOPTOP_ROTOR_SPEEDS[CONST.MOPTOP_ROTOR_SPEED_INDEX_SLOW]))
                 rotorSpeed = XMoptopInstrumentConfig.ROTOR_SPEED_SLOW;
-            else if(jcbRotorSpeed.getSelectedItem().equals(CONST.MOPTOP_ROTOR_SPEEDS[2]))
+            else if(jcbRotorSpeed.getSelectedItem().equals(CONST.MOPTOP_ROTOR_SPEEDS[CONST.MOPTOP_ROTOR_SPEED_INDEX_FAST]))
                 rotorSpeed = XMoptopInstrumentConfig.ROTOR_SPEED_FAST;
             else
                 rotorSpeed = XMoptopInstrumentConfig.ROTOR_SPEED_UNKNOWN;
