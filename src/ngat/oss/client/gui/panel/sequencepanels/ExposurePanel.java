@@ -249,7 +249,7 @@ public class ExposurePanel extends javax.swing.JPanel implements SequenceCompone
 
         jrbMultrun.setText("Mult-run");
 
-        jrbDuration.setText("Duration (usually only used for RINGO exposures)");
+        jrbDuration.setText("Duration (usually only used for MOPTOP/RINGO exposures)");
 
         jplContainerPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jplContainerPanel.setLayout(new java.awt.CardLayout());
@@ -276,7 +276,7 @@ public class ExposurePanel extends javax.swing.JPanel implements SequenceCompone
                                 .add(jrbMovie)
                                 .add(86, 86, 86)
                                 .add(jrbMovieRunAt)))
-                        .addContainerGap(68, Short.MAX_VALUE))))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

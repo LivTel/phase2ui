@@ -32,7 +32,7 @@
                               <Component id="jrbMovieRunAt" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -78,7 +78,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="jrbDuration">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Duration (usually only used for RINGO exposures)"/>
+        <Property name="text" type="java.lang.String" value="Duration (usually only used for MOPTOP/RINGO exposures)"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jplContainerPanel">
