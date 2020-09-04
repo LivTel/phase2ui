@@ -977,19 +977,20 @@ private void jbAddExposureActionPerformed(java.awt.event.ActionEvent evt) {//GEN
             XPeriodExposure periodExposure = new XPeriodExposure(exposureTime, isStandard);
             exposure = periodExposure;
         } else */
-        if (instrumentConfig.getInstrumentName().equals(CONST.RINGO3)) {
+        if ((instrumentConfig.getInstrumentName().equals(CONST.RINGO3))||
+                (instrumentConfig.getInstrumentName().equals(CONST.MOPTOP))) 
+        {
             double exposureTime = Double.parseDouble(jtfExposureTime.getText().trim());
             exposureTime *= 1000;
             boolean isStandard = jcbIsStandard.isSelected();
             XPeriodExposure periodExposure = new XPeriodExposure(exposureTime, isStandard);
             exposure = periodExposure;
-        } else {
+        } 
+        else 
+        {
             double exposureTime;
-            //if (jcbSupirCamExposureTime.isVisible()) {
-            //    exposureTime = Integer.parseInt((String) jcbSupirCamExposureTime.getSelectedItem());
-            //} else {
-                exposureTime = Double.parseDouble(jtfExposureTime.getText().trim());
-            //}
+            
+            exposureTime = Double.parseDouble(jtfExposureTime.getText().trim());
             exposureTime *= 1000;
             int exposureCount = Integer.parseInt(jtfExposureCount.getText().trim());
             boolean isStandard = jcbIsStandard.isSelected();
