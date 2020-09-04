@@ -22,7 +22,7 @@ public class CONST {
 
     public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 8, 26);
     
-    public static final String CURRENT_REVISION_LETTER = ".C";
+    public static final String CURRENT_REVISION_LETTER = ".E";
     
     public static final String APP_NAME = "Liverpool Telescope Phase2 UI";
 
@@ -71,18 +71,18 @@ public class CONST {
     //instrument lists:
     
     //instrument lists for instrument configs
-    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS = new String[]{SPRAT, RISE, RINGO3, IO_O, IO_I, FRODO_RED, FRODO_BLUE, LOTUS}; //NB: contains frodo_blue and frodo red (only used in instrument configs)
+    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, FRODO_RED, FRODO_BLUE, LOTUS}; //NB: contains frodo_blue and frodo red (only used in instrument configs)
     //public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_IOI = new String[]{SPRAT, RISE, RINGO3, IO_O, FRODO_RED, FRODO_BLUE, LOTUS}; //temp, for non su users //NB: contains frodo_blue and frodo red (only used in instrument configs)
     
     //instrument lists for acquisition, acquiring
     public static final String[] ACQUISITION_ACQUIRING_INSTRUMENTS = new String[]{IO_O, SPRAT};
     
     //instrument lists for acquisition, science
-    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS = new String[]{SPRAT, FRODO, IO_O, IO_I, RINGO3, RISE, LOTUS};
+    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS = new String[]{SPRAT, FRODO, IO_O, IO_I, RINGO3, MOPTOP, RISE, LOTUS};
     //public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_IOI = new String[]{FRODO, IO_O, SPRAT, RINGO3, RISE, LOTUS}; //temp, for non su users
     
     //instrument lists for everything else, e.g. rotator alignment and slew
-    public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, RINGO3, IO_O, IO_I, FRODO, LOTUS}; //NB: contains frodo, not an arm instrument
+    public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, FRODO, LOTUS}; //NB: contains frodo, not an arm instrument
     //public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_IOI = new String[]{SPRAT, RISE, RINGO3, IO_O, FRODO, LOTUS}; //temp, for non su users //NB: contains frodo, not an arm instrument
     
     //instrument lists for imager instrument config editor panel and photometry and polarimetry wizard

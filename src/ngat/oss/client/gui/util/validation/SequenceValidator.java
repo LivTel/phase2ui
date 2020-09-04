@@ -209,6 +209,7 @@ class TelescopeState
     private ValidationResults validationResults = new ValidationResults();
     private String objectName;
     private String latestInstrumentConfigInstrumentName;
+    private int latestMoptopRotorSpeed = XMoptopInstrumentConfig.ROTOR_SPEED_UNKNOWN;
     private ISlew latestSlew = null;
     private IGroup group;
 
@@ -439,40 +440,42 @@ class TelescopeState
 
         if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3))
         {
-            XPolarimeterInstrumentConfig polarimeterInstrumentConfig = (XPolarimeterInstrumentConfig) instrumentConfig;
-            int gain = polarimeterInstrumentConfig.getGain();
-            if (gain != 100)
-            {
-                validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A GAIN of " + gain + " is selected in a polarimeter config, the default is 100."));
-            }
+            validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "RINGO3 is no longer on the telescope"));
+            //XPolarimeterInstrumentConfig polarimeterInstrumentConfig = (XPolarimeterInstrumentConfig) instrumentConfig;
+            //int gain = polarimeterInstrumentConfig.getGain();
+            //if (gain != 100)
+            //{
+            //    validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A GAIN of " + gain + " is selected in a polarimeter config, the default is 100."));
+            //}
         }
         
         if (latestInstrumentConfigInstrumentName.equals(CONST.MOPTOP))
         {
             XMoptopInstrumentConfig moptopInstrumentConfig = (XMoptopInstrumentConfig) instrumentConfig;
-            int rotorSpeed = moptopInstrumentConfig.getRotorSpeed();
-            if ((rotorSpeed != XMoptopInstrumentConfig.ROTOR_SPEED_SLOW)&&(rotorSpeed != XMoptopInstrumentConfig.ROTOR_SPEED_FAST))
+            latestMoptopRotorSpeed = moptopInstrumentConfig.getRotorSpeed();
+            if ((latestMoptopRotorSpeed != XMoptopInstrumentConfig.ROTOR_SPEED_SLOW)&&(latestMoptopRotorSpeed != XMoptopInstrumentConfig.ROTOR_SPEED_FAST))
             {
-                validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "MOPTOP needs a SLOW or FAST rotor speed."));
+                validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "MOPTOP needs a SLOW or FAST rotor speed."));
             }
         }
         
         if (latestInstrumentConfigInstrumentName.equals(CONST.LOTUS))
         {
-            if (instrumentConfig instanceof XBlueTwoSlitSpectrographInstrumentConfig)
-            {
-                XBlueTwoSlitSpectrographInstrumentConfig blueTwoSlitSpectrographInstrumentConfig = (XBlueTwoSlitSpectrographInstrumentConfig) instrumentConfig;
-                int slitWidthNow = blueTwoSlitSpectrographInstrumentConfig.getSlitWidth();
+            validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "LOTUS is no longer on the telescope"));
+            //if (instrumentConfig instanceof XBlueTwoSlitSpectrographInstrumentConfig)
+            //{
+            //    XBlueTwoSlitSpectrographInstrumentConfig blueTwoSlitSpectrographInstrumentConfig = (XBlueTwoSlitSpectrographInstrumentConfig) instrumentConfig;
+            //    int slitWidthNow = blueTwoSlitSpectrographInstrumentConfig.getSlitWidth();
                 
-                if (slitWidthNow != lastReceivedLOTUSSlitPosition)
-                {
-                    if (this.autoguiderMightBeOn)
-                    {
-                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A LOTUS SLIT position change was attempted with the Autoguider ON."));
-                    }
-                }
-                lastReceivedLOTUSSlitPosition = slitWidthNow;
-            }
+            //    if (slitWidthNow != lastReceivedLOTUSSlitPosition)
+            //    {
+            //        if (this.autoguiderMightBeOn)
+            //        {
+            //            validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "A LOTUS SLIT position change was attempted with the Autoguider ON."));
+            //        }
+            //    }
+            //    lastReceivedLOTUSSlitPosition = slitWidthNow;
+            //}
         }
         haveInstrument = true;
     }
@@ -623,11 +626,46 @@ class TelescopeState
                     logger.info("... latestInstrumentConfigInstrumentName !=" + CONST.RINGO3 + " or " + CONST.MOPTOP);
                     validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "A Duration Exposure exists without a RINGO/MOPTOP instrument config before it."));
                 }
-                if (!(latestInstrumentConfigInstrumentName.equals(CONST.RINGO3))) 
+                if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3)) 
                 {
                     if (periodExposure.getExposureTime() < 20000) 
                     {
                         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "It is recommended that RINGO3 exposures last longer than 20 seconds"));
+                    }
+                }
+                // Moptop period exposures can be between 1 and 100 rotations long.
+                // The rotator moves at 45 deg/s (FAST rotor speed) or at 4.5 deg/s (SLOW rotor speed)
+                // FAST 1 rotation
+                // exposure_length_ms = 1*(360.0/45)*1000 = 8000ms = 8s
+                // FAST 100 rotations
+                // exposure_length_ms = 100*(360.0/45)*1000 = 800000 = 800s
+                // SLOW 1 rotation
+                // exposure_length_ms = 1*(360.0/4.5)*1000 = 80000 = 80s
+                // SLOW 100 rotations
+                // exposure_length_ms = 100*(360.0/4.5)*1000 = 8000000 = 8000s
+                if (latestInstrumentConfigInstrumentName.equals(CONST.MOPTOP)) 
+                {
+                    if(latestMoptopRotorSpeed == XMoptopInstrumentConfig.ROTOR_SPEED_FAST)
+                    {
+                        if (periodExposure.getExposureTime() < 8000) 
+                        {
+                            validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "MOPTOP exposures must be at least 8 seconds long (1 rotation, FAST rotator speed)."));
+                        }
+                        if (periodExposure.getExposureTime() > 800000) 
+                        {
+                            validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "MOPTOP exposures cannot be longer than 800 seconds long (100 rotations, FAST rotator speed)."));
+                        }
+                    }
+                    if(latestMoptopRotorSpeed == XMoptopInstrumentConfig.ROTOR_SPEED_SLOW)
+                    {
+                        if (periodExposure.getExposureTime() < 80000) 
+                        {
+                            validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "MOPTOP exposures must be at least 80 seconds long (1 rotation, SLOW rotator speed)."));
+                        }
+                        if (periodExposure.getExposureTime() > 8000000) 
+                        {
+                            validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "MOPTOP exposures cannot be longer than 8000 seconds long (100 rotations, SLOW rotator speed)."));
+                        }
                     }
                 }
             } else if (exposure instanceof XMultipleExposure) {
