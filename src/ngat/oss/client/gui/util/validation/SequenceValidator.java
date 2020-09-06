@@ -667,6 +667,11 @@ class TelescopeState
                             validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "MOPTOP exposures cannot be longer than 8000 seconds long (100 rotations, SLOW rotator speed)."));
                         }
                     }
+                    // we have to have a config before each exposure for moptop
+                    // by reseting latestInstrumentConfigInstrumentName to null here,
+                    // this will cause the validator to throw an error if a second
+                    // moptop exposure is requested before another moptop config
+                    latestInstrumentConfigInstrumentName = null;
                 }
             } else if (exposure instanceof XMultipleExposure) {
 
