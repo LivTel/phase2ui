@@ -142,7 +142,9 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
             jrbDualBeamSpec.setEnabled(false);
             jrbImagingSpectrograph.setEnabled(false);
             jrbImager.setEnabled(false);
-            XPolarimeterInstrumentConfig polarimeterInstrumentConfig = new XPolarimeterInstrumentConfig();
+            // Assume moptop rather than Ringo3 here
+            XMoptopInstrumentConfig polarimeterInstrumentConfig = new XMoptopInstrumentConfig();
+            //XPolarimeterInstrumentConfig polarimeterInstrumentConfig = new XPolarimeterInstrumentConfig();
             polarimeterInstrumentConfig.setInstrumentName(instrumentName);
             instrumentConfig = polarimeterInstrumentConfig;
             canChangeInstrument = false;
