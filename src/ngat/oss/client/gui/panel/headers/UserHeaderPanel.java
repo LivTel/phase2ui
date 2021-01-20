@@ -6,6 +6,8 @@
 package ngat.oss.client.gui.panel.headers;
 
 import ngat.oss.client.gui.panel.interfaces.IEditablePanel;
+import java.awt.Desktop;
+import java.net.URI;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import ngat.oss.client.AccessModelClient;
@@ -64,6 +66,9 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
         jbtnSubmit = new javax.swing.JButton();
         jbtnDelete = new javax.swing.JButton();
         jlblSU = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -127,6 +132,17 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
         jlblSU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlblSU.setText("SUPER USER");
 
+        jLabel6.setText("How we use your personal Data:");
+
+        jLabel7.setText("LT Privacy Policy: ");
+
+        jLabel8.setText("<html><a href=\"http://telescope.livjm.ac.uk/Privacy/\">http://telescope.livjm.ac.uk/Privacy/</a></html>");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                privacyURLClicked(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,7 +163,10 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jtfUserName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
                             .add(jtfLastName)
                             .add(jtfFirstName)
-                            .add(jtfEmail))
+                            .add(jtfEmail)
+                            .add(layout.createSequentialGroup()
+                                .add(12, 12, 12)
+                                .add(jlblSU)))
                         .add(36, 36, 36)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jbtnDelete, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
@@ -158,13 +177,14 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
                         .add(jLabel1)
                         .add(302, 302, 302))))
             .add(layout.createSequentialGroup()
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel13)
                     .add(layout.createSequentialGroup()
-                        .add(110, 110, 110)
-                        .add(jlblSU))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jLabel13)))
+                        .add(jLabel7)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jLabel6))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -206,7 +226,13 @@ public class UserHeaderPanel extends javax.swing.JPanel implements IEditablePane
                             .add(jtfEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jlblSU, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel6)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7)
+                    .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -348,6 +374,31 @@ private void jbtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
     AdditionDeletionController.getInstance().deleteUser(user);
 }//GEN-LAST:event_jbtnDeleteActionPerformed
+
+    private void privacyURLClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_privacyURLClicked
+        if(Desktop.isDesktopSupported())
+        {
+            if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))  
+            {
+                try
+                {
+                    Desktop.getDesktop().browse(new URI("http://telescope.livjm.ac.uk/Privacy/"));
+                }   
+                catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(this, "Failed to display the privacy URL.");
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Browsing URLs are not supported.");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Displaying the privacy URL is not supported.");
+        }
+    }//GEN-LAST:event_privacyURLClicked
  
 private void setEnabled(boolean editable, boolean usernameEditable) {
     
@@ -407,6 +458,9 @@ private void setEnabled(boolean editable, boolean usernameEditable) {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JButton jbtnDelete;
     private javax.swing.JButton jbtnEdit;
     private javax.swing.JButton jbtnSubmit;
