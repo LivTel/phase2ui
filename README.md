@@ -2,7 +2,7 @@ This is the Liverpool Telescope Phase2UI Java NetBeans project code.
 This should be built in netbeans (usually netbeans-8.2).
 The dist directory should then contain a distribution for deployment.
 
-##Deployment
+## Deployment
 
 After copying the dist directory into ltproxy:/home/eng/download/
 The ltproxy:/home/eng/DEPLOY-P2UI.sh script should be run (as root) to deploy the software.
@@ -13,7 +13,7 @@ ltproxy:/usr/local/tomcat/webapps/ROOT/launch_oss. The launch.jnlp in the dist d
 
 There is a copy of the DEPLOY-P2UI.sh in this repo, that should be manually installed in ltproxy:/home/eng/
 
-##Installing netbeans
+## Installing netbeans
 
 Installed netbeans-8.2 from netbeans-8.2-javase-linux.sh (copied from ltobs9)
 
@@ -28,7 +28,7 @@ Errors:
 * jcommon-1.0.5.jar file could not be found
 * JDK_1.6 platform could not be found
 
-###JibX
+### JibX
 * Tools->Libraries
 * New Library button:
 * Library Name: JiBX
@@ -36,14 +36,14 @@ Errors:
 * OK
 * Add JAR/Folder: /home/dev/bin/javalib_third_party/jibx/, Select all jars
 
-###Tools->Libraries
+### Tools->Libraries
 * New Library button:
 * Library Name: JiBX_SOAP
 * Library Type: Class libraries
 * OK
 * Add JAR/Folder: /home/dev/bin/javalib_third_party/jibx_soap/, Select all jars
 
-###Log4j
+### Log4j
 * Tools->Libraries
 * New Library button:
 * Library Name: Log4j
@@ -51,7 +51,7 @@ Errors:
 * OK
 * Add JAR/Folder: /home/dev/bin/javalib_third_party/log4j-1.2.13.jar
 
-###jcommon/jfreechart
+### jcommon/jfreechart
 
 * Phase2UI Project, Right click->Properties
 * Libraries tab
