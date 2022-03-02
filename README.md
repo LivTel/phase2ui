@@ -68,3 +68,5 @@ Errors:
 * Use defaults...
 
 Window->Output to see compilation output.
+
+You also have to 'Enable Web Start' on the Phase2UI Project preferences, and set the code signing keystore password and key password.
