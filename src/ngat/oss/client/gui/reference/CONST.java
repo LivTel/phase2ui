@@ -20,9 +20,9 @@ import ngat.phase2.XVersion;
  */
 public class CONST {
 
-    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 8, 28);
+    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 8, 29);
     
-    public static final String CURRENT_REVISION_LETTER = ".B";
+    public static final String CURRENT_REVISION_LETTER = ".A";
     
     public static final String APP_NAME = "Liverpool Telescope Phase2 UI";
 

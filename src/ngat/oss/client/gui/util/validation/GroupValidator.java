@@ -146,6 +146,10 @@ public class GroupValidator {
                 //WARN
                 validationResults.addValidationResult(new ValidationResult(groupTitle, ValidationResult.WARNING, "The timing constraint has a zero window value."));
             }
+            if ((ephemerisTimingConstraint.getPhase() < 0.0)||(ephemerisTimingConstraint.getPhase() > 1.0)) {
+                //FAIL
+                validationResults.addValidationResult(new ValidationResult(groupTitle, ValidationResult.FAILURE, "The timing constraint phase value must be between 0 and 1 inclusive."));
+            }
         } else if (timingConstraint instanceof XMinimumIntervalTimingConstraint) {
             XMinimumIntervalTimingConstraint minimumIntervalTimingConstraint = (XMinimumIntervalTimingConstraint) timingConstraint;
             if (minimumIntervalTimingConstraint.getEndTime() <= minimumIntervalTimingConstraint.getStartTime()) {
