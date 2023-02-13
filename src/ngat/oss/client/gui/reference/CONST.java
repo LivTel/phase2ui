@@ -67,19 +67,21 @@ public class CONST {
     public static final String IO_THOR = "IO:THOR";
 
     //public static final String SUPIRCAM = "SupIRCam";
+
+    public static final String RAPTOR = "RAPTOR";
     
     //instrument lists:
     
     //instrument lists for instrument configs
-    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, FRODO_RED, FRODO_BLUE, LOTUS}; //NB: contains frodo_blue and frodo red (only used in instrument configs)
-    //public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_IOI = new String[]{SPRAT, RISE, RINGO3, IO_O, FRODO_RED, FRODO_BLUE, LOTUS}; //temp, for non su users //NB: contains frodo_blue and frodo red (only used in instrument configs)
+    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, RAPTOR, FRODO_RED, FRODO_BLUE, LOTUS}; //NB: contains frodo_blue and frodo red (only used in instrument configs)
+    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_RAPTOR = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, FRODO_RED, FRODO_BLUE, LOTUS}; //temp, for non su users //NB: contains frodo_blue and frodo red (only used in instrument configs)
     
     //instrument lists for acquisition, acquiring
     public static final String[] ACQUISITION_ACQUIRING_INSTRUMENTS = new String[]{IO_O, SPRAT};
     
     //instrument lists for acquisition, science
-    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS = new String[]{SPRAT, FRODO, IO_O, IO_I, RINGO3, MOPTOP, RISE, LOTUS};
-    //public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_IOI = new String[]{FRODO, IO_O, SPRAT, RINGO3, RISE, LOTUS}; //temp, for non su users
+    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS = new String[]{SPRAT, FRODO, IO_O, IO_I, RAPTOR, RINGO3, MOPTOP, RISE, LOTUS};
+    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_RAPTOR = new String[]{ FRODO, IO_O, SPRAT, RINGO3, MOPTOP, RISE, LOTUS}; //temp, for non su users
     
     //instrument lists for everything else, e.g. rotator alignment and slew
     public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, MOPTOP, IO_O}; //NB: contains frodo, not an arm instrument
@@ -87,8 +89,8 @@ public class CONST {
     //public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_IOI = new String[]{SPRAT, RISE, RINGO3, IO_O, FRODO, LOTUS}; //temp, for non su users //NB: contains frodo, not an arm instrument
     
     //instrument lists for imager instrument config editor panel and photometry and polarimetry wizard
-    public static final String[] IMAGER_INSTRUMENTS = new String[]{IO_O, IO_I, RISE};
-    //public static final String[] IMAGER_INSTRUMENTS_EXCEPT_IOI = new String[]{IO_O, RISE};
+    public static final String[] IMAGER_INSTRUMENTS = new String[]{IO_O, IO_I, RAPTOR, RISE};
+    public static final String[] IMAGER_INSTRUMENTS_EXCEPT_RAPTOR = new String[]{IO_O, RISE};
     
     public static final String[] BEAM_STEERING_INSTRUMENTS = new String[]{IO_O}; // will include IO_I but not yet.
     public static final String[] POLARIMETER_INSTRUMENTS = new String[]{RINGO3,MOPTOP}; 
@@ -150,6 +152,7 @@ public class CONST {
      public static final String[] IO_O_BINNING_OPTIONS = new String[]{BIN_2};
      public static final String[] SU_IO_O_BINNING_OPTIONS = new String[]{BIN_1, BIN_2};
      public static final String[] IO_I_BINNING_OPTIONS = new String[]{BIN_1};  //1x1 only for now
+     public static final String[] RAPTOR_BINNING_OPTIONS = new String[]{BIN_1}; 
      public static final String[] SPRAT_BINNING_OPTIONS = new String[]{BIN_1, BIN_2};
      public static final String[] LOTUS_BINNING_OPTIONS = new String[]{BIN_4};
      

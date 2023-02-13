@@ -47,7 +47,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
         } else {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_IOI));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_RAPTOR));
         }
         */
         
