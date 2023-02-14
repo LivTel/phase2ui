@@ -127,7 +127,12 @@ public class CONST {
     public static final String MOP_B = "MOP-B";
     public static final String MOP_I = "MOP-I";
     public static final String MOP_L = "MOP-L";
-            
+    public static final String RAP_H = "RAP-H";
+    public static final String RAP_J = "RAP-J";
+    public static final String RAP_Y = "RAP-Y";
+    public static final String RAP_Z = "RAP-Z";
+    public static final String RAP_MIRROR = "RAP-MIRROR";
+
     //filter wheel lists
     public static final String[] RATCAM_FW1_ITEMS = new String[]{CLEAR, SDSS_I, H_ALPHA_100, SDSS_Z, SDSS_R};
     public static final String[] RATCAM_FW2_ITEMS = new String[]{CLEAR, BESSELL_V, SDSS_U, SDSS_G, BESSELL_B};
@@ -136,6 +141,7 @@ public class CONST {
     //public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, GG475_KG3_Pol};
     public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, H_ALPHA_6822}; //22/10/15
     public static final String[] I_FW_ITEMS = new String[]{H};
+    public static final String[] RAPTOR_FW_ITEMS = new String[]{RAP_H,RAP_J,RAP_Y,RAP_Z,RAP_MIRROR};
     public static final String[] MOPTOP_FW_ITEMS = new String[]{MOP_R,MOP_V,MOP_B,MOP_I,MOP_L};
     
     //IO:O neutral density slides
@@ -183,6 +189,14 @@ public class CONST {
     public static final String[] MOPTOP_ROTOR_SPEEDS = new String[]{"Slow", "Fast"}; 
     public static final int MOPTOP_ROTOR_SPEED_INDEX_SLOW = 0;
     public static final int MOPTOP_ROTOR_SPEED_INDEX_FAST = 1;
+
+    // Raptor Nudgematic Offset Sizes
+    // These constants match those in ngat/phase2/RaptorConfig.java
+    // and ngat/phase2/XRaptorInstrumentConfig.java
+    public static final String[] RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST = new String[]{"None", "Small", "Large"}; 
+    public static final int RAPTOR_NUDGEMATIC_OFFSET_SIZE_NONE = 0;
+    public static final int RAPTOR_NUDGEMATIC_OFFSET_SIZE_SMALL = 1;
+    public static final int RAPTOR_NUDGEMATIC_OFFSET_SIZE_LARGE = 2;
     
     public static final double INSTRUMENT_OFFSET = Math.toRadians(104);
 
