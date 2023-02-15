@@ -58,9 +58,12 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         initComponents();
         
         //jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
-        if (Session.getInstance().getUser().isSuperUser()) {
+        if (Session.getInstance().getUser().isSuperUser()) 
+        {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
-        } else {
+        } 
+        else 
+        {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_RAPTOR));
         }
         populateComponents(imagerInstrumentConfig, isNewInstrumentConfig);
@@ -101,7 +104,14 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
 
     /**
      * Setup the imager instrument config for a new config.
-     * @param imagerInstrumentConfig 
+     * @param imagerInstrumentConfig  The instrument config to populate the dialog from.
+     * @see #jcbInstrumentName
+     * @see #setupFilterLists
+     * @see #limitInstrumentList
+     * @see #setBinningOptions
+     * @see #detectorConfigStandardPanel
+     * @see #setNudgematicOffsetSize
+     * @see #setCoaddExposureLength
      */
     private void populateForNewInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) 
     {
@@ -143,9 +153,63 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             return;
         }
         
-        
+        // set nudgematic offset size
+        setNudgematicOffsetSize(imagerInstrumentConfig);
+        // set coadd exposure length
+        setCoaddExposureLength(imagerInstrumentConfig);
     }
+    
+    /**
+     * Setup the imager instrument config for an existing config.
+     * @param imagerInstrumentConfig  The instrument config to populate the dialog from.
+     * @see #jcbInstrumentName
+     * @see #setupFilterLists
+     * @see #limitInstrumentList
+     * @see #selectFiltersForInstrumentConfig
+     * @see #setBinningOptions
+     * @see #detectorConfigStandardPanel
+     * @see #setNudgematicOffsetSize
+     * @see #setCoaddExposureLength
+     */
+    private void populateForExistingInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) 
+    {
+        String instrumentName = imagerInstrumentConfig.getInstrumentName();
+        //select instrument name in instrument list
+        jcbInstrumentName.setSelectedItem(instrumentName);
+        //populate filter lists for instrument and limit list to that instrument
+            
+        setupFilterLists(instrumentName);
+        //close down the instrument list    
+        limitInstrumentList(instrumentName);
+                    
+        try 
+        {
+            //select filters from loaded filter spec
+            selectFiltersForInstrumentConfig(imagerInstrumentConfig);
 
+            IDetectorConfig detectorConfig = imagerInstrumentConfig.getDetectorConfig();
+            //populate binning lists for instrument
+            detectorConfigStandardPanel.setDetectorConfig(detectorConfig); //change, this line added (was commented out) 20/6/11
+            jtfInstrumentConfigName.setText(imagerInstrumentConfig.getName());
+        } 
+        catch (Exception ex) 
+        {
+            ex.printStackTrace();
+            logger.error(ex);
+            JOptionPane.showMessageDialog(this, ex);
+            return;
+        }
+         // set nudgematic offset size
+        setNudgematicOffsetSize(imagerInstrumentConfig);
+        // set coadd exposure length
+        setCoaddExposureLength(imagerInstrumentConfig);
+    }
+    
+    /**
+     * Set the allowed binning options based on the instrument name.
+     * @param instrumentName The name of the instrument.
+     * @see #detectorConfigStandardPanel
+     */
     private void setBinningOptions(String instrumentName) 
     {
         if (instrumentName != null) 
@@ -176,38 +240,6 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
          }
     }
 
-    
-    private void populateForExistingInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) 
-    {
-            String instrumentName = imagerInstrumentConfig.getInstrumentName();
-            //select instrument name in instrument list
-            jcbInstrumentName.setSelectedItem(instrumentName);
-            //populate filter lists for instrument and limit list to that instrument
-            
-            setupFilterLists(instrumentName);
-            //close down the instrument list
-            
-            limitInstrumentList(instrumentName);
-                    
-            try 
-            {
-                //select filters from loaded filter spec
-                selectFiltersForInstrumentConfig(imagerInstrumentConfig);
-
-                IDetectorConfig detectorConfig = imagerInstrumentConfig.getDetectorConfig();
-                //populate binning lists for instrument
-                detectorConfigStandardPanel.setDetectorConfig(detectorConfig); //change, this line added (was commented out) 20/6/11
-                jtfInstrumentConfigName.setText(imagerInstrumentConfig.getName());
-            } 
-            catch (Exception ex) 
-            {
-                ex.printStackTrace();
-                logger.error(ex);
-                JOptionPane.showMessageDialog(this, ex);
-                return;
-            }
-    }
-
     /**
      * limit the instrument so it only shows the instrument that panel received (and removes all other entries).
      * @param instrumentName The name of the instrument to limit the list to.
@@ -219,6 +251,14 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         jcbInstrumentName.setSelectedIndex(0);
     }
 
+    /**
+     * Set up the filter wheel combo boxes (and their visibility) based on the instrument name.
+     * @param instrumentName The name of the instrument.
+     * @see #jcbFilterWheel1
+     * @see #jcbFilterWheel2
+     * @see #jcbUpperNDSlide
+     * @see #jcbLowerNDSlide
+     */
     private void setupFilterLists(String instrumentName) 
     {
         if (instrumentName == null) 
@@ -228,7 +268,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         
         if (instrumentName.equalsIgnoreCase(CONST.IO_O)) 
         {
-            //FIlter wheel 1
+            //Filter wheel 1
             jcbFilterWheel1.removeAllItems();
             jcbFilterWheel1.addItem(CONST.O_FW_ITEMS[0]);
             jcbFilterWheel1.addItem(CONST.O_FW_ITEMS[1]);
@@ -320,6 +360,11 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         }
     }
 
+    /**
+     * Return the maximum binning allowed for the specified instrument.
+     * @param instrumentName The name of the instrument.
+     * @return The maximum binning allowed for the specified instrument.
+     */
     private int getBinningLimitOfInstrument(String instrumentName) 
     {
         if (instrumentName != null) 
@@ -348,7 +393,14 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         return 1;//default
     }
 
-    
+    /**
+     * Use the filterSpec set in the specified config, to configure the filter wheel combo boxes.
+     * @param imagerInstrumentConfig The instrument config to use.
+     * @throws Exception Thrown if the instrument config filterSpec is null.
+     * @see #jcbFilterWheel1
+     * @see #jcbFilterWheel2
+     * @see #selectFilter
+     */
     private void selectFiltersForInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) throws Exception 
     {
 
@@ -400,6 +452,15 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         
     }
 
+    /**
+     * Select the specified filter in a filter wheel combo box, based on the instrument name.
+     * @param filter An instance of XFilterDef containing the specification of one filter.
+     * @param instrumentName The name of the instrument we are configuring for.
+     * @return Returns true if we manage to configure the filter successfully, false if not.
+     * @see #jcbFilterWheel1
+     * @see #jcbUpperNDSlide
+     * @see #jcbLowerNDSlide
+     */
     private boolean selectFilter(XFilterDef filter, String instrumentName) 
     {
 
@@ -466,17 +527,83 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         return false;
     }
     
-    //return an instrument config from this panel
+    /**
+     * Setup the nudgematic offset list combo box (and it's visibility) based on the specified imager instrument config. 
+     * @param imagerInstrumentConfig The instrument config used for configuration.
+     * @see #jcbNudgematicOffsetSize
+     */
+    private void setNudgematicOffsetSize(XImagerInstrumentConfig imagerInstrumentConfig)
+    {
+        // Only raptor has a nudgematic
+        if(imagerInstrumentConfig instanceof XRaptorInstrumentConfig)
+        {
+            XRaptorInstrumentConfig raptorInstrumentConfig = (XRaptorInstrumentConfig)imagerInstrumentConfig;
+            
+            int nudgematicOffsetSize = raptorInstrumentConfig.getNudgematicOffsetSize();
+            if(nudgematicOffsetSize == XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_NONE]);
+            else if(nudgematicOffsetSize == XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_SMALL]);
+            else if(nudgematicOffsetSize == XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LARGE]);
+            jcbNudgematicOffsetSize.setVisible(true);
+        }
+        else
+        {
+            // this is not raptor, hide the nudgematic offset size combo box.
+            jcbNudgematicOffsetSize.setVisible(false);
+        }
+    }
+    
+    /**
+     * Setup the coadd exposure length combo box (and it's visibility) based on the specified imager instrument config.
+     * @param imagerInstrumentConfig The instrument config used for configuration.
+     */
+    private void setCoaddExposureLength(XImagerInstrumentConfig imagerInstrumentConfig)
+    {
+        // Only raptor has a coadd exposure length
+        if(imagerInstrumentConfig instanceof XRaptorInstrumentConfig)
+        {
+            XRaptorInstrumentConfig raptorInstrumentConfig = (XRaptorInstrumentConfig)imagerInstrumentConfig;
+            
+            int coaddExposureLength = raptorInstrumentConfig.getCoaddExposureLength();
+            jcbCoaddExposureLength.setSelectedItem(new String(""+coaddExposureLength));
+            jcbCoaddExposureLength.setVisible(true);
+        }
+        else
+        {
+            // this is not raptor, hide the coadd exposure length combo box.
+            jcbCoaddExposureLength.setVisible(false);
+        }
+        
+    }
+    
+    /**
+     * Construct and return an imager instrument config based on the settings in this dialog.
+     * @return AN instance of ImagerInstrumentConfig (or it's subclass RaptorInstrumentConfig if necessary).
+     * @throws Exception Thrown if an error occurs.
+     */
     public IInstrumentConfig getInstrumentConfig() throws Exception 
     {
-
-        XImagerInstrumentConfig imagerInstrumentConfig = new XImagerInstrumentConfig();
-        String name;
+        XImagerInstrumentConfig imagerInstrumentConfig = null;
+        XRaptorInstrumentConfig raptorInstrumentConfig = null;
         String instrumentName;
+        String name;
 
+        instrumentName = (String)jcbInstrumentName.getSelectedItem();
+        // The returned instrument config will be an instance of XRaptorInstrumentConfig if the instrumentName is RAPTOR
+        // and an instance of XImagerInstrumentConfig otherwise
+        if (instrumentName.equalsIgnoreCase(CONST.RAPTOR))
+        {
+            raptorInstrumentConfig = new XRaptorInstrumentConfig();
+            imagerInstrumentConfig = raptorInstrumentConfig;
+        }
+        else
+        {
+            imagerInstrumentConfig = new XImagerInstrumentConfig();
+        }
         imagerInstrumentConfig.setID(originalImagerInstrumentConfig.getID());
         name = jtfInstrumentConfigName.getText();
-        instrumentName = (String)jcbInstrumentName.getSelectedItem();
 
         //need name field to have been validated
 
@@ -529,7 +656,38 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         imagerInstrumentConfig.setDetectorConfig(detectorConfig);
         
         // nudgematic offset size
-        
+        if(raptorInstrumentConfig != null)
+        {
+            int nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+           
+            if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_NONE]))
+                nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+            else if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_SMALL]))
+                nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL;
+            else if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LARGE]))
+                nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE;
+            else
+                nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+            raptorInstrumentConfig.setNudgematicOffsetSize(nudgematicOffsetSize);
+        }
+        // coadd exposure length
+        if(raptorInstrumentConfig != null)
+        {
+            String coaddExpsoureLengthString = null;
+            int coaddExposureLength;
+            
+            try
+            {
+                coaddExpsoureLengthString = (String)jcbCoaddExposureLength.getSelectedItem();
+                coaddExposureLength = Integer.parseInt(coaddExpsoureLengthString);
+            }
+            catch(Exception e)
+            {
+                throw new IllegalArgumentException("Coadd Exposure Length is not a valid integer:"+coaddExpsoureLengthString);
+            }
+            raptorInstrumentConfig.setCoaddExposureLength(coaddExposureLength);
+        }
+       
         imagerInstrumentConfig.setName(name);
         imagerInstrumentConfig.setInstrumentName(instrumentName);
  
@@ -593,10 +751,10 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         detectorConfigStandardPanel = new ngat.beans.guibeans.DetectorConfigStandardPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jcbNudgematicOffsetSize = new javax.swing.JComboBox<String>();
+        jcbNudgematicOffsetSize = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jcbCoaddExposureLength = new javax.swing.JComboBox<String>();
+        jcbCoaddExposureLength = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Instrument Name"));
@@ -809,7 +967,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
 
         jLabel4.setText("Offset Size");
 
-        jcbNudgematicOffsetSize.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "None", "Small", "Large" }));
+        jcbNudgematicOffsetSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Small", "Large" }));
         jcbNudgematicOffsetSize.setName("jcbNudgematicOffsetSize"); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
@@ -834,7 +992,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
 
         jLabel7.setText("Exposure Length");
 
-        jcbCoaddExposureLength.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "100", "1000" }));
+        jcbCoaddExposureLength.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "100", "1000" }));
 
         jLabel8.setText("milliseconds");
 
@@ -932,12 +1090,12 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JButton jbtnRemoveFilter;
-    private javax.swing.JComboBox<String> jcbCoaddExposureLength;
+    private javax.swing.JComboBox jcbCoaddExposureLength;
     private javax.swing.JComboBox jcbFilterWheel1;
     private javax.swing.JComboBox jcbFilterWheel2;
     private javax.swing.JComboBox jcbInstrumentName;
     private javax.swing.JComboBox jcbLowerNDSlide;
-    private javax.swing.JComboBox<String> jcbNudgematicOffsetSize;
+    private javax.swing.JComboBox jcbNudgematicOffsetSize;
     private javax.swing.JComboBox jcbUpperNDSlide;
     private javax.swing.JPanel jpFilterWheel1;
     private javax.swing.JPanel jpFilterWheel2;
