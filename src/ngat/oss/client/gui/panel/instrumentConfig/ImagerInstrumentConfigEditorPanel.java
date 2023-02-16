@@ -531,6 +531,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
      * Setup the nudgematic offset list combo box (and it's visibility) based on the specified imager instrument config. 
      * @param imagerInstrumentConfig The instrument config used for configuration.
      * @see #jcbNudgematicOffsetSize
+     * @see #jpNudgematicPanel
      */
     private void setNudgematicOffsetSize(XImagerInstrumentConfig imagerInstrumentConfig)
     {
@@ -546,18 +547,20 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
                 jcbNudgematicOffsetSize.setSelectedItem(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_SMALL]);
             else if(nudgematicOffsetSize == XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE)
                 jcbNudgematicOffsetSize.setSelectedItem(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LARGE]);
-            jcbNudgematicOffsetSize.setVisible(true);
+            jpNudgematicPanel.setVisible(true);
         }
         else
         {
             // this is not raptor, hide the nudgematic offset size combo box.
-            jcbNudgematicOffsetSize.setVisible(false);
+            jpNudgematicPanel.setVisible(false);
         }
     }
     
     /**
      * Setup the coadd exposure length combo box (and it's visibility) based on the specified imager instrument config.
      * @param imagerInstrumentConfig The instrument config used for configuration.
+     * @see #jcbCoaddExposureLength
+     * @see #jpCoaddPanel
      */
     private void setCoaddExposureLength(XImagerInstrumentConfig imagerInstrumentConfig)
     {
@@ -568,12 +571,12 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             
             int coaddExposureLength = raptorInstrumentConfig.getCoaddExposureLength();
             jcbCoaddExposureLength.setSelectedItem(new String(""+coaddExposureLength));
-            jcbCoaddExposureLength.setVisible(true);
+            jpCoaddPanel.setVisible(true);
         }
         else
         {
             // this is not raptor, hide the coadd exposure length combo box.
-            jcbCoaddExposureLength.setVisible(false);
+            jpCoaddPanel.setVisible(false);
         }
         
     }
@@ -749,10 +752,10 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         jLabel2 = new javax.swing.JLabel();
         jcbFilterWheel2 = new javax.swing.JComboBox();
         detectorConfigStandardPanel = new ngat.beans.guibeans.DetectorConfigStandardPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jpNudgematicPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jcbNudgematicOffsetSize = new javax.swing.JComboBox();
-        jPanel3 = new javax.swing.JPanel();
+        jpCoaddPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jcbCoaddExposureLength = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
@@ -963,32 +966,33 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jpFilterWheel1, jpFilterWheel2, jpLowerNDSlide, jpUpperNDSlide}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nudgematic"));
+        jpNudgematicPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Nudgematic"));
+        jpNudgematicPanel.setName("jpNudgematicPanel"); // NOI18N
 
         jLabel4.setText("Offset Size");
 
         jcbNudgematicOffsetSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Small", "Large" }));
         jcbNudgematicOffsetSize.setName("jcbNudgematicOffsetSize"); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
+        org.jdesktop.layout.GroupLayout jpNudgematicPanelLayout = new org.jdesktop.layout.GroupLayout(jpNudgematicPanel);
+        jpNudgematicPanel.setLayout(jpNudgematicPanelLayout);
+        jpNudgematicPanelLayout.setHorizontalGroup(
+            jpNudgematicPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jpNudgematicPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jcbNudgematicOffsetSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+        jpNudgematicPanelLayout.setVerticalGroup(
+            jpNudgematicPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jpNudgematicPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                 .add(jLabel4)
                 .add(jcbNudgematicOffsetSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Coadd"));
+        jpCoaddPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Coadd"));
 
         jLabel7.setText("Exposure Length");
 
@@ -996,11 +1000,11 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
 
         jLabel8.setText("milliseconds");
 
-        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
+        org.jdesktop.layout.GroupLayout jpCoaddPanelLayout = new org.jdesktop.layout.GroupLayout(jpCoaddPanel);
+        jpCoaddPanel.setLayout(jpCoaddPanelLayout);
+        jpCoaddPanelLayout.setHorizontalGroup(
+            jpCoaddPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jpCoaddPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel7)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -1009,14 +1013,14 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
                 .add(jLabel8)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+        jpCoaddPanelLayout.setVerticalGroup(
+            jpCoaddPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jpCoaddPanelLayout.createSequentialGroup()
+                .add(jpCoaddPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
                     .add(jcbCoaddExposureLength, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(0, 0, Short.MAX_VALUE))
-            .add(jPanel3Layout.createSequentialGroup()
+            .add(jpCoaddPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel8)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1033,8 +1037,8 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
                     .add(org.jdesktop.layout.GroupLayout.LEADING, detectorConfigStandardPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jpNudgematicPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jpCoaddPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -1049,9 +1053,9 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 216, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jpNudgematicPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jpCoaddPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1063,6 +1067,16 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         }
         setupFilterLists(selectedInstrumentName);
         setBinningOptions(selectedInstrumentName);
+        if (selectedInstrumentName.equalsIgnoreCase(CONST.RAPTOR))
+        {
+            jpNudgematicPanel.setVisible(true);
+            jpCoaddPanel.setVisible(true);
+        }
+        else
+        {
+            jpNudgematicPanel.setVisible(false);
+            jpCoaddPanel.setVisible(false);        
+        }
 }//GEN-LAST:event_jcbInstrumentNameActionPerformed
 
     private void jbtnRemoveFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRemoveFilterActionPerformed
@@ -1085,8 +1099,6 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JButton jbtnRemoveFilter;
@@ -1097,9 +1109,11 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
     private javax.swing.JComboBox jcbLowerNDSlide;
     private javax.swing.JComboBox jcbNudgematicOffsetSize;
     private javax.swing.JComboBox jcbUpperNDSlide;
+    private javax.swing.JPanel jpCoaddPanel;
     private javax.swing.JPanel jpFilterWheel1;
     private javax.swing.JPanel jpFilterWheel2;
     private javax.swing.JPanel jpLowerNDSlide;
+    private javax.swing.JPanel jpNudgematicPanel;
     private javax.swing.JPanel jpUpperNDSlide;
     private javax.swing.JTextField jtfInstrumentConfigName;
     // End of variables declaration//GEN-END:variables

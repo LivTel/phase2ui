@@ -23,8 +23,8 @@
                   <Component id="detectorConfigStandardPanel" alignment="0" max="32767" attributes="1"/>
                   <Component id="jPanel6" alignment="0" max="32767" attributes="1"/>
                   <Component id="jPanel5" alignment="0" max="32767" attributes="1"/>
-                  <Component id="jPanel2" max="32767" attributes="0"/>
-                  <Component id="jPanel3" max="32767" attributes="0"/>
+                  <Component id="jpNudgematicPanel" max="32767" attributes="0"/>
+                  <Component id="jpCoaddPanel" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -42,9 +42,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" pref="216" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <Component id="jpNudgematicPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+              <Component id="jpCoaddPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="83" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -415,13 +415,14 @@
     </Container>
     <Component class="ngat.beans.guibeans.DetectorConfigStandardPanel" name="detectorConfigStandardPanel">
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="jpNudgematicPanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Nudgematic"/>
           </Border>
         </Property>
+        <Property name="name" type="java.lang.String" value="jpNudgematicPanel" noResource="true"/>
       </Properties>
 
       <Layout>
@@ -468,7 +469,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel3">
+    <Container class="javax.swing.JPanel" name="jpCoaddPanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
