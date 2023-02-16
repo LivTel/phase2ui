@@ -47,14 +47,22 @@ public class DefaultObjectFactory {
         if (instrumentName != null) {
             
             if (instrumentName.equalsIgnoreCase(CONST.IO_O)) {
-                detectorConfig.setXBin(1);
-                detectorConfig.setYBin(1);
+                detectorConfig.setXBin(2);
+                detectorConfig.setYBin(2);
             } else if (instrumentName.equalsIgnoreCase(CONST.RISE)) {
                 detectorConfig.setXBin(2);
                 detectorConfig.setYBin(2);
             }  else if (instrumentName.equalsIgnoreCase(CONST.SPRAT)) {       
                 detectorConfig.setXBin(1);
                 detectorConfig.setYBin(1);
+            } else if (instrumentName.equalsIgnoreCase(CONST.RAPTOR)) {
+                detectorConfig.setXBin(1);
+                detectorConfig.setYBin(1);
+            }
+            else
+            {
+                detectorConfig.setXBin(2);
+                detectorConfig.setYBin(2);            
             }
         } else {
             //default to IO_O
