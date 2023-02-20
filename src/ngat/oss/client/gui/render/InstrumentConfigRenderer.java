@@ -14,6 +14,7 @@ import ngat.phase2.XPolarimeterInstrumentConfig;
 import ngat.phase2.XMoptopInstrumentConfig;
 import ngat.phase2.XSpectrographInstrumentConfig;
 import ngat.phase2.XTipTiltImagerInstrumentConfig;
+import ngat.phase2.XRaptorInstrumentConfig;
 
 /**
  * Routines to describe instrument configs.
@@ -53,6 +54,10 @@ public class InstrumentConfigRenderer
           if (instrumentConfig instanceof XTipTiltImagerInstrumentConfig) 
           {
             return "Tip-Tilt Imager Configuration";
+          } 
+          else if (instrumentConfig instanceof XRaptorInstrumentConfig) 
+          {
+            return "Raptor Imager Configuration";
           } 
           else 
           {
@@ -118,9 +123,14 @@ public class InstrumentConfigRenderer
                 s += "Gain=[" + tiltImagerInstrumentConfig.getGain() + "]";
                 return s;
             }
-            s += "Filters=[" + imagerInstrumentConfig.getFilterSpec().getFiltersString() + "]";
+            if (instrumentConfig instanceof XRaptorInstrumentConfig) 
+            {
+                XRaptorInstrumentConfig raptorInstrumentConfig = (XRaptorInstrumentConfig)imagerInstrumentConfig;
+                s += ",Nudgematic Offset Size=[" + raptorInstrumentConfig.nudgematicOffsetSizeToString()+ "]";
+                s += ",Coadd Exposure Length=[" + raptorInstrumentConfig.getCoaddExposureLength()+ "],";
+            } 
+             s += "Filters=[" + imagerInstrumentConfig.getFilterSpec().getFiltersString() + "]";
             return s;
-        
         } 
         // XPolarimeterInstrumentConfig
         else  if (instrumentConfig instanceof XPolarimeterInstrumentConfig) 
@@ -128,7 +138,6 @@ public class InstrumentConfigRenderer
             XPolarimeterInstrumentConfig polarimeterInstrumentConfig = (XPolarimeterInstrumentConfig) instrumentConfig;
             s += "Gain=[" + polarimeterInstrumentConfig.getGain() + "]";
             return s;
-
         } 
         // XMoptopInstrumentConfig
         else  if (instrumentConfig instanceof XMoptopInstrumentConfig) 
@@ -137,14 +146,12 @@ public class InstrumentConfigRenderer
             s += "Filter=[" + moptopInstrumentConfig.getFilterSpec().getFiltersString()+ "]";
             s += ", Rotor Speed=[" + moptopInstrumentConfig.rotorSpeedToString()+ "]";
             return s;
-
         } 
         // XSpectrographInstrumentConfig
         else  if (instrumentConfig instanceof XSpectrographInstrumentConfig) 
         {
             XSpectrographInstrumentConfig spectrographInstrumentConfig = (XSpectrographInstrumentConfig) instrumentConfig;
             return "Wavelength=[" + spectrographInstrumentConfig.getWavelength() + "]";
-
         } 
         // XImagingSpectrographInstrumentConfig
         else  if (instrumentConfig instanceof XImagingSpectrographInstrumentConfig) 
