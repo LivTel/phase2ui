@@ -14,7 +14,7 @@ import ngat.phase2.XPolarimeterInstrumentConfig;
 import ngat.phase2.XMoptopInstrumentConfig;
 import ngat.phase2.XSpectrographInstrumentConfig;
 import ngat.phase2.XTipTiltImagerInstrumentConfig;
-import ngat.phase2.XRaptorInstrumentConfig;
+import ngat.phase2.XLiricInstrumentConfig;
 
 /**
  * Routines to describe instrument configs.
@@ -55,9 +55,9 @@ public class InstrumentConfigRenderer
           {
             return "Tip-Tilt Imager Configuration";
           } 
-          else if (instrumentConfig instanceof XRaptorInstrumentConfig) 
+          else if (instrumentConfig instanceof XLiricInstrumentConfig) 
           {
-            return "Raptor Imager Configuration";
+            return "LIRIC Imager Configuration";
           } 
           else 
           {
@@ -123,11 +123,11 @@ public class InstrumentConfigRenderer
                 s += "Gain=[" + tiltImagerInstrumentConfig.getGain() + "]";
                 return s;
             }
-            if (instrumentConfig instanceof XRaptorInstrumentConfig) 
+            if (instrumentConfig instanceof XLiricInstrumentConfig) 
             {
-                XRaptorInstrumentConfig raptorInstrumentConfig = (XRaptorInstrumentConfig)imagerInstrumentConfig;
-                s += ",Nudgematic Offset Size=[" + raptorInstrumentConfig.nudgematicOffsetSizeToString()+ "]";
-                s += ",Coadd Exposure Length=[" + raptorInstrumentConfig.getCoaddExposureLength()+ "],";
+                XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig)imagerInstrumentConfig;
+                s += ",Nudgematic Offset Size=[" + liricInstrumentConfig.nudgematicOffsetSizeToString()+ "]";
+                s += ",Coadd Exposure Length=[" + liricInstrumentConfig.getCoaddExposureLength()+ "],";
             } 
              s += "Filters=[" + imagerInstrumentConfig.getFilterSpec().getFiltersString() + "]";
             return s;

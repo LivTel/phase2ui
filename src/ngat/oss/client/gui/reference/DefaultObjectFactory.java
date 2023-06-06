@@ -55,7 +55,7 @@ public class DefaultObjectFactory {
             }  else if (instrumentName.equalsIgnoreCase(CONST.SPRAT)) {       
                 detectorConfig.setXBin(1);
                 detectorConfig.setYBin(1);
-            } else if (instrumentName.equalsIgnoreCase(CONST.RAPTOR)) {
+            } else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) {
                 detectorConfig.setXBin(1);
                 detectorConfig.setYBin(1);
             }

@@ -24,7 +24,7 @@ import ngat.phase2.XDetectorConfig;
 import ngat.phase2.XFilterDef;
 import ngat.phase2.XFilterSpec;
 import ngat.phase2.XImagerInstrumentConfig;
-import ngat.phase2.XRaptorInstrumentConfig;
+import ngat.phase2.XLiricInstrumentConfig;
 import org.apache.log4j.Logger;
 
 /**
@@ -64,7 +64,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         } 
         else 
         {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_RAPTOR));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
         }
         populateComponents(imagerInstrumentConfig, isNewInstrumentConfig);
     }
@@ -89,7 +89,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         } 
         else
         {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_RAPTOR));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
         }
         
         if (isNewInstrumentConfig) 
@@ -233,9 +233,9 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             {
                 detectorConfigStandardPanel.setBinningOptions(CONST.RISE_BINNING_OPTIONS);
             }
-            else if (instrumentName.equalsIgnoreCase(CONST.RAPTOR)) 
+            else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
             {
-                detectorConfigStandardPanel.setBinningOptions(CONST.RAPTOR_BINNING_OPTIONS);
+                detectorConfigStandardPanel.setBinningOptions(CONST.LIRIC_BINNING_OPTIONS);
             }
          }
     }
@@ -337,13 +337,13 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             jpUpperNDSlide.setVisible(false);
             jpLowerNDSlide.setVisible(false);
         }
-        else if (instrumentName.equalsIgnoreCase(CONST.RAPTOR)) 
+        else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
         {
             //Filter wheel 1
             jcbFilterWheel1.removeAllItems();
-            for(int i = 0; i < CONST.RAPTOR_FW_ITEMS.length; i++)
+            for(int i = 0; i < CONST.LIRIC_FW_ITEMS.length; i++)
             {
-                jcbFilterWheel1.addItem(CONST.RAPTOR_FW_ITEMS[i]);
+                jcbFilterWheel1.addItem(CONST.LIRIC_FW_ITEMS[i]);
             }
             jcbFilterWheel1.setSelectedIndex(0);
             //Filter wheel 1
@@ -385,7 +385,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             {
                 return 1;
             }
-            else if (instrumentName.equalsIgnoreCase(CONST.RAPTOR)) 
+            else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
             {
                 return 1;
             }
@@ -500,9 +500,9 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
                 return true;
             }
         }
-        else if (instrumentName.equalsIgnoreCase(CONST.RAPTOR)) 
+        else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
         {
-            if (filterListContains(CONST.RAPTOR_FW_ITEMS, filterName)) 
+            if (filterListContains(CONST.LIRIC_FW_ITEMS, filterName)) 
             {
                 jcbFilterWheel1.setSelectedItem(filterName);
                 return true;
@@ -535,23 +535,23 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
      */
     private void setNudgematicOffsetSize(XImagerInstrumentConfig imagerInstrumentConfig)
     {
-        // Only raptor has a nudgematic
-        if(imagerInstrumentConfig instanceof XRaptorInstrumentConfig)
+        // Only liric has a nudgematic
+        if(imagerInstrumentConfig instanceof XLiricInstrumentConfig)
         {
-            XRaptorInstrumentConfig raptorInstrumentConfig = (XRaptorInstrumentConfig)imagerInstrumentConfig;
+            XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig)imagerInstrumentConfig;
             
-            int nudgematicOffsetSize = raptorInstrumentConfig.getNudgematicOffsetSize();
-            if(nudgematicOffsetSize == XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE)
-                jcbNudgematicOffsetSize.setSelectedItem(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_NONE]);
-            else if(nudgematicOffsetSize == XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL)
-                jcbNudgematicOffsetSize.setSelectedItem(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_SMALL]);
-            else if(nudgematicOffsetSize == XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE)
-                jcbNudgematicOffsetSize.setSelectedItem(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LARGE]);
+            int nudgematicOffsetSize = liricInstrumentConfig.getNudgematicOffsetSize();
+            if(nudgematicOffsetSize == XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_NONE]);
+            else if(nudgematicOffsetSize == XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_SMALL]);
+            else if(nudgematicOffsetSize == XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LARGE]);
             jpNudgematicPanel.setVisible(true);
         }
         else
         {
-            // this is not raptor, hide the nudgematic offset size combo box.
+            // this is not liric, hide the nudgematic offset size combo box.
             jpNudgematicPanel.setVisible(false);
         }
     }
@@ -564,18 +564,18 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
      */
     private void setCoaddExposureLength(XImagerInstrumentConfig imagerInstrumentConfig)
     {
-        // Only raptor has a coadd exposure length
-        if(imagerInstrumentConfig instanceof XRaptorInstrumentConfig)
+        // Only liric has a coadd exposure length
+        if(imagerInstrumentConfig instanceof XLiricInstrumentConfig)
         {
-            XRaptorInstrumentConfig raptorInstrumentConfig = (XRaptorInstrumentConfig)imagerInstrumentConfig;
+            XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig)imagerInstrumentConfig;
             
-            int coaddExposureLength = raptorInstrumentConfig.getCoaddExposureLength();
+            int coaddExposureLength = liricInstrumentConfig.getCoaddExposureLength();
             jcbCoaddExposureLength.setSelectedItem(new String(""+coaddExposureLength));
             jpCoaddPanel.setVisible(true);
         }
         else
         {
-            // this is not raptor, hide the coadd exposure length combo box.
+            // this is not liric, hide the coadd exposure length combo box.
             jpCoaddPanel.setVisible(false);
         }
         
@@ -583,23 +583,23 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
     
     /**
      * Construct and return an imager instrument config based on the settings in this dialog.
-     * @return AN instance of ImagerInstrumentConfig (or it's subclass RaptorInstrumentConfig if necessary).
+     * @return AN instance of ImagerInstrumentConfig (or it's subclass LiricInstrumentConfig if necessary).
      * @throws Exception Thrown if an error occurs.
      */
     public IInstrumentConfig getInstrumentConfig() throws Exception 
     {
         XImagerInstrumentConfig imagerInstrumentConfig = null;
-        XRaptorInstrumentConfig raptorInstrumentConfig = null;
+        XLiricInstrumentConfig liricInstrumentConfig = null;
         String instrumentName;
         String name;
 
         instrumentName = (String)jcbInstrumentName.getSelectedItem();
-        // The returned instrument config will be an instance of XRaptorInstrumentConfig if the instrumentName is RAPTOR
+        // The returned instrument config will be an instance of XLiricInstrumentConfig if the instrumentName is LIRIC
         // and an instance of XImagerInstrumentConfig otherwise
-        if (instrumentName.equalsIgnoreCase(CONST.RAPTOR))
+        if (instrumentName.equalsIgnoreCase(CONST.LIRIC))
         {
-            raptorInstrumentConfig = new XRaptorInstrumentConfig();
-            imagerInstrumentConfig = raptorInstrumentConfig;
+            liricInstrumentConfig = new XLiricInstrumentConfig();
+            imagerInstrumentConfig = liricInstrumentConfig;
         }
         else
         {
@@ -646,7 +646,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             String filter1 = (String)jcbFilterWheel1.getSelectedItem();
             filterSpec.addFilter(new XFilterDef(filter1));
         }
-        else if (instrumentName.equalsIgnoreCase(CONST.RAPTOR)) 
+        else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
         {
             String filter1 = (String)jcbFilterWheel1.getSelectedItem();
             filterSpec.addFilter(new XFilterDef(filter1));
@@ -659,22 +659,22 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         imagerInstrumentConfig.setDetectorConfig(detectorConfig);
         
         // nudgematic offset size
-        if(raptorInstrumentConfig != null)
+        if(liricInstrumentConfig != null)
         {
-            int nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+            int nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
            
-            if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_NONE]))
-                nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
-            else if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_SMALL]))
-                nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL;
-            else if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.RAPTOR_NUDGEMATIC_OFFSET_SIZE_LARGE]))
-                nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE;
+            if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_NONE]))
+                nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+            else if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_SMALL]))
+                nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL;
+            else if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LARGE]))
+                nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE;
             else
-                nudgematicOffsetSize = XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
-            raptorInstrumentConfig.setNudgematicOffsetSize(nudgematicOffsetSize);
+                nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+            liricInstrumentConfig.setNudgematicOffsetSize(nudgematicOffsetSize);
         }
         // coadd exposure length
-        if(raptorInstrumentConfig != null)
+        if(liricInstrumentConfig != null)
         {
             String coaddExpsoureLengthString = null;
             int coaddExposureLength;
@@ -688,7 +688,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             {
                 throw new IllegalArgumentException("Coadd Exposure Length is not a valid integer:"+coaddExpsoureLengthString);
             }
-            raptorInstrumentConfig.setCoaddExposureLength(coaddExposureLength);
+            liricInstrumentConfig.setCoaddExposureLength(coaddExposureLength);
         }
        
         imagerInstrumentConfig.setName(name);
@@ -1067,7 +1067,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         }
         setupFilterLists(selectedInstrumentName);
         setBinningOptions(selectedInstrumentName);
-        if (selectedInstrumentName.equalsIgnoreCase(CONST.RAPTOR))
+        if (selectedInstrumentName.equalsIgnoreCase(CONST.LIRIC))
         {
             jpNudgematicPanel.setVisible(true);
             jpCoaddPanel.setVisible(true);

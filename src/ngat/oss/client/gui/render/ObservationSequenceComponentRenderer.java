@@ -47,7 +47,7 @@ import ngat.phase2.XPeriodExposure;
 import ngat.phase2.XPeriodRunAtExposure;
 import ngat.phase2.XPolarimeterInstrumentConfig;
 import ngat.phase2.XMoptopInstrumentConfig;
-import ngat.phase2.XRaptorInstrumentConfig;
+import ngat.phase2.XLiricInstrumentConfig;
 import ngat.phase2.XPositionOffset;
 import ngat.phase2.XRotatorConfig;
 import ngat.phase2.XSlaNamedPlanetTarget;
@@ -280,12 +280,12 @@ public class ObservationSequenceComponentRenderer
                         shortText="[Dual Beam Spectrograph Config] ";
                         postText = "Name: " + instrumentConfig.getName();
                     } 
-                    else if (instrumentConfig.getClass().equals(XRaptorInstrumentConfig.class)) 
+                    else if (instrumentConfig.getClass().equals(XLiricInstrumentConfig.class)) 
                     {
-                        shortText="[Raptor Imager Instrument Config] ";
+                        shortText="[LIRIC Imager Instrument Config] ";
                         postText = "Name: " + instrumentConfig.getName();
-                        XRaptorInstrumentConfig raptorInstrumentConfig = (XRaptorInstrumentConfig) instrumentConfig;
-                        postText += " " + InstrumentConfigRenderer.getSummaryOfInstrumentConfig(raptorInstrumentConfig);
+                        XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig) instrumentConfig;
+                        postText += " " + InstrumentConfigRenderer.getSummaryOfInstrumentConfig(liricInstrumentConfig);
                     } 
                     else if (instrumentConfig.getClass().equals(XImagerInstrumentConfig.class)) 
                     {

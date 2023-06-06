@@ -44,7 +44,7 @@ import ngat.phase2.XInstrumentConfigSelector;
 import ngat.phase2.XIteratorComponent;
 import ngat.phase2.XLampFlat;
 import ngat.phase2.XMoptopInstrumentConfig;
-import ngat.phase2.XRaptorInstrumentConfig;
+import ngat.phase2.XLiricInstrumentConfig;
 import ngat.phase2.XMultipleExposure;
 import ngat.phase2.XPeriodExposure;
 import ngat.phase2.XPeriodRunAtExposure;
@@ -211,7 +211,7 @@ class TelescopeState
     private String objectName;
     private String latestInstrumentConfigInstrumentName;
     private int latestMoptopRotorSpeed = XMoptopInstrumentConfig.ROTOR_SPEED_UNKNOWN;
-    private int latestRaptorCoaddExposureLength = 0;
+    private int latestLiricCoaddExposureLength = 0;
     private ISlew latestSlew = null;
     private IGroup group;
 
@@ -461,23 +461,23 @@ class TelescopeState
             }
         }
         
-        if (latestInstrumentConfigInstrumentName.equals(CONST.RAPTOR))
+        if (latestInstrumentConfigInstrumentName.equals(CONST.LIRIC))
         {
-            XRaptorInstrumentConfig raptorInstrumentConfig = (XRaptorInstrumentConfig) instrumentConfig;
-            int nudgematicOffsetSize = raptorInstrumentConfig.getNudgematicOffsetSize();
-            latestRaptorCoaddExposureLength = raptorInstrumentConfig.getCoaddExposureLength();
+            XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig) instrumentConfig;
+            int nudgematicOffsetSize = liricInstrumentConfig.getNudgematicOffsetSize();
+            latestLiricCoaddExposureLength = liricInstrumentConfig.getCoaddExposureLength();
             
-            if ((nudgematicOffsetSize != XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL)&&
-                    (nudgematicOffsetSize != XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE)&&
-                    (nudgematicOffsetSize != XRaptorInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE))
+            if ((nudgematicOffsetSize != XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL)&&
+                    (nudgematicOffsetSize != XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE)&&
+                    (nudgematicOffsetSize != XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE))
             {
-                validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "RAPTOR offset size should be SMALL, LARGE or NONE."));
+                validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "LIRIC nudgematic offset size should be SMALL, LARGE or NONE."));
             }
             // Coadd exposure length currently has to be 0, 100 or 1000 ms. This is defined by the .fmt files
             // available to the instrument robotic control layer
-            if ((latestRaptorCoaddExposureLength != 100)&&(latestRaptorCoaddExposureLength != 1000))
+            if ((latestLiricCoaddExposureLength != 100)&&(latestLiricCoaddExposureLength != 1000))
             {
-                validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "Illegal RAPTOR Coadd Exposure Length."));
+                validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "Illegal LIRIC Coadd Exposure Length."));
             }
         }
         
@@ -716,11 +716,11 @@ class TelescopeState
                         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "IO:I Exposure Times within the range 7276ms to 8729ms are not allowed."));
                     }
                 } 
-                else if (latestInstrumentConfigInstrumentName.equals(CONST.RAPTOR)) 
+                else if (latestInstrumentConfigInstrumentName.equals(CONST.LIRIC)) 
                 {
-                    if (multipleExposure.getExposureTime() < latestRaptorCoaddExposureLength)
+                    if (multipleExposure.getExposureTime() < latestLiricCoaddExposureLength)
                     {
-                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "RAPTOR Exposure Times less than the coadd exposure length are not allowed."));                    
+                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "LIRIC Exposure Times less than the coadd exposure length are not allowed."));                    
                     }
                 }
                 else if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3))
