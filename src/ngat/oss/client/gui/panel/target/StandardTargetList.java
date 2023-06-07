@@ -75,6 +75,7 @@ public class StandardTargetList {
 
         // Field order: targetName, raStr, decStr, magStr, refFrame, epoch
         
+	    
         standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_15,01 49 09.5,+13 33 12,10.41,FK5,2016.9"));
         standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_25,02 38 37.7,+05 28 11,12.01,FK5,2016.9"));
         standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("G191-B2B,05 05 30.64,+52 49 50.5,11.80,FK5,2020.14"));
