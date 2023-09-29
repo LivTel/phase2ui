@@ -20,7 +20,7 @@ import ngat.phase2.XVersion;
  */
 public class CONST {
 
-    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 8, 31);
+    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 9, 0);
     
     public static final String CURRENT_REVISION_LETTER = ".C";
     
@@ -67,19 +67,21 @@ public class CONST {
     public static final String IO_THOR = "IO:THOR";
 
     //public static final String SUPIRCAM = "SupIRCam";
+
+    public static final String LIRIC = "LIRIC";
     
     //instrument lists:
     
     //instrument lists for instrument configs
-    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, FRODO_RED, FRODO_BLUE, LOTUS}; //NB: contains frodo_blue and frodo red (only used in instrument configs)
-    //public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_IOI = new String[]{SPRAT, RISE, RINGO3, IO_O, FRODO_RED, FRODO_BLUE, LOTUS}; //temp, for non su users //NB: contains frodo_blue and frodo red (only used in instrument configs)
+    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, LIRIC, FRODO_RED, FRODO_BLUE, LOTUS}; //NB: contains frodo_blue and frodo red (only used in instrument configs)
+    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_LIRIC = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, FRODO_RED, FRODO_BLUE, LOTUS}; //temp, for non su users //NB: contains frodo_blue and frodo red (only used in instrument configs)
     
     //instrument lists for acquisition, acquiring
     public static final String[] ACQUISITION_ACQUIRING_INSTRUMENTS = new String[]{IO_O, SPRAT};
     
     //instrument lists for acquisition, science
-    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS = new String[]{SPRAT, FRODO, IO_O, IO_I, RINGO3, MOPTOP, RISE, LOTUS};
-    //public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_IOI = new String[]{FRODO, IO_O, SPRAT, RINGO3, RISE, LOTUS}; //temp, for non su users
+    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS = new String[]{SPRAT, FRODO, IO_O, IO_I, LIRIC, RINGO3, MOPTOP, RISE, LOTUS};
+    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC = new String[]{ FRODO, IO_O, SPRAT, RINGO3, MOPTOP, RISE, LOTUS}; //temp, for non su users
     
     //instrument lists for everything else, e.g. rotator alignment and slew
     public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, MOPTOP, IO_O}; //NB: contains frodo, not an arm instrument
@@ -87,8 +89,8 @@ public class CONST {
     //public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_IOI = new String[]{SPRAT, RISE, RINGO3, IO_O, FRODO, LOTUS}; //temp, for non su users //NB: contains frodo, not an arm instrument
     
     //instrument lists for imager instrument config editor panel and photometry and polarimetry wizard
-    public static final String[] IMAGER_INSTRUMENTS = new String[]{IO_O, IO_I, RISE};
-    //public static final String[] IMAGER_INSTRUMENTS_EXCEPT_IOI = new String[]{IO_O, RISE};
+    public static final String[] IMAGER_INSTRUMENTS = new String[]{IO_O, IO_I, LIRIC, RISE};
+    public static final String[] IMAGER_INSTRUMENTS_EXCEPT_LIRIC = new String[]{IO_O, RISE};
     
     public static final String[] BEAM_STEERING_INSTRUMENTS = new String[]{IO_O}; // will include IO_I but not yet.
     public static final String[] POLARIMETER_INSTRUMENTS = new String[]{RINGO3,MOPTOP}; 
@@ -125,7 +127,12 @@ public class CONST {
     public static final String MOP_B = "MOP-B";
     public static final String MOP_I = "MOP-I";
     public static final String MOP_L = "MOP-L";
-            
+    public static final String LIR_H = "LIR-H";
+    public static final String LIR_J = "LIR-J";
+    public static final String LIR_Y = "LIR-Y";
+    public static final String LIR_Z = "LIR-Z";
+    public static final String LIR_MIRROR = "LIR-MIRROR";
+
     //filter wheel lists
     public static final String[] RATCAM_FW1_ITEMS = new String[]{CLEAR, SDSS_I, H_ALPHA_100, SDSS_Z, SDSS_R};
     public static final String[] RATCAM_FW2_ITEMS = new String[]{CLEAR, BESSELL_V, SDSS_U, SDSS_G, BESSELL_B};
@@ -134,6 +141,7 @@ public class CONST {
     //public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, GG475_KG3_Pol};
     public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, H_ALPHA_6822}; //22/10/15
     public static final String[] I_FW_ITEMS = new String[]{H};
+    public static final String[] LIRIC_FW_ITEMS = new String[]{LIR_H,LIR_J,LIR_Y,LIR_Z,LIR_MIRROR};
     public static final String[] MOPTOP_FW_ITEMS = new String[]{MOP_R,MOP_V,MOP_B,MOP_I,MOP_L};
     
     //IO:O neutral density slides
@@ -150,6 +158,7 @@ public class CONST {
      public static final String[] IO_O_BINNING_OPTIONS = new String[]{BIN_2};
      public static final String[] SU_IO_O_BINNING_OPTIONS = new String[]{BIN_1, BIN_2};
      public static final String[] IO_I_BINNING_OPTIONS = new String[]{BIN_1};  //1x1 only for now
+     public static final String[] LIRIC_BINNING_OPTIONS = new String[]{BIN_1}; 
      public static final String[] SPRAT_BINNING_OPTIONS = new String[]{BIN_1, BIN_2};
      public static final String[] LOTUS_BINNING_OPTIONS = new String[]{BIN_4};
      
@@ -180,6 +189,14 @@ public class CONST {
     public static final String[] MOPTOP_ROTOR_SPEEDS = new String[]{"Slow", "Fast"}; 
     public static final int MOPTOP_ROTOR_SPEED_INDEX_SLOW = 0;
     public static final int MOPTOP_ROTOR_SPEED_INDEX_FAST = 1;
+
+    // Liric Nudgematic Offset Sizes
+    // These constants match those in ngat/phase2/LiricConfig.java
+    // and ngat/phase2/XLiricInstrumentConfig.java
+    public static final String[] LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST = new String[]{"None", "Small", "Large"}; 
+    public static final int LIRIC_NUDGEMATIC_OFFSET_SIZE_NONE = 0;
+    public static final int LIRIC_NUDGEMATIC_OFFSET_SIZE_SMALL = 1;
+    public static final int LIRIC_NUDGEMATIC_OFFSET_SIZE_LARGE = 2;
     
     public static final double INSTRUMENT_OFFSET = Math.toRadians(104);
 

@@ -24,69 +24,106 @@ import ngat.phase2.XDetectorConfig;
 import ngat.phase2.XFilterDef;
 import ngat.phase2.XFilterSpec;
 import ngat.phase2.XImagerInstrumentConfig;
+import ngat.phase2.XLiricInstrumentConfig;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * Imager instruments configuration editor panel.
  * @author nrc
  */
-public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implements IInstrumentConfigPanel {
-
+public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implements IInstrumentConfigPanel 
+{
+    /**
+     * The logger for this panel. 
+     */
     static Logger logger = Logger.getLogger(ImagerInstrumentConfigEditorPanel.class);
 
     private boolean enabled;
+    /**
+     * A copy of the passed in imager instrument config.
+     */
     private XImagerInstrumentConfig originalImagerInstrumentConfig;
 
-    public ImagerInstrumentConfigEditorPanel(XImagerInstrumentConfig imagerInstrumentConfig, boolean isNewInstrumentConfig) {
+    /**
+     * Constructor.
+     * @param imagerInstrumentConfig The imager instrument config to modify.
+     * @param isNewInstrumentConfig  A boolean, if true the instrument config is a new one, otherwise it already exists.
+     * @see #originalImagerInstrumentConfig
+     * @see #initComponents
+     * @see #populateComponents
+     */
+    public ImagerInstrumentConfigEditorPanel(XImagerInstrumentConfig imagerInstrumentConfig, boolean isNewInstrumentConfig) 
+    {
         this.originalImagerInstrumentConfig = imagerInstrumentConfig;
         initComponents();
         
-        jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
-        
-        /*
-        if (Session.getInstance().getUser().isSuperUser()) {
+        //jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
+        if (Session.getInstance().getUser().isSuperUser()) 
+        {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
-        } else {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_IOI));
+        } 
+        else 
+        {
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
         }
-        */
-        
         populateComponents(imagerInstrumentConfig, isNewInstrumentConfig);
     }
 
-    private void populateComponents(XImagerInstrumentConfig imagerInstrumentConfig, boolean isNewInstrumentConfig) {
-        if (imagerInstrumentConfig == null) {
+    /**
+     * Populate the panel based on the passed in imager config.
+     * @param imagerInstrumentConfig The imager instrument config to populate the panel with.
+     * @param isNewInstrumentConfig A boolean, if true the instrument config is a new one, otherwise it already exists.
+     * @see #populateForNewInstrumentConfig
+     * @see #populateForExistingInstrumentConfig
+     */
+    private void populateComponents(XImagerInstrumentConfig imagerInstrumentConfig, boolean isNewInstrumentConfig) 
+    {
+        if (imagerInstrumentConfig == null) 
+        {
             return;
         }
-        
-        jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
-        /*
-        if (Session.getInstance().getUser().isSuperUser()) {
+        //jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
+        if (Session.getInstance().getUser().isSuperUser()) 
+        {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
-        } else {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_IOI));
+        } 
+        else
+        {
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
         }
-        */
-        if (isNewInstrumentConfig) {
+        
+        if (isNewInstrumentConfig) 
+        {
             populateForNewInstrumentConfig(imagerInstrumentConfig);
-        } else {
+        }
+        else 
+        {
             populateForExistingInstrumentConfig(imagerInstrumentConfig);
-
         }
     }
 
-    private void populateForNewInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) {
-
-        //boolean limitInstrumentList = false;
+    /**
+     * Setup the imager instrument config for a new config.
+     * @param imagerInstrumentConfig  The instrument config to populate the dialog from.
+     * @see #jcbInstrumentName
+     * @see #setupFilterLists
+     * @see #limitInstrumentList
+     * @see #setBinningOptions
+     * @see #detectorConfigStandardPanel
+     * @see #setNudgematicOffsetSize
+     * @see #setCoaddExposureLength
+     */
+    private void populateForNewInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) 
+    {
         String instrumentName = imagerInstrumentConfig.getInstrumentName();
         XDetectorConfig detectorConfig = DefaultObjectFactory.getDefaultDetectorConfig(instrumentName);
 
-        if (instrumentName != null) {
+        if (instrumentName != null) 
+        {
             jcbInstrumentName.setSelectedItem(instrumentName);
-        } else {
-            //default to RATCam
-            //jcbInstrumentName.setSelectedItem(CONST.RATCAM);
-            //10/3/14
+        } 
+        else 
+        {
             //default to IO:O
             jcbInstrumentName.setSelectedItem(CONST.IO_O);
         }
@@ -95,7 +132,8 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         setupFilterLists(instrumentName);
         
         //if we've been passed an instrument name, limit the list down to that name
-        if (instrumentName != null) {
+        if (instrumentName != null) 
+        {
            limitInstrumentList(instrumentName);
         }
         
@@ -103,75 +141,134 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         setBinningOptions(instrumentName); //defaults to 1x1, used for IO:O
         
         //set the detector config
-        try {
+        try 
+        {
             detectorConfigStandardPanel.setDetectorConfig(detectorConfig);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) 
+        {
             ex.printStackTrace();
             logger.error(ex);
             JOptionPane.showMessageDialog(this, ex);
             return;
         }
+        
+        // set nudgematic offset size
+        setNudgematicOffsetSize(imagerInstrumentConfig);
+        // set coadd exposure length
+        setCoaddExposureLength(imagerInstrumentConfig);
     }
+    
+    /**
+     * Setup the imager instrument config for an existing config.
+     * @param imagerInstrumentConfig  The instrument config to populate the dialog from.
+     * @see #jcbInstrumentName
+     * @see #setupFilterLists
+     * @see #limitInstrumentList
+     * @see #selectFiltersForInstrumentConfig
+     * @see #setBinningOptions
+     * @see #detectorConfigStandardPanel
+     * @see #setNudgematicOffsetSize
+     * @see #setCoaddExposureLength
+     */
+    private void populateForExistingInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) 
+    {
+        String instrumentName = imagerInstrumentConfig.getInstrumentName();
+        //select instrument name in instrument list
+        jcbInstrumentName.setSelectedItem(instrumentName);
+        //populate filter lists for instrument and limit list to that instrument
+            
+        setupFilterLists(instrumentName);
+        //close down the instrument list    
+        limitInstrumentList(instrumentName);
+                    
+        try 
+        {
+            //select filters from loaded filter spec
+            selectFiltersForInstrumentConfig(imagerInstrumentConfig);
 
-    private void setBinningOptions(String instrumentName) {
-        if (instrumentName != null) {
-            if (instrumentName.equalsIgnoreCase(CONST.IO_O)) {
-                if (Session.getInstance().getUser().isSuperUser()) {
+            IDetectorConfig detectorConfig = imagerInstrumentConfig.getDetectorConfig();
+            //populate binning lists for instrument
+            detectorConfigStandardPanel.setDetectorConfig(detectorConfig); //change, this line added (was commented out) 20/6/11
+            jtfInstrumentConfigName.setText(imagerInstrumentConfig.getName());
+        } 
+        catch (Exception ex) 
+        {
+            ex.printStackTrace();
+            logger.error(ex);
+            JOptionPane.showMessageDialog(this, ex);
+            return;
+        }
+         // set nudgematic offset size
+        setNudgematicOffsetSize(imagerInstrumentConfig);
+        // set coadd exposure length
+        setCoaddExposureLength(imagerInstrumentConfig);
+    }
+    
+    /**
+     * Set the allowed binning options based on the instrument name.
+     * @param instrumentName The name of the instrument.
+     * @see #detectorConfigStandardPanel
+     */
+    private void setBinningOptions(String instrumentName) 
+    {
+        if (instrumentName != null) 
+        {
+            if (instrumentName.equalsIgnoreCase(CONST.IO_O)) 
+            {
+                if (Session.getInstance().getUser().isSuperUser()) 
+                {
                     detectorConfigStandardPanel.setBinningOptions(CONST.SU_IO_O_BINNING_OPTIONS);
-                } else {
+                }
+                else
+                {
                     detectorConfigStandardPanel.setBinningOptions(CONST.IO_O_BINNING_OPTIONS);
                 }
-            } else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) {
+            } 
+            else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) 
+            {
                 detectorConfigStandardPanel.setBinningOptions(CONST.IO_I_BINNING_OPTIONS);
-                
-            } else if (instrumentName.equalsIgnoreCase(CONST.RISE)) {
+            }
+            else if (instrumentName.equalsIgnoreCase(CONST.RISE)) 
+            {
                 detectorConfigStandardPanel.setBinningOptions(CONST.RISE_BINNING_OPTIONS);
             }
-        }
-    }
-
-    
-    private void populateForExistingInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) {
-            String instrumentName = imagerInstrumentConfig.getInstrumentName();
-            //select instrument name in instrument list
-            jcbInstrumentName.setSelectedItem(instrumentName);
-            //populate filter lists for instrument and limit list to that instrument
-            
-            setupFilterLists(instrumentName);
-            //close down the instrument list
-            
-            limitInstrumentList(instrumentName);
-                    
-            try {
-                //select filters from loaded filter spec
-                selectFiltersForInstrumentConfig(imagerInstrumentConfig);
-
-                IDetectorConfig detectorConfig = imagerInstrumentConfig.getDetectorConfig();
-                //populate binning lists for instrument
-                detectorConfigStandardPanel.setDetectorConfig(detectorConfig); //change, this line added (was commented out) 20/6/11
-                jtfInstrumentConfigName.setText(imagerInstrumentConfig.getName());
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                logger.error(ex);
-                JOptionPane.showMessageDialog(this, ex);
-                return;
+            else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
+            {
+                detectorConfigStandardPanel.setBinningOptions(CONST.LIRIC_BINNING_OPTIONS);
             }
+         }
     }
 
-    //limit the instrument so it only shows the instrument that panel received (and removes all other entries)
-    private void limitInstrumentList(String instrumentName) {
+    /**
+     * limit the instrument so it only shows the instrument that panel received (and removes all other entries).
+     * @param instrumentName The name of the instrument to limit the list to.
+     */
+    private void limitInstrumentList(String instrumentName) 
+    {
         jcbInstrumentName.removeAllItems();
         jcbInstrumentName.addItem(instrumentName);
         jcbInstrumentName.setSelectedIndex(0);
     }
 
-    private void setupFilterLists(String instrumentName) {
-        if (instrumentName == null) {
+    /**
+     * Set up the filter wheel combo boxes (and their visibility) based on the instrument name.
+     * @param instrumentName The name of the instrument.
+     * @see #jcbFilterWheel1
+     * @see #jcbFilterWheel2
+     * @see #jcbUpperNDSlide
+     * @see #jcbLowerNDSlide
+     */
+    private void setupFilterLists(String instrumentName) 
+    {
+        if (instrumentName == null) 
+        {
             return;
         }
         
-        if (instrumentName.equalsIgnoreCase(CONST.IO_O)) {
-            //FIlter wheel 1
+        if (instrumentName.equalsIgnoreCase(CONST.IO_O)) 
+        {
+            //Filter wheel 1
             jcbFilterWheel1.removeAllItems();
             jcbFilterWheel1.addItem(CONST.O_FW_ITEMS[0]);
             jcbFilterWheel1.addItem(CONST.O_FW_ITEMS[1]);
@@ -186,66 +283,75 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             jcbFilterWheel1.addItem(CONST.O_FW_ITEMS[10]);
             jcbFilterWheel1.addItem(CONST.O_FW_ITEMS[11]);
             jcbFilterWheel1.setSelectedIndex(0);
-            
             //FIlter wheel 2
             jcbFilterWheel2.removeAllItems();
-            
             //Upper ND slide
             jcbUpperNDSlide.removeAllItems();
             jcbUpperNDSlide.addItem(CONST.O_UPPER_ND_ITEMS[0]);
             jcbUpperNDSlide.addItem(CONST.O_UPPER_ND_ITEMS[1]);
             jcbUpperNDSlide.setSelectedIndex(0);
-            
             //Lower ND slide
             jcbLowerNDSlide.removeAllItems();
             jcbLowerNDSlide.addItem(CONST.O_LOWER_ND_ITEMS[0]);
             jcbLowerNDSlide.addItem(CONST.O_LOWER_ND_ITEMS[1]);
             jcbLowerNDSlide.setSelectedIndex(0);
-            
             //show FW1, ND1, ND2
             jpFilterWheel1.setVisible(true);
             jpFilterWheel2.setVisible(false);
             jpUpperNDSlide.setVisible(true);
             jpLowerNDSlide.setVisible(true);
-            
-        } else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) {
-            
+        }
+        else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) 
+        {
             //Filter wheel 1
             jcbFilterWheel1.removeAllItems();
             jcbFilterWheel1.addItem(CONST.I_FW_ITEMS[0]);
             jcbFilterWheel1.setSelectedIndex(0);
-            
             //Filter wheel 1
             jcbFilterWheel2.removeAllItems();
-            
             //Upper ND slide
             jcbUpperNDSlide.removeAllItems();
-            
             //Lower ND slide
             jcbLowerNDSlide.removeAllItems();
-            
             //show FW1
             jpFilterWheel1.setVisible(true);
             jpFilterWheel2.setVisible(false);
             jpUpperNDSlide.setVisible(false);
             jpLowerNDSlide.setVisible(false);
-            
-        } else if (instrumentName.equalsIgnoreCase(CONST.RISE)) {
-            
+        }
+        else if (instrumentName.equalsIgnoreCase(CONST.RISE)) 
+        {    
             //Filter wheel 1
             jcbFilterWheel1.removeAllItems();
             jcbFilterWheel1.addItem(CONST.RISE_FW_ITEMS[0]);
             jcbFilterWheel1.setSelectedIndex(0);
-
             //Filter wheel 2
             jcbFilterWheel2.removeAllItems();
-            
             //Upper ND slide
             jcbUpperNDSlide.removeAllItems();
-            
             //Lower ND slide
             jcbLowerNDSlide.removeAllItems();
-            
+            //show FW1
+            jpFilterWheel1.setVisible(true);
+            jpFilterWheel2.setVisible(false);
+            jpUpperNDSlide.setVisible(false);
+            jpLowerNDSlide.setVisible(false);
+        }
+        else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
+        {
+            //Filter wheel 1
+            jcbFilterWheel1.removeAllItems();
+            for(int i = 0; i < CONST.LIRIC_FW_ITEMS.length; i++)
+            {
+                jcbFilterWheel1.addItem(CONST.LIRIC_FW_ITEMS[i]);
+            }
+            jcbFilterWheel1.setSelectedIndex(0);
+            //Filter wheel 1
+            jcbFilterWheel2.removeAllItems();
+            //Upper ND slide
+            jcbUpperNDSlide.removeAllItems();
+            //Lower ND slide
+            jcbLowerNDSlide.removeAllItems();
             //show FW1
             jpFilterWheel1.setVisible(true);
             jpFilterWheel2.setVisible(false);
@@ -254,29 +360,54 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         }
     }
 
-    private int getBinningLimitOfInstrument(String instrumentName) {
-        if (instrumentName != null) {
+    /**
+     * Return the maximum binning allowed for the specified instrument.
+     * @param instrumentName The name of the instrument.
+     * @return The maximum binning allowed for the specified instrument.
+     */
+    private int getBinningLimitOfInstrument(String instrumentName) 
+    {
+        if (instrumentName != null) 
+        {
             /*
             if (instrumentName.equalsIgnoreCase(CONST.RATCAM)) {
                  return 2;
             */  
-            if (instrumentName.equalsIgnoreCase(CONST.IO_O)) {
+            if (instrumentName.equalsIgnoreCase(CONST.IO_O)) 
+            {
                 return 1;
-            } else if (instrumentName.equalsIgnoreCase(CONST.RISE)) {
+            } 
+            else if (instrumentName.equalsIgnoreCase(CONST.RISE)) 
+            {
                 return 2;
-            } else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) {
+            } 
+            else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) 
+            {
                 return 1;
             }
-        }
+            else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
+            {
+                return 1;
+            }
+         }
         return 1;//default
     }
 
-    
-    private void selectFiltersForInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) throws Exception {
+    /**
+     * Use the filterSpec set in the specified config, to configure the filter wheel combo boxes.
+     * @param imagerInstrumentConfig The instrument config to use.
+     * @throws Exception Thrown if the instrument config filterSpec is null.
+     * @see #jcbFilterWheel1
+     * @see #jcbFilterWheel2
+     * @see #selectFilter
+     */
+    private void selectFiltersForInstrumentConfig(XImagerInstrumentConfig imagerInstrumentConfig) throws Exception 
+    {
 
         XFilterSpec filterSpec = imagerInstrumentConfig.getFilterSpec();
 
-        if (filterSpec == null) {
+        if (filterSpec == null) 
+        {
             logger.error("FilterSpec is null");
             throw new Exception("FilterSpec is null");
         }
@@ -284,13 +415,16 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         //first filter
         List filterList = filterSpec.getFilterList();
 
-        if (filterList == null) {
+        if (filterList == null) 
+        {
             //likely a clear filter or two clear filters.
             //jcb's will have been set up dependant upon instrument name already
-            if (jcbFilterWheel1.getItemCount() > 0) {
+            if (jcbFilterWheel1.getItemCount() > 0) 
+            {
                 jcbFilterWheel1.setSelectedIndex(0);
             }
-            if (jcbFilterWheel2.getItemCount() > 0) {
+            if (jcbFilterWheel2.getItemCount() > 0) 
+            {
                 jcbFilterWheel2.setSelectedIndex(0);
             }
             return;
@@ -310,37 +444,66 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         */
         //more than two filter wheels now (including the Neutral Density filters)
         Iterator filterListIterator = filterList.iterator();
-        while (filterListIterator.hasNext()) {
+        while (filterListIterator.hasNext()) 
+        {
             XFilterDef filter = (XFilterDef) filterListIterator.next();
             selectFilter(filter, imagerInstrumentConfig.getInstrumentName());
         }
         
     }
 
-    private boolean selectFilter(XFilterDef filter, String instrumentName) {
+    /**
+     * Select the specified filter in a filter wheel combo box, based on the instrument name.
+     * @param filter An instance of XFilterDef containing the specification of one filter.
+     * @param instrumentName The name of the instrument we are configuring for.
+     * @return Returns true if we manage to configure the filter successfully, false if not.
+     * @see #jcbFilterWheel1
+     * @see #jcbUpperNDSlide
+     * @see #jcbLowerNDSlide
+     */
+    private boolean selectFilter(XFilterDef filter, String instrumentName) 
+    {
 
         String filterName = filter.getFilterName();
         
-        if (instrumentName.equalsIgnoreCase(CONST.RISE)){
-            if (filterListContains(CONST.RISE_FW_ITEMS, filterName)) {
+        if (instrumentName.equalsIgnoreCase(CONST.RISE))
+        {
+            if (filterListContains(CONST.RISE_FW_ITEMS, filterName)) 
+            {
                 jcbFilterWheel1.setSelectedItem(filterName);
                 return true;
             }
-        } else if (instrumentName.equalsIgnoreCase(CONST.IO_O)) {
-            if (filterListContains(CONST.O_FW_ITEMS, filterName)) {
+        } 
+        else if (instrumentName.equalsIgnoreCase(CONST.IO_O)) 
+        {
+            if (filterListContains(CONST.O_FW_ITEMS, filterName)) 
+            {
                 jcbFilterWheel1.setSelectedItem(filterName);
                 return true;
             }
-            if (filterListContains(CONST.O_UPPER_ND_ITEMS, filterName)) {
+            if (filterListContains(CONST.O_UPPER_ND_ITEMS, filterName)) 
+            {
                 jcbUpperNDSlide.setSelectedItem(filterName);
                 return true;
             }
-            if (filterListContains(CONST.O_LOWER_ND_ITEMS, filterName)) {
+            if (filterListContains(CONST.O_LOWER_ND_ITEMS, filterName)) 
+            {
                 jcbLowerNDSlide.setSelectedItem(filterName);
                 return true;
             }
-        } else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) {
-            if (filterListContains(CONST.I_FW_ITEMS, filterName)) {
+        } 
+        else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) 
+        {
+            if (filterListContains(CONST.I_FW_ITEMS, filterName)) 
+            {
+                jcbFilterWheel1.setSelectedItem(filterName);
+                return true;
+            }
+        }
+        else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
+        {
+            if (filterListContains(CONST.LIRIC_FW_ITEMS, filterName)) 
+            {
                 jcbFilterWheel1.setSelectedItem(filterName);
                 return true;
             }
@@ -348,34 +511,110 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         return false;
     }
 
-    //given a filter list, does it contain the filter named?
-    private boolean filterListContains(String[] filterList, String filter) {
+    /**
+     * given a filter list, does it contain the filter named?
+     */
+    private boolean filterListContains(String[] filterList, String filter) 
+    {
 
-        for (int i=0; i< filterList.length; i++) {
-            if (filterList[i].equalsIgnoreCase(filter)) {
+        for (int i=0; i< filterList.length; i++) 
+        {
+            if (filterList[i].equalsIgnoreCase(filter)) 
+            {
                 return true;
             }
         }
         return false;
     }
     
-    //return an instrument config from this panel
-    public IInstrumentConfig getInstrumentConfig() throws Exception {
+    /**
+     * Setup the nudgematic offset list combo box (and it's visibility) based on the specified imager instrument config. 
+     * @param imagerInstrumentConfig The instrument config used for configuration.
+     * @see #jcbNudgematicOffsetSize
+     * @see #jpNudgematicPanel
+     */
+    private void setNudgematicOffsetSize(XImagerInstrumentConfig imagerInstrumentConfig)
+    {
+        // Only liric has a nudgematic
+        if(imagerInstrumentConfig instanceof XLiricInstrumentConfig)
+        {
+            XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig)imagerInstrumentConfig;
+            
+            int nudgematicOffsetSize = liricInstrumentConfig.getNudgematicOffsetSize();
+            if(nudgematicOffsetSize == XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_NONE]);
+            else if(nudgematicOffsetSize == XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_SMALL]);
+            else if(nudgematicOffsetSize == XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE)
+                jcbNudgematicOffsetSize.setSelectedItem(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LARGE]);
+            jpNudgematicPanel.setVisible(true);
+        }
+        else
+        {
+            // this is not liric, hide the nudgematic offset size combo box.
+            jpNudgematicPanel.setVisible(false);
+        }
+    }
+    
+    /**
+     * Setup the coadd exposure length combo box (and it's visibility) based on the specified imager instrument config.
+     * @param imagerInstrumentConfig The instrument config used for configuration.
+     * @see #jcbCoaddExposureLength
+     * @see #jpCoaddPanel
+     */
+    private void setCoaddExposureLength(XImagerInstrumentConfig imagerInstrumentConfig)
+    {
+        // Only liric has a coadd exposure length
+        if(imagerInstrumentConfig instanceof XLiricInstrumentConfig)
+        {
+            XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig)imagerInstrumentConfig;
+            
+            int coaddExposureLength = liricInstrumentConfig.getCoaddExposureLength();
+            jcbCoaddExposureLength.setSelectedItem(new String(""+coaddExposureLength));
+            jpCoaddPanel.setVisible(true);
+        }
+        else
+        {
+            // this is not liric, hide the coadd exposure length combo box.
+            jpCoaddPanel.setVisible(false);
+        }
+        
+    }
+    
+    /**
+     * Construct and return an imager instrument config based on the settings in this dialog.
+     * @return AN instance of ImagerInstrumentConfig (or it's subclass LiricInstrumentConfig if necessary).
+     * @throws Exception Thrown if an error occurs.
+     */
+    public IInstrumentConfig getInstrumentConfig() throws Exception 
+    {
+        XImagerInstrumentConfig imagerInstrumentConfig = null;
+        XLiricInstrumentConfig liricInstrumentConfig = null;
+        String instrumentName;
+        String name;
 
-        XImagerInstrumentConfig imagerInstrumentConfig = new XImagerInstrumentConfig();
-            String name;
-            String instrumentName;
-
+        instrumentName = (String)jcbInstrumentName.getSelectedItem();
+        // The returned instrument config will be an instance of XLiricInstrumentConfig if the instrumentName is LIRIC
+        // and an instance of XImagerInstrumentConfig otherwise
+        if (instrumentName.equalsIgnoreCase(CONST.LIRIC))
+        {
+            liricInstrumentConfig = new XLiricInstrumentConfig();
+            imagerInstrumentConfig = liricInstrumentConfig;
+        }
+        else
+        {
+            imagerInstrumentConfig = new XImagerInstrumentConfig();
+        }
         imagerInstrumentConfig.setID(originalImagerInstrumentConfig.getID());
         name = jtfInstrumentConfigName.getText();
-        instrumentName = (String)jcbInstrumentName.getSelectedItem();
 
         //need name field to have been validated
 
         //add filters + ND slide options dependent upon instrument
         XFilterSpec filterSpec = new XFilterSpec();
         
-        if (instrumentName.equalsIgnoreCase(CONST.RISE)) {
+        if (instrumentName.equalsIgnoreCase(CONST.RISE)) 
+        {
             //blank filter spec
         /*
         } else if (instrumentName.equalsIgnoreCase(CONST.RATCAM)) {
@@ -387,7 +626,9 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             String filter2 = (String)jcbFilterWheel2.getSelectedItem();
             filterSpec.addFilter(new XFilterDef(filter2));
         */
-        } else if (instrumentName.equalsIgnoreCase(CONST.IO_O)) {
+        } 
+        else if (instrumentName.equalsIgnoreCase(CONST.IO_O)) 
+        {
             //(in this order)
             //filter 1    
             String filter1 = (String)jcbFilterWheel1.getSelectedItem();
@@ -399,21 +640,57 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             String upperSlide = (String)jcbUpperNDSlide.getSelectedItem();
             filterSpec.addFilter(new XFilterDef(upperSlide));
             
-        } else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) {
+        }
+        else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) 
+        {
             String filter1 = (String)jcbFilterWheel1.getSelectedItem();
             filterSpec.addFilter(new XFilterDef(filter1));
-
         }
-        
-        //set the filter spec that has been built
-        //System.err.println("filterSpec=" + filterSpec);
+        else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
+        {
+            String filter1 = (String)jcbFilterWheel1.getSelectedItem();
+            filterSpec.addFilter(new XFilterDef(filter1));
+        }
         
         imagerInstrumentConfig.setFilterSpec(filterSpec);
         
-        //get the detectot config
+        //get the detector (binning) config
         XDetectorConfig detectorConfig = (XDetectorConfig) detectorConfigStandardPanel.getDetectorConfig();
         imagerInstrumentConfig.setDetectorConfig(detectorConfig);
         
+        // nudgematic offset size
+        if(liricInstrumentConfig != null)
+        {
+            int nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+           
+            if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_NONE]))
+                nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+            else if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_SMALL]))
+                nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL;
+            else if(jcbNudgematicOffsetSize.getSelectedItem().equals(CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LIST[CONST.LIRIC_NUDGEMATIC_OFFSET_SIZE_LARGE]))
+                nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_LARGE;
+            else
+                nudgematicOffsetSize = XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_NONE;
+            liricInstrumentConfig.setNudgematicOffsetSize(nudgematicOffsetSize);
+        }
+        // coadd exposure length
+        if(liricInstrumentConfig != null)
+        {
+            String coaddExpsoureLengthString = null;
+            int coaddExposureLength;
+            
+            try
+            {
+                coaddExpsoureLengthString = (String)jcbCoaddExposureLength.getSelectedItem();
+                coaddExposureLength = Integer.parseInt(coaddExpsoureLengthString);
+            }
+            catch(Exception e)
+            {
+                throw new IllegalArgumentException("Coadd Exposure Length is not a valid integer:"+coaddExpsoureLengthString);
+            }
+            liricInstrumentConfig.setCoaddExposureLength(coaddExposureLength);
+        }
+       
         imagerInstrumentConfig.setName(name);
         imagerInstrumentConfig.setInstrumentName(instrumentName);
  
@@ -475,6 +752,13 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         jLabel2 = new javax.swing.JLabel();
         jcbFilterWheel2 = new javax.swing.JComboBox();
         detectorConfigStandardPanel = new ngat.beans.guibeans.DetectorConfigStandardPanel();
+        jpNudgematicPanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jcbNudgematicOffsetSize = new javax.swing.JComboBox();
+        jpCoaddPanel = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jcbCoaddExposureLength = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Instrument Name"));
 
@@ -602,7 +886,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             .add(jpLowerNDSlideLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jpLowerNDSlideLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jcbLowerNDSlide, 0, 183, Short.MAX_VALUE)
+                    .add(jcbLowerNDSlide, 0, 201, Short.MAX_VALUE)
                     .add(jLabel6))
                 .addContainerGap())
         );
@@ -682,6 +966,66 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jpFilterWheel1, jpFilterWheel2, jpLowerNDSlide, jpUpperNDSlide}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
+        jpNudgematicPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Nudgematic"));
+        jpNudgematicPanel.setName("jpNudgematicPanel"); // NOI18N
+
+        jLabel4.setText("Offset Size");
+
+        jcbNudgematicOffsetSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Small", "Large" }));
+        jcbNudgematicOffsetSize.setName("jcbNudgematicOffsetSize"); // NOI18N
+
+        org.jdesktop.layout.GroupLayout jpNudgematicPanelLayout = new org.jdesktop.layout.GroupLayout(jpNudgematicPanel);
+        jpNudgematicPanel.setLayout(jpNudgematicPanelLayout);
+        jpNudgematicPanelLayout.setHorizontalGroup(
+            jpNudgematicPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jpNudgematicPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel4)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jcbNudgematicOffsetSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpNudgematicPanelLayout.setVerticalGroup(
+            jpNudgematicPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jpNudgematicPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jLabel4)
+                .add(jcbNudgematicOffsetSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jpCoaddPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Coadd"));
+
+        jLabel7.setText("Exposure Length");
+
+        jcbCoaddExposureLength.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "100", "1000" }));
+
+        jLabel8.setText("milliseconds");
+
+        org.jdesktop.layout.GroupLayout jpCoaddPanelLayout = new org.jdesktop.layout.GroupLayout(jpCoaddPanel);
+        jpCoaddPanel.setLayout(jpCoaddPanelLayout);
+        jpCoaddPanelLayout.setHorizontalGroup(
+            jpCoaddPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jpCoaddPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel7)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jcbCoaddExposureLength, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel8)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpCoaddPanelLayout.setVerticalGroup(
+            jpCoaddPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jpCoaddPanelLayout.createSequentialGroup()
+                .add(jpCoaddPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7)
+                    .add(jcbCoaddExposureLength, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(0, 0, Short.MAX_VALUE))
+            .add(jpCoaddPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel8)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -692,7 +1036,9 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, detectorConfigStandardPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jpNudgematicPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jpCoaddPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -705,8 +1051,12 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(detectorConfigStandardPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 216, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jpNudgematicPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jpCoaddPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -717,6 +1067,16 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         }
         setupFilterLists(selectedInstrumentName);
         setBinningOptions(selectedInstrumentName);
+        if (selectedInstrumentName.equalsIgnoreCase(CONST.LIRIC))
+        {
+            jpNudgematicPanel.setVisible(true);
+            jpCoaddPanel.setVisible(true);
+        }
+        else
+        {
+            jpNudgematicPanel.setVisible(false);
+            jpCoaddPanel.setVisible(false);        
+        }
 }//GEN-LAST:event_jcbInstrumentNameActionPerformed
 
     private void jbtnRemoveFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRemoveFilterActionPerformed
@@ -733,20 +1093,27 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JButton jbtnRemoveFilter;
+    private javax.swing.JComboBox jcbCoaddExposureLength;
     private javax.swing.JComboBox jcbFilterWheel1;
     private javax.swing.JComboBox jcbFilterWheel2;
     private javax.swing.JComboBox jcbInstrumentName;
     private javax.swing.JComboBox jcbLowerNDSlide;
+    private javax.swing.JComboBox jcbNudgematicOffsetSize;
     private javax.swing.JComboBox jcbUpperNDSlide;
+    private javax.swing.JPanel jpCoaddPanel;
     private javax.swing.JPanel jpFilterWheel1;
     private javax.swing.JPanel jpFilterWheel2;
     private javax.swing.JPanel jpLowerNDSlide;
+    private javax.swing.JPanel jpNudgematicPanel;
     private javax.swing.JPanel jpUpperNDSlide;
     private javax.swing.JTextField jtfInstrumentConfigName;
     // End of variables declaration//GEN-END:variables
