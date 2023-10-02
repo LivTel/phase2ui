@@ -49,15 +49,15 @@ public class InstrumentConfigSelectorPanel extends javax.swing.JPanel implements
         this.program = program;
         initComponents();
         
-        jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_CONFIGS));
+        //jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_CONFIGS));
         
-        /*
+        
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_CONFIGS));
         } else {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_IOI));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_LIRIC));
         }
-        */
+        
         jcbInstrumentNameActionPerformed(null);
     }
 

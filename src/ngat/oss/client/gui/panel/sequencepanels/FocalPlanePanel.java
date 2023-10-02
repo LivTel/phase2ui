@@ -23,31 +23,26 @@ public class FocalPlanePanel extends javax.swing.JPanel implements SequenceCompo
     public FocalPlanePanel() {
         initComponents();
         
-        jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
+        //jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         
-        /*
-        //SPRAT only available to SU atm.
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         } else {
-            jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_IOI));
+            jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC));
         }
-        */
     }
 
     public FocalPlanePanel(XAcquisitionConfig acquisitionConfig) {
         initComponents();
         
-        jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
+        //jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         
-        /*
-        //SPRAT only available to SU atm.
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         } else {
-            jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_IOI));
+            jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC));
         }
-        */
+
         String targetInstrumentName = acquisitionConfig.getTargetInstrumentName();
 
         if (targetInstrumentName != null) {
@@ -110,6 +105,12 @@ public class FocalPlanePanel extends javax.swing.JPanel implements SequenceCompo
 
         jLabel1.setText("Target Instrument:");
 
+        jcbTargetInstrument.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTargetInstrumentActionPerformed(evt);
+            }
+        });
+
         jtpHelpPane.setEditable(false);
         jtpHelpPane.setText("Offset the telescope to place the target on the default field position for the specified instrument. E.g. for an imager this is the approximate FoV centre.\n\nNote that if you are using an instrument to fine tune the pointing, you should select that instrument and not the science instrument.");
         jScrollPane1.setViewportView(jtpHelpPane);
@@ -144,6 +145,10 @@ public class FocalPlanePanel extends javax.swing.JPanel implements SequenceCompo
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jcbTargetInstrumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTargetInstrumentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbTargetInstrumentActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

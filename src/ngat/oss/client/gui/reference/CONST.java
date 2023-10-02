@@ -22,7 +22,7 @@ public class CONST {
 
     public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 9, 0);
     
-    public static final String CURRENT_REVISION_LETTER = ".A";
+    public static final String CURRENT_REVISION_LETTER = ".B";
     
     public static final String APP_NAME = "Liverpool Telescope Phase2 UI";
 
@@ -73,27 +73,27 @@ public class CONST {
     //instrument lists:
     
     //instrument lists for instrument configs
-    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, LIRIC, FRODO_RED, FRODO_BLUE, LOTUS}; //NB: contains frodo_blue and frodo red (only used in instrument configs)
-    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_LIRIC = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, FRODO_RED, FRODO_BLUE, LOTUS}; //temp, for non su users //NB: contains frodo_blue and frodo red (only used in instrument configs)
+    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS = new String[]{SPRAT, RISE, MOPTOP, IO_O, LIRIC, FRODO_RED, FRODO_BLUE }; //NB: contains frodo_blue and frodo red (only used in instrument configs)
+    public static final String[] ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_LIRIC = new String[]{SPRAT, RISE, MOPTOP, IO_O, FRODO_RED, FRODO_BLUE }; //temp, for non su users //NB: contains frodo_blue and frodo red (only used in instrument configs)
     
     //instrument lists for acquisition, acquiring
     public static final String[] ACQUISITION_ACQUIRING_INSTRUMENTS = new String[]{IO_O, SPRAT};
     
     //instrument lists for acquisition, science
-    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS = new String[]{SPRAT, FRODO, IO_O, IO_I, LIRIC, RINGO3, MOPTOP, RISE, LOTUS};
-    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC = new String[]{ FRODO, IO_O, SPRAT, RINGO3, MOPTOP, RISE, LOTUS}; //temp, for non su users
+    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS = new String[]{FRODO, IO_O, LIRIC, MOPTOP, RISE, SPRAT};
+    public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC = new String[]{ FRODO, IO_O, MOPTOP, RISE, SPRAT }; //temp, for non su users
     
     //instrument lists for everything else, e.g. rotator alignment and slew
     public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, MOPTOP, IO_O}; //NB: contains frodo, not an arm instrument
     //public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, FRODO, LOTUS}; //NB: contains frodo, not an arm instrument
-    //public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_IOI = new String[]{SPRAT, RISE, RINGO3, IO_O, FRODO, LOTUS}; //temp, for non su users //NB: contains frodo, not an arm instrument
+    //public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_LIRIC = new String[]{SPRAT, RISE, IO_O, MOPTOP}; //temp, for non su users //NB: contains frodo, not an arm instrument
     
     //instrument lists for imager instrument config editor panel and photometry and polarimetry wizard
-    public static final String[] IMAGER_INSTRUMENTS = new String[]{IO_O, IO_I, LIRIC, RISE};
+    public static final String[] IMAGER_INSTRUMENTS = new String[]{IO_O, LIRIC, RISE};
     public static final String[] IMAGER_INSTRUMENTS_EXCEPT_LIRIC = new String[]{IO_O, RISE};
     
     public static final String[] BEAM_STEERING_INSTRUMENTS = new String[]{IO_O}; // will include IO_I but not yet.
-    public static final String[] POLARIMETER_INSTRUMENTS = new String[]{RINGO3,MOPTOP}; 
+    public static final String[] POLARIMETER_INSTRUMENTS = new String[]{MOPTOP}; 
     public static final String[] DUAL_BEAM_SPECTROGRAPH_INSTRUMENTS = new String[]{FRODO};
     
     
@@ -129,8 +129,6 @@ public class CONST {
     public static final String MOP_L = "MOP-L";
     public static final String LIR_H = "LIR-H";
     public static final String LIR_J = "LIR-J";
-    public static final String LIR_Y = "LIR-Y";
-    public static final String LIR_Z = "LIR-Z";
     public static final String LIR_MIRROR = "LIR-MIRROR";
 
     //filter wheel lists
@@ -141,7 +139,7 @@ public class CONST {
     //public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, GG475_KG3_Pol};
     public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, H_ALPHA_6822}; //22/10/15
     public static final String[] I_FW_ITEMS = new String[]{H};
-    public static final String[] LIRIC_FW_ITEMS = new String[]{LIR_H,LIR_J,LIR_Y,LIR_Z,LIR_MIRROR};
+    public static final String[] LIRIC_FW_ITEMS = new String[]{LIR_H,LIR_J,LIR_MIRROR};
     public static final String[] MOPTOP_FW_ITEMS = new String[]{MOP_R,MOP_V,MOP_B,MOP_I,MOP_L};
     
     //IO:O neutral density slides

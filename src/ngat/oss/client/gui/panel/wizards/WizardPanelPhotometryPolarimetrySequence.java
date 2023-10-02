@@ -211,18 +211,18 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
 
         setComponentsForPhotometry();
         
-        jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
-        jcbAlignedToInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
+        //jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
+        //jcbAlignedToInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
             
-        /*
+        
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
             jcbAlignedToInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
         } else {
-            jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_IOI));
-            jcbAlignedToInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_IOI));
+            jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
+            jcbAlignedToInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
         }
-        */
+        
         
         //jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
 

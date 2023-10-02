@@ -66,6 +66,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jcbTargetInstrument">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbTargetInstrumentActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

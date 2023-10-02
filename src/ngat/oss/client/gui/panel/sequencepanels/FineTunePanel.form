@@ -135,6 +135,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jcbScienceInstrument">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbScienceInstrumentActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

@@ -44,7 +44,7 @@ public class FineTunePanel extends javax.swing.JPanel implements SequenceCompone
         
         jcbAcquisitionInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_ACQUIRING_INSTRUMENTS));
         
-        jcbScienceInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
+        //jcbScienceInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         
         /*
         if (Session.getInstance().getUser().isSuperUser()) {
@@ -54,13 +54,13 @@ public class FineTunePanel extends javax.swing.JPanel implements SequenceCompone
         }
         */
         
-        /*
+        
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbScienceInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         } else {
-            jcbScienceInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_IOI));
+            jcbScienceInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC));
         }
-        */
+        
     }
     
     private void populateComponents(XAcquisitionConfig acquisitionConfig) {
@@ -221,6 +221,12 @@ public class FineTunePanel extends javax.swing.JPanel implements SequenceCompone
 
         jLabel1.setText("Science Instrument (with target pixel):");
 
+        jcbScienceInstrument.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbScienceInstrumentActionPerformed(evt);
+            }
+        });
+
         jtpHelpPane.setEditable(false);
         jtpHelpPane.setText("Make sure that you have already configured the focal plane for the acquisition instrument. Do not issue another Focal Plane command following Fine Tuning. \n\nIn general, use 'BRIGHTEST OBJECT' for objects brighter than V=8, otherwise use ASTROMETRIC FIT.");
         jScrollPane1.setViewportView(jtpHelpPane);
@@ -297,6 +303,10 @@ public class FineTunePanel extends javax.swing.JPanel implements SequenceCompone
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jcbScienceInstrumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbScienceInstrumentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbScienceInstrumentActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
