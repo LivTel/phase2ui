@@ -20,6 +20,7 @@ import ngat.phase2.XDualBeamSpectrographInstrumentConfig;
 import ngat.phase2.XImagerInstrumentConfig;
 import ngat.phase2.XImagingSpectrographInstrumentConfig;
 import ngat.phase2.XInstrumentConfig;
+import ngat.phase2.XLiricInstrumentConfig;
 import ngat.phase2.XPolarimeterInstrumentConfig;
 import ngat.phase2.XMoptopInstrumentConfig;
 import ngat.phase2.XTipTiltImagerInstrumentConfig;
@@ -90,6 +91,11 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
             isImager = true;
             
         } 
+        else if (instrumentName.equals(CONST.LIRIC)) 
+        {
+            isImager = true;
+            
+        } 
         else if (instrumentName.equals(CONST.RINGO3) ) 
         {
             isPolarimeter = true;
@@ -129,10 +135,18 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
             jrbPolarimeter.setEnabled(false);
             jrbDualBeamSpec.setEnabled(false);
             jrbImagingSpectrograph.setEnabled(false);
-            XImagerInstrumentConfig imagerInstrumentConfig = new XImagerInstrumentConfig();
-            imagerInstrumentConfig.setInstrumentName(instrumentName);
-            instrumentConfig = imagerInstrumentConfig;
-            
+            if (instrumentName.equals(CONST.LIRIC))
+            {
+                XLiricInstrumentConfig liricInstrumentConfig = new XLiricInstrumentConfig();
+                liricInstrumentConfig.setInstrumentName(instrumentName);
+                instrumentConfig = liricInstrumentConfig;
+            }
+            else
+            {
+                XImagerInstrumentConfig imagerInstrumentConfig = new XImagerInstrumentConfig();
+                imagerInstrumentConfig.setInstrumentName(instrumentName);
+                instrumentConfig = imagerInstrumentConfig;
+            }            
         } 
         else if (isPolarimeter) 
         {
