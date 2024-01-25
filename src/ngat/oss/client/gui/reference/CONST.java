@@ -20,9 +20,9 @@ import ngat.phase2.XVersion;
  */
 public class CONST {
 
-    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 9, 0);
+    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 9, 1);
     
-    public static final String CURRENT_REVISION_LETTER = ".E";
+    public static final String CURRENT_REVISION_LETTER = ".A";
     
     public static final String APP_NAME = "Liverpool Telescope Phase2 UI";
 
@@ -111,8 +111,8 @@ public class CONST {
     public static final String H_ALPHA_6634 = "H-Alpha-6634";
     public static final String H_ALPHA_6705 = "H-Alpha-6705";
     public static final String H_ALPHA_6755 = "H-Alpha-6755";
-    public static final String H_ALPHA_6822 = "H-Alpha-6822"; // removed from filter wheel 30/6/15. Put back on 22/10/15
-    
+    public static final String H_ALPHA_6822 = "H-Alpha-6822"; // removed from filter wheel 30/6/15. Put back on 22/10/15. Removed Jan 2024.
+    public static final String CN = "CN";
     //public static final String GG475_KG3 = "GG475+KG3"; //New broadband filter for Gaia observing (but taken out in April 2015)
     //public static final String GG475_KG3_Pol = "GG475+KG3+Pol"; // removed from filter wheel 22/10/15
     
@@ -139,7 +139,8 @@ public class CONST {
     public static final String[] RISE_FW_ITEMS = new String[]{OG515};
     //public static final String[] O_FW_ITEMS = new String[]{SDSS_U, BESSELL_B, BESSELL_V, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, GG475_KG3};
     //public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, GG475_KG3_Pol};
-    public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, H_ALPHA_6822}; //22/10/15
+    //public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, H_ALPHA_6822}; //22/10/15
+    public static final String[] O_FW_ITEMS = new String[]{BESSELL_B, BESSELL_V, SDSS_U, SDSS_G, SDSS_R, SDSS_I, SDSS_Z, H_ALPHA_6566, H_ALPHA_6634, H_ALPHA_6705, H_ALPHA_6755, CN}; // 25/01/24
     public static final String[] I_FW_ITEMS = new String[]{H};
     public static final String[] LIRIC_FW_ITEMS = new String[]{FELH1500, BARR_H, BARR_J, BESSELL_R};
     public static final String[] MOPTOP_FW_ITEMS = new String[]{MOP_R,MOP_V,MOP_B,MOP_I,MOP_L};
