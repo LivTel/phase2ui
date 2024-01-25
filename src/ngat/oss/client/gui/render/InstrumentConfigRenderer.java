@@ -123,13 +123,13 @@ public class InstrumentConfigRenderer
                 s += "Gain=[" + tiltImagerInstrumentConfig.getGain() + "]";
                 return s;
             }
+            s += "Filters=[" + imagerInstrumentConfig.getFilterSpec().getFiltersString() + "]";
             if (instrumentConfig instanceof XLiricInstrumentConfig) 
             {
                 XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig)imagerInstrumentConfig;
                 s += ",Nudgematic Offset Size=[" + liricInstrumentConfig.nudgematicOffsetSizeToString()+ "]";
-                s += ",Coadd Exposure Length=[" + liricInstrumentConfig.getCoaddExposureLength()+ "],";
+                s += ",Coadd Exposure Length=[" + liricInstrumentConfig.getCoaddExposureLength()+ "]";
             } 
-             s += "Filters=[" + imagerInstrumentConfig.getFilterSpec().getFiltersString() + "]";
             return s;
         } 
         // XPolarimeterInstrumentConfig
