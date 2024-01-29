@@ -22,7 +22,7 @@ public class CONST {
 
     public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(1, 9, 9, 1);
     
-    public static final String CURRENT_REVISION_LETTER = ".A";
+    public static final String CURRENT_REVISION_LETTER = ".B";
     
     public static final String APP_NAME = "Liverpool Telescope Phase2 UI";
 
@@ -84,9 +84,9 @@ public class CONST {
     public static final String[] ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC = new String[]{ FRODO, IO_O, MOPTOP, RISE, SPRAT }; //temp, for non su users
     
     //instrument lists for everything else, e.g. rotator alignment and slew
-    public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, MOPTOP, IO_O}; //NB: contains frodo, not an arm instrument
+    public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, MOPTOP, IO_O, LIRIC}; //NB: contains frodo, not an arm instrument
     //public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR = new String[]{SPRAT, RISE, RINGO3, MOPTOP, IO_O, IO_I, FRODO, LOTUS}; //NB: contains frodo, not an arm instrument
-    //public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_LIRIC = new String[]{SPRAT, RISE, IO_O, MOPTOP}; //temp, for non su users //NB: contains frodo, not an arm instrument
+    public static final String[] ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_LIRIC = new String[]{SPRAT, RISE, IO_O, MOPTOP}; //temp, for non su users //NB: contains frodo, not an arm instrument
     
     //instrument lists for imager instrument config editor panel and photometry and polarimetry wizard
     public static final String[] IMAGER_INSTRUMENTS = new String[]{IO_O, LIRIC, RISE};

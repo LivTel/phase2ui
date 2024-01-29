@@ -92,15 +92,15 @@ public class SlewPanel extends javax.swing.JPanel implements SequenceComponentPa
 
     private void populateInstrumentList() {
         
-        jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_ROTATOR));
+        //jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_ROTATOR));
         
-        /*
+        
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_ROTATOR));
         } else {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_IOI));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_LIRIC));
         }
-        */
+        
     }
     
     private void populateTargetList() throws Phase2Exception {
