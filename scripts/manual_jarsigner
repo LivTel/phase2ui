@@ -1,0 +1,36 @@
+#!/bin/tcsh
+#
+# Directory structure
+#
+set script_dir = `dirname $0`
+echo "Script Dir: ${script_dir}"
+if ( "${script_dir}" == "." ) then
+   set script_dir = `pwd`
+endif
+echo "Script Dir now: ${script_dir}"
+set phase2ui_dir = `dirname ${script_dir}`
+echo "Phase2UI dir: ${phase2ui_dir}"
+set dist_dir = "${phase2ui_dir}/dist"
+echo "dist dir: ${dist_dir}"
+#
+# Passwords passed in
+#
+if( ! $?jarsigner_storepass ) then
+    echo "Specify store password using setenv jarsigner_storepass"
+    exit 1
+endif
+if( ! $?jarsigner_keypass ) then
+    echo "Specify key password using setenv jarsigner_keypass"
+    exit 1
+endif
+echo "Store password: ${jarsigner_storepass}"
+echo "Key password: ${jarsigner_keypass}"
+#
+# Construct list of jars to sign
+#
+set jar_list = "${dist_dir}/Phase2UI.jar ${dist_dir}/lib/*.jar"
+foreach jarfile ( ${jar_list} )
+	echo "Signing ${jarfile}"
+	echo "jarsigner -tsa http://timestamp.digicert.com -keystore /home/dev/CODE_SIGNING_RESOURCES/keystore/ltsite2_astro_livjm_ac_uk.jks -storepass ${jarsigner_storepass} -keypass ${jarsigner_keypass} ${jarfile} phase2ui-css"
+	jarsigner -tsa http://timestamp.digicert.com -keystore /home/dev/CODE_SIGNING_RESOURCES/keystore/ltsite2_astro_livjm_ac_uk.jks -storepass ${jarsigner_storepass} -keypass ${jarsigner_keypass} ${jarfile} phase2ui-css
+end
