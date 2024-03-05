@@ -219,8 +219,8 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
             jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
             jcbAlignedToInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
         } else {
-            jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
-            jcbAlignedToInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
+            jcbObsInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
+            jcbAlignedToInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
         }
         
         

@@ -463,6 +463,7 @@ class TelescopeState
         
         if (latestInstrumentConfigInstrumentName.equals(CONST.LIRIC))
         {
+            logger.info("receiveInstrumentConfig:LIRIC instrument is actually a:" + instrumentConfig);
             XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig) instrumentConfig;
             int nudgematicOffsetSize = liricInstrumentConfig.getNudgematicOffsetSize();
             latestLiricCoaddExposureLength = liricInstrumentConfig.getCoaddExposureLength();

@@ -58,7 +58,7 @@ public class FineTunePanel extends javax.swing.JPanel implements SequenceCompone
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbScienceInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         } else {
-            jcbScienceInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC));
+            jcbScienceInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         }
         
     }

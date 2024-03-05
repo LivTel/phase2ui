@@ -98,7 +98,7 @@ public class SlewPanel extends javax.swing.JPanel implements SequenceComponentPa
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_ROTATOR));
         } else {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_ROTATOR_EXCEPT_LIRIC));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_ROTATOR));
         }
         
     }

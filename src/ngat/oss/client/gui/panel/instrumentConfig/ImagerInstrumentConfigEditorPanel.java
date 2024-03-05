@@ -64,7 +64,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         } 
         else 
         {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
         }
         populateComponents(imagerInstrumentConfig, isNewInstrumentConfig);
     }
@@ -89,7 +89,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         } 
         else
         {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS_EXCEPT_LIRIC));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.IMAGER_INSTRUMENTS));
         }
         
         if (isNewInstrumentConfig) 

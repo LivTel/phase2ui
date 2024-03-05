@@ -28,7 +28,7 @@ public class FocalPlanePanel extends javax.swing.JPanel implements SequenceCompo
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         } else {
-            jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC));
+            jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         }
     }
 
@@ -40,7 +40,7 @@ public class FocalPlanePanel extends javax.swing.JPanel implements SequenceCompo
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         } else {
-            jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS_EXCEPT_LIRIC));
+            jcbTargetInstrument.setModel(new javax.swing.DefaultComboBoxModel(CONST.ACQUISITION_SCIENCE_INSTRUMENTS));
         }
 
         String targetInstrumentName = acquisitionConfig.getTargetInstrumentName();

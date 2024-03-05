@@ -55,7 +55,7 @@ public class InstrumentConfigSelectorPanel extends javax.swing.JPanel implements
         if (Session.getInstance().getUser().isSuperUser()) {
             jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_CONFIGS));
         } else {
-            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_CONFIGS_EXCEPT_LIRIC));
+            jcbInstrumentName.setModel(new javax.swing.DefaultComboBoxModel(CONST.ALL_INSTRUMENTS_FOR_CONFIGS));
         }
         
         jcbInstrumentNameActionPerformed(null);
