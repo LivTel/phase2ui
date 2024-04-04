@@ -75,29 +75,28 @@ public class StandardTargetList {
 
         // Field order: targetName, raStr, decStr, magStr, refFrame, epoch
         
-	    
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_15,01 49 09.5,+13 33 12,10.41,FK5,2016.9"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_25,02 38 37.7,+05 28 11,12.01,FK5,2016.9"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("G191-B2B,05 05 30.64,+52 49 50.5,11.80,FK5,2020.14"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("He_3,06 47 37.7,+37 30 41,12.08,FK5,2016.9"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+75_325,08 10 49.5,+74 57 58,9.52,FK5,2016.9"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("PG0934+554,09 38 20.34,+55 05 49.06,12.16,FK5,2023.39"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_34,10 39 36.77,+43 06 08.92,10.41,FK5,2023.41"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("GD140,11 37 04.84,+29 47 58.34,12.41,FK5,2023.37"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_56,12 06 47.25,+11 40 12.86,10.41,FK5,2023.41"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_66,12 37 23.53,+25 03 59.69,10.41,FK5,2023.41"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("HZ_44,13 23 35.15,+36 07 59.85,11.74,FK5,2023.37"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_92,14 11 31.94,+50 07 04.50,10.41,FK5,2023.41"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_98,14 38 15.75,+27 29 32.96,10.41,FK5,2023.41"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+33_2642,15 51 59.87,+32 56 54.55,10.41,FK5,2023.41"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Kopff_27,17 43 55.84,+05 24 48.08,10.31,FK5,2023.38"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+25_3941,19 44 26.15,+26 13 16.77,10.36,FK5,2023.38"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Wolf_1346,20 34 21.20,+25 03 36.73,11.55,FK5,2023.38"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+28_4211,21 51 10.97,+28 51 49.10,10.51,FK5,2023.38"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+25_4655,21 59 41.91,+26 25 56.55,9.65,FK5,2023.38"));
-        standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+17_4708,22 11 32.21,+18 05 35.77,9.45,FK5,2023.39"));
-	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_110,23 19 58.4,-05 09 56,11.82,FK5,2016.9"));
 
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("He_3,06 47 37.53,+37 30 34.97,10.41,FK5,2023.84"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Wolf_1346,20 34 21.20,+25 03 36.73,10.41,FK5,2023.38"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+17_4708,22 11 32.21,+18 05 35.77,10.41,FK5,2023.39"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("GD140,11 37 04.84,+29 47 58.34,10.41,FK5,2023.38"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("G191-B2B,05 05 30.64,+52 49 49.94,10.41,FK5,2024.03"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("PG0934+554,09 38 20.34,+55 05 49.06,10.41,FK5,2023.39"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+28_4211,21 51 10.97,+28 51 49.10,10.41,FK5,2023.38"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("HZ_44,13 23 35.15,+36 07 59.85,10.41,FK5,2023.38"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+25_4655,21 59 41.91,+26 25 56.55,10.41,FK5,2023.38"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_34,10 39 36.77,+43 06 08.92,10.41,FK5,2023.41"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_66,12 37 23.53,+25 03 59.69,10.41,FK5,2023.41"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_92,14 11 31.94,+50 07 04.50,10.41,FK5,2023.41"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+33_2642,15 51 59.87,+32 56 54.55,10.41,FK5,2023.41"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_98,14 38 15.75,+27 29 32.96,10.41,FK5,2023.41"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+75_325,08 10 49.52,+74 57 58.30,10.41,FK5,2024.03"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_56,12 06 47.25,+11 40 12.86,10.41,FK5,2023.42"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Kopff_27,17 43 55.84,+05 24 48.08,10.41,FK5,2023.38"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_15,01 49 09.49,+13 33 12.01,10.41,FK5,2024.03"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_25,02 38 37.78,+05 28 11.65,10.41,FK5,2024.03"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("BD+25_3941,19 44 26.15,+26 13 16.77,10.41,FK5,2023.38"));
+	standardTargetList.add(new ngat.oss.client.gui.panel.target.StandardTargetWrapper("Feige_110,23 19 58.4,-05 09 56,11.82,FK5,2016.9"));
 
 	
         // need to be in following order:
