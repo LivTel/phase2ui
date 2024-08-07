@@ -57,7 +57,7 @@ public class InstrumentConfigRenderer
           } 
           else if (instrumentConfig instanceof XLiricInstrumentConfig) 
           {
-            return "LIRIC Imager Configuration";
+            return "LIRIC";
           } 
           else 
           {
@@ -127,8 +127,8 @@ public class InstrumentConfigRenderer
             if (instrumentConfig instanceof XLiricInstrumentConfig) 
             {
                 XLiricInstrumentConfig liricInstrumentConfig = (XLiricInstrumentConfig)imagerInstrumentConfig;
-                s += ",Nudgematic Offset Size=[" + liricInstrumentConfig.nudgematicOffsetSizeToString()+ "]";
-                s += ",Coadd Exposure Length=[" + liricInstrumentConfig.getCoaddExposureLength()+ "]";
+                s += ",Offset=[" + liricInstrumentConfig.nudgematicOffsetSizeToString()+ "]";
+                s += ",Coadd TExp=[" + liricInstrumentConfig.getCoaddExposureLength()+ "]";
             } 
             return s;
         } 
