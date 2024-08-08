@@ -58,7 +58,7 @@ Errors:
 
 Window->Output to see compilation output.
 
-You also have to 'Enable Web Start' on the Phase2UI Project preferences, and set the code signing keystore password and key password.
+You also have to 'Enable Web Start' on the Phase2UI Project preferences, and set the code signing keystore password and key password. Note the code signing configuration in netbeans is using the old expired certificates, we can't use the new certificate signing method here as it requires the hardware token. See the next section for how to manually sign the jars.
 
 After building the project with the 'Web Start' setting enabled, the dist directory should then contain a distribution for deployment.
 
