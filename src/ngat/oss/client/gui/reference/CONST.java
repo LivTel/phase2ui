@@ -20,7 +20,7 @@ import ngat.phase2.XVersion;
  */
 public class CONST {
 
-    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(2, 0, 1, 0);
+    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(2, 0, 2, 0);
     
     public static final String CURRENT_REVISION_LETTER = ".A";
     

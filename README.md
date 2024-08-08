@@ -1,17 +1,6 @@
 This is the Liverpool Telescope Phase2UI Java NetBeans project code.
+
 This should be built in netbeans (usually netbeans-8.2).
-The dist directory should then contain a distribution for deployment.
-
-## Deployment
-
-After copying the dist directory into ltproxy:/home/eng/download/
-The ltproxy:/home/eng/DEPLOY-P2UI.sh script should be run (as root) to deploy the software.
-It is worth backing up ltproxy:/usr/local/tomcat/webapps/ before attempting this.
-
-The launch_phase2gui.jnlp is hand-coded and should be hand copied to
-ltproxy:/usr/local/tomcat/webapps/ROOT/launch_oss. The launch.jnlp in the dist directory is not used.
-
-There is a copy of the DEPLOY-P2UI.sh in this repo, that should be manually installed in ltproxy:/home/eng/
 
 ## Installing netbeans
 
@@ -69,4 +58,22 @@ Errors:
 
 Window->Output to see compilation output.
 
-You also have to 'Enable Web Start' on the Phase2UI Project preferences, and set the code signing keystore password and key password.
+You also have to 'Enable Web Start' on the Phase2UI Project preferences, and set the code signing keystore password and key password. Note the code signing configuration in netbeans is using the old expired certificates, we can't use the new certificate signing method here as it requires the hardware token. See the next section for how to manually sign the jars.
+
+After building the project with the 'Web Start' setting enabled, the dist directory should then contain a distribution for deployment.
+
+## Code Signing
+
+Before deployment the jars in the dist directory need code-signing. See the wiki, wikiword Phase2UICertificates. 
+
+## Deployment
+
+After copying the dist directory into ltproxy:/home/eng/download/
+The ltproxy:/home/eng/DEPLOY-P2UI.sh script should be run (as root) to deploy the software.
+It is worth backing up ltproxy:/usr/local/tomcat/webapps/ before attempting this.
+
+The launch_phase2gui.jnlp is hand-coded and should be hand copied to
+ltproxy:/usr/local/tomcat/webapps/ROOT/launch_oss. The launch.jnlp in the dist directory is not used.
+
+There is a copy of the DEPLOY-P2UI.sh in this repo, that should be manually installed in ltproxy:/home/eng/
+
