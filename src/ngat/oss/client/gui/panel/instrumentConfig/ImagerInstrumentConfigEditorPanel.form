@@ -456,9 +456,9 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
-                <StringItem index="0" value="None"/>
-                <StringItem index="1" value="Small"/>
-                <StringItem index="2" value="Large"/>
+                <StringItem index="0" value="Small"/>
+                <StringItem index="1" value="Large"/>
+                <StringItem index="2" value="None"/>
               </StringArray>
             </Property>
             <Property name="name" type="java.lang.String" value="jcbNudgematicOffsetSize" noResource="true"/>
@@ -519,8 +519,8 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="100"/>
-                <StringItem index="1" value="1000"/>
+                <StringItem index="0" value="1000"/>
+                <StringItem index="1" value="100"/>
               </StringArray>
             </Property>
           </Properties>
