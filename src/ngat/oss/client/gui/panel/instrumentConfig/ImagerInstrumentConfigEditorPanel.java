@@ -971,7 +971,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
 
         jLabel4.setText("Offset Size");
 
-        jcbNudgematicOffsetSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Small", "Large" }));
+        jcbNudgematicOffsetSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Small", "Large", "None" }));
         jcbNudgematicOffsetSize.setName("jcbNudgematicOffsetSize"); // NOI18N
 
         org.jdesktop.layout.GroupLayout jpNudgematicPanelLayout = new org.jdesktop.layout.GroupLayout(jpNudgematicPanel);
@@ -996,7 +996,7 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
 
         jLabel7.setText("Exposure Length");
 
-        jcbCoaddExposureLength.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "100", "1000" }));
+        jcbCoaddExposureLength.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1000", "100" }));
 
         jLabel8.setText("milliseconds");
 
