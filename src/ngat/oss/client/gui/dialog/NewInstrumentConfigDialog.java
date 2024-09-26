@@ -139,6 +139,9 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
             {
                 XLiricInstrumentConfig liricInstrumentConfig = new XLiricInstrumentConfig();
                 liricInstrumentConfig.setInstrumentName(instrumentName);
+                // configure default nudgematic offset size and coadd exposure length
+                liricInstrumentConfig.setNudgematicOffsetSize(XLiricInstrumentConfig.NUDGEMATIC_OFFSET_SIZE_SMALL);
+                liricInstrumentConfig.setCoaddExposureLength(1000);
                 instrumentConfig = liricInstrumentConfig;
             }
             else
