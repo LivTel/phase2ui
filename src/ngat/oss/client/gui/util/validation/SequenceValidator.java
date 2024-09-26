@@ -696,11 +696,13 @@ class TelescopeState
                 XMultipleExposure multipleExposure = (XMultipleExposure) exposure;
                 if (latestInstrumentConfigInstrumentName.equals(CONST.IO_O)) {
                     //if it's for IO:O, make sure exposure length is okay
-                    if (multipleExposure.getExposureTime() < 1000) {
-                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "IO:O Exposure Times < 1 second are not allowed."));
-                    } else if (multipleExposure.getExposureTime() < 10000) {
-                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "IO:O exposure times < 10 seconds will have significant shutter effects."));
-                    }
+                    if (multipleExposure.getExposureTime() < 1) 
+                    {
+                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "IO:O Exposure Times < 1 millisecond are not allowed."));
+                    } 
+                    //else if (multipleExposure.getExposureTime() < 10000) {
+                    //    validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "IO:O exposure times < 10 seconds will have significant shutter effects."));
+                    //}
                     //make sure a BeamSteer has been received.
                     /*
                      if (!haveBeamSteeringConfig) {
