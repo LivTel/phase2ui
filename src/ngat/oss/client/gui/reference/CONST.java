@@ -20,7 +20,7 @@ import ngat.phase2.XVersion;
  */
 public class CONST {
 
-    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(2, 0, 4, 0);
+    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(2, 0, 5, 0);
     
     public static final String CURRENT_REVISION_LETTER = ".A";
     
@@ -245,9 +245,6 @@ public class CONST {
         if (instrumentName.equalsIgnoreCase(CONST.RISE)) {
             instrumentOffsetAngle = Math.toRadians(-44.4);
           
-        } else if (instrumentName.equalsIgnoreCase(CONST.RINGO3)) {
-            instrumentOffsetAngle = Math.toRadians(-87.8);
-            
         } else if (instrumentName.equalsIgnoreCase(CONST.MOPTOP)) {
             instrumentOffsetAngle = Math.toRadians(-177.162);
             
@@ -257,12 +254,11 @@ public class CONST {
         } else if (instrumentName.equalsIgnoreCase(CONST.FRODO)) {
             instrumentOffsetAngle = Math.toRadians(0);
         
-        } else if (instrumentName.equalsIgnoreCase(CONST.IO_I)) {
-            instrumentOffsetAngle = Math.toRadians(0);
-            
         } else if (instrumentName.equalsIgnoreCase(CONST.SPRAT)) {
             instrumentOffsetAngle = Math.toRadians(+91.72);
             
+        }  else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) {
+            instrumentOffsetAngle = Math.toRadians(2.0);
         } else {
             throw new Exception("unknown instrument name");
         }
