@@ -192,7 +192,7 @@ public class RotatorMountTimePanel extends JPanel {
             try {
                 Coordinates c = track.getCoordinates(t);
                 double minalt = astro.getMinimumAltitude(track, t, t + duration);
-                boolean visible = minalt > Math.toRadians(25.0);
+                boolean visible = minalt > Math.toRadians(CONST.DOME_LIMIT);
                 // System.err.printf("Min alt at: %tF %tT for %10d is %4.2f \n",t,
                 // t, duration, Math.toDegrees(minalt));
 

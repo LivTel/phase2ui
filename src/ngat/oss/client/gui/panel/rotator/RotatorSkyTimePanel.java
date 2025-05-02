@@ -191,7 +191,7 @@ public class RotatorSkyTimePanel extends JPanel {
             try {
                 Coordinates c = track.getCoordinates(t);
                 double minalt = astro.getMinimumAltitude(track, t, t + duration);
-                boolean visible = minalt > Math.toRadians(25.0);
+                boolean visible = minalt > Math.toRadians(CONST.DOME_LIMIT);
 
                 Coordinates sun = sunTrack.getCoordinates(t);
                 double sunlev = astro.getAltitude(sun, t);

@@ -199,8 +199,10 @@ public class CONST {
     public static final int LIRIC_NUDGEMATIC_OFFSET_SIZE_SMALL = 1;
     public static final int LIRIC_NUDGEMATIC_OFFSET_SIZE_LARGE = 2;
     
+    // Rotator panel constants
     public static final double INSTRUMENT_OFFSET = Math.toRadians(104);
-
+    public static final double DOME_LIMIT  = 30.0;
+    
     public static final String IO_SCHEMATIC_FILE_PATH = "/home/eng/bssgui/resources/IO_Small.png";
     public static final String IO_SCHEMATIC_URL_PATH = "http://telescope.livjm.ac.uk/pics/IO_Small.png";
 
