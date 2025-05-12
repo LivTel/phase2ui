@@ -64,7 +64,9 @@ After building the project with the 'Web Start' setting enabled, the dist direct
 
 ## Code Signing
 
-Before deployment the jars in the dist directory need code-signing. See the wiki, wikiword Phase2UICertificates. 
+Before deployment the jars in the dist directory need code-signing. See the wiki, wikiword Phase2UICertificates.
+
+There is now Linux and Windows support for signing the jars in the dist directory, see the [scripts](scripts) directory for details.
 
 ## Deployment
 
