@@ -15,22 +15,35 @@ echo "dist dir: ${dist_dir}"
 #
 # Passwords passed in
 #
-if( ! $?jarsigner_storepass ) then
-    echo "Specify store password using setenv jarsigner_storepass"
+if( ! $?JARSIGNER_STOREPASS ) then
+    echo "Specify store password using setenv JARSIGNER_STOREPASS"
     exit 1
 endif
-if( ! $?jarsigner_keypass ) then
-    echo "Specify key password using setenv jarsigner_keypass"
-    exit 1
-endif
-echo "Store password: ${jarsigner_storepass}"
-echo "Key password: ${jarsigner_keypass}"
+#if( ! $?jarsigner_keypass ) then
+#    echo "Specify key password using setenv jarsigner_keypass"
+#    exit 1
+#endif
+echo "Store password: ${JARSIGNER_STOREPASS}"
+#echo "Key password: ${jarsigner_keypass}"
+#
+# Which certificate on the token to use, changes each year.
+# Use: keytool -list -keystore NONE -storetype PKCS11 -storepass "${JARSIGNER_STOREPASS}" -providerclass sun.security.pkcs11.SunPKCS11 -providerArg eToken.cfg
+# to list the certificate aliases
+#
+set certificate_alias="Liverpool John Moores University/cn=digicert trusted g4 code signing rsa4096 sha384 2021 ca1,o=digicert\, inc.,c=us/5439043687538617454802178638770159896"
 #
 # Construct list of jars to sign
 #
 set jar_list = "${dist_dir}/Phase2UI.jar ${dist_dir}/lib/*.jar"
 foreach jarfile ( ${jar_list} )
 	echo "Signing ${jarfile}"
-	echo "jarsigner -tsa http://timestamp.digicert.com -keystore /home/dev/CODE_SIGNING_RESOURCES/keystore/ltsite2_astro_livjm_ac_uk.jks -storepass ${jarsigner_storepass} -keypass ${jarsigner_keypass} ${jarfile} phase2ui-css"
-	jarsigner -tsa http://timestamp.digicert.com -keystore /home/dev/CODE_SIGNING_RESOURCES/keystore/ltsite2_astro_livjm_ac_uk.jks -storepass ${jarsigner_storepass} -keypass ${jarsigner_keypass} ${jarfile} phase2ui-css
+
+	echo "jarsigner -tsa http://timestamp.digicert.com -keystore NONE -storetype PKCS11 -providerClass sun.security.pkcs11.SunPKCS11 -providerArg ${script_dir}/eToken.cfg -storepass ${JARSIGNER_STOREPASS} ${jarfile} ${certificate_alias}"
+	jarsigner -tsa http://timestamp.digicert.com -keystore NONE -storetype PKCS11 -providerClass sun.security.pkcs11.SunPKCS11 -providerArg ${script_dir}/eToken.cfg -storepass "${JARSIGNER_STOREPASS}" "${jarfile}" "${certificate_alias}"
+	# Comment in for testing after changes: there are only 10 storepass password attempts before the token locks
+	# you out!
+	#exit 1
+	# Old certificate system
+	#echo "jarsigner -tsa http://timestamp.digicert.com -keystore /home/dev/CODE_SIGNING_RESOURCES/keystore/ltsite2_astro_livjm_ac_uk.jks -storepass ${JARSIGNER_STOREPASS} -keypass ${jarsigner_keypass} ${jarfile} phase2ui-css"
+	#jarsigner -tsa http://timestamp.digicert.com -keystore /home/dev/CODE_SIGNING_RESOURCES/keystore/ltsite2_astro_livjm_ac_uk.jks -storepass ${JARSIGNER_STOREPASS} -keypass ${jarsigner_keypass} ${jarfile} phase2ui-css
 end
