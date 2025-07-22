@@ -20,7 +20,7 @@ import ngat.phase2.XVersion;
  */
 public class CONST {
 
-    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(2, 0, 6, 0);
+    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(2, 0, 8, 0);
     
     public static final String CURRENT_REVISION_LETTER = ".A";
     
@@ -162,7 +162,7 @@ public class CONST {
      public static final String[] IO_O_BINNING_OPTIONS = new String[]{BIN_2};
      public static final String[] SU_IO_O_BINNING_OPTIONS = new String[]{BIN_1, BIN_2};
      public static final String[] IO_I_BINNING_OPTIONS = new String[]{BIN_1};  //1x1 only for now
-     public static final String[] LOCI_BINNING_OPTIONS = new String[]{BIN_1, BIN_2};
+     public static final String[] LOCI_BINNING_OPTIONS = new String[]{BIN_2}; // only offer binning 2 for now
     public static final String[] LIRIC_BINNING_OPTIONS = new String[]{BIN_1}; 
      public static final String[] SPRAT_BINNING_OPTIONS = new String[]{BIN_1, BIN_2};
      public static final String[] LOTUS_BINNING_OPTIONS = new String[]{BIN_4};
