@@ -726,6 +726,17 @@ class TelescopeState
                         validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "LIRIC Exposure Times less than the coadd exposure length are not allowed."));                    
                     }
                 }
+                else if (latestInstrumentConfigInstrumentName.equals(CONST.LOCI)) 
+                {
+                    if (multipleExposure.getExposureTime() < 1) 
+                    {
+                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.FAILURE, "LOCI Exposure Times < 1 millisecond are not allowed."));
+                    } 
+                    else if (multipleExposure.getExposureTime() < 5000) 
+                    {
+                        validationResults.addValidationResult(new ValidationResult(objectName, ValidationResult.WARNING, "LOCI exposure times < 5 seconds will have significant shutter effects."));
+                    }
+                }
                 else if (latestInstrumentConfigInstrumentName.equals(CONST.RINGO3))
                 {
                     logger.info("... latestInstrumentConfigInstrumentName == " + CONST.RINGO3);

@@ -237,6 +237,10 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             {
                 detectorConfigStandardPanel.setBinningOptions(CONST.LIRIC_BINNING_OPTIONS);
             }
+            else if (instrumentName.equalsIgnoreCase(CONST.LOCI)) 
+            {
+                detectorConfigStandardPanel.setBinningOptions(CONST.LOCI_BINNING_OPTIONS);
+            }
          }
     }
 
@@ -358,6 +362,27 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             jpUpperNDSlide.setVisible(false);
             jpLowerNDSlide.setVisible(false);
         }
+        else if (instrumentName.equalsIgnoreCase(CONST.LOCI)) 
+        {
+            //Filter wheel 1
+            jcbFilterWheel1.removeAllItems();
+            for(int i = 0; i < CONST.LOCI_FW_ITEMS.length; i++)
+            {
+                jcbFilterWheel1.addItem(CONST.LOCI_FW_ITEMS[i]);
+            }
+            jcbFilterWheel1.setSelectedIndex(0);
+            //Filter wheel 1
+            jcbFilterWheel2.removeAllItems();
+            //Upper ND slide
+            jcbUpperNDSlide.removeAllItems();
+            //Lower ND slide
+            jcbLowerNDSlide.removeAllItems();
+            //show FW1
+            jpFilterWheel1.setVisible(true);
+            jpFilterWheel2.setVisible(false);
+            jpUpperNDSlide.setVisible(false);
+            jpLowerNDSlide.setVisible(false);
+        }
     }
 
     /**
@@ -388,6 +413,10 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
             {
                 return 1;
+            }
+            else if (instrumentName.equalsIgnoreCase(CONST.LOCI)) 
+            {
+                return 2;
             }
          }
         return 1;//default
@@ -503,6 +532,14 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
         else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
         {
             if (filterListContains(CONST.LIRIC_FW_ITEMS, filterName)) 
+            {
+                jcbFilterWheel1.setSelectedItem(filterName);
+                return true;
+            }
+        }
+        else if (instrumentName.equalsIgnoreCase(CONST.LOCI)) 
+        {
+            if (filterListContains(CONST.LOCI_FW_ITEMS, filterName)) 
             {
                 jcbFilterWheel1.setSelectedItem(filterName);
                 return true;
@@ -647,6 +684,11 @@ public class ImagerInstrumentConfigEditorPanel extends javax.swing.JPanel implem
             filterSpec.addFilter(new XFilterDef(filter1));
         }
         else if (instrumentName.equalsIgnoreCase(CONST.LIRIC)) 
+        {
+            String filter1 = (String)jcbFilterWheel1.getSelectedItem();
+            filterSpec.addFilter(new XFilterDef(filter1));
+        }
+        else if (instrumentName.equalsIgnoreCase(CONST.LOCI)) 
         {
             String filter1 = (String)jcbFilterWheel1.getSelectedItem();
             filterSpec.addFilter(new XFilterDef(filter1));

@@ -79,42 +79,38 @@ public class NewInstrumentConfigDialog extends javax.swing.JDialog implements Ac
         if (instrumentName.equals(CONST.RISE)) 
         {
             isImager = true;
-            
         } 
         else if (instrumentName.equals(CONST.IO_O)) 
         {
             isImager = true;
-            
         } 
         else if (instrumentName.equals(CONST.IO_I)) 
         {
             isImager = true;
-            
         } 
         else if (instrumentName.equals(CONST.LIRIC)) 
         {
             isImager = true;
-            
+        } 
+        else if (instrumentName.equals(CONST.LOCI)) 
+        {
+            isImager = true;
         } 
         else if (instrumentName.equals(CONST.RINGO3) ) 
         {
             isPolarimeter = true;
-            
         } 
         else if (instrumentName.equals(CONST.MOPTOP) ) 
         {
             isPolarimeter = true;
-            
         } 
         else if (instrumentName.equals(CONST.FRODO) || instrumentName.equals(CONST.FRODO_BLUE) || instrumentName.equals(CONST.FRODO_RED)) 
         {
             isDualBeamSpectrograph = true;
-            
         } 
         else if (instrumentName.equals(CONST.SPRAT)) 
         {
             isImagingSpectrograph = true;
-        
         } 
         else if (instrumentName.equals(CONST.LOTUS) ) 
         {
