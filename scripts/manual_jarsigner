@@ -37,9 +37,12 @@ set certificate_alias="Liverpool John Moores University/cn=digicert trusted g4 c
 set jar_list = "${dist_dir}/Phase2UI.jar ${dist_dir}/lib/*.jar"
 foreach jarfile ( ${jar_list} )
 	echo "Signing ${jarfile}"
-
-	echo "jarsigner -tsa http://timestamp.digicert.com -keystore NONE -storetype PKCS11 -providerClass sun.security.pkcs11.SunPKCS11 -providerArg ${script_dir}/eToken.cfg -storepass ${JARSIGNER_STOREPASS} ${jarfile} ${certificate_alias}"
-	jarsigner -tsa http://timestamp.digicert.com -keystore NONE -storetype PKCS11 -providerClass sun.security.pkcs11.SunPKCS11 -providerArg ${script_dir}/eToken.cfg -storepass "${JARSIGNER_STOREPASS}" "${jarfile}" "${certificate_alias}"
+# -sigalg SHA256withRSA -sigfile PHASE2UI
+	# 
+	echo "jarsigner -sigalg SHA256withRSA -sigfile PHASE2UI -tsa http://timestamp.digicert.com -keystore NONE -storetype PKCS11 -providerClass sun.security.pkcs11.SunPKCS11 -providerArg ${script_dir}/eToken.cfg -storepass ${JARSIGNER_STOREPASS} ${jarfile} ${certificate_alias}"
+	jarsigner -sigalg SHA256withRSA -sigfile PHASE2UI -tsa http://timestamp.digicert.com -keystore NONE -storetype PKCS11 -providerClass sun.security.pkcs11.SunPKCS11 -providerArg ${script_dir}/eToken.cfg -storepass "${JARSIGNER_STOREPASS}" "${jarfile}" "${certificate_alias}"
+#	echo "jarsigner -tsa http://timestamp.digicert.com -keystore NONE -storetype PKCS11 -providerClass sun.security.pkcs11.SunPKCS11 -providerArg ${script_dir}/eToken.cfg -storepass ${JARSIGNER_STOREPASS} ${jarfile} ${certificate_alias}"
+#	jarsigner -tsa http://timestamp.digicert.com -keystore NONE -storetype PKCS11 -providerClass sun.security.pkcs11.SunPKCS11 -providerArg ${script_dir}/eToken.cfg -storepass "${JARSIGNER_STOREPASS}" "${jarfile}" "${certificate_alias}"
 	# Comment in for testing after changes: there are only 10 storepass password attempts before the token locks
 	# you out!
 	exit 1
