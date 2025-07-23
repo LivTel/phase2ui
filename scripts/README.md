@@ -33,3 +33,5 @@ This tools manually signs the distribution jars on a windows machine. The StoreP
 * Untar the tarred dist.
 * As root, run /home/eng/DEPLOY-P2UI.sh.
 
+Deploy a JDeploy version of the deployment, follow the instructions on the wiki using the wikiword: JDeployPhase2UI
+
