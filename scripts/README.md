@@ -17,11 +17,12 @@ This tools manually signs the distribution jars on a windows machine. The StoreP
 # Current signing procedure
 
 * Ensure code signing is set in netbeans:
- * Right click on the Phase2UI project, select Properties
- * Select Application->Web Start is the left hand list.
- * Signing, click the Customize button.
- * Sign by a specified key, fill in the details for the old certificate from the password list.
-* Build the software using netbeans with "Web Start" rather than <default config> option set. This will sign the jars with the old, out of date phase2ui-css keystore. * Put the token in your computer
+  * Right click on the Phase2UI project, select Properties
+  * Select Application->Web Start is the left hand list.
+  * Signing, click the Customize button.
+  * Sign by a specified key, fill in the details for the old certificate from the password list.
+* Build the software using netbeans with "Web Start" rather than <default config> option set. This will sign the jars with the old, out of date phase2ui-css keystore.
+* Put the token in your computer
 * cd ~/netbeans-workspace/phase2ui/scripts
 * Check manual_jarsigner script, ensure it only tries to sign the first jar (exit 1 is uncommented).
 * setenv JARSIGNER_STOREPASS "Keystore password"
