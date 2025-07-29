@@ -33,6 +33,7 @@ import ngat.phase2.ISequenceComponent;
 import ngat.phase2.ITarget;
 import ngat.phase2.XAcquisitionConfig;
 import ngat.phase2.XAutoguiderConfig;
+import ngat.phase2.XBias;
 import ngat.phase2.XDark;
 import ngat.phase2.XExecutiveComponent;
 import ngat.phase2.XFocusOffset;
@@ -40,6 +41,7 @@ import ngat.phase2.XInstrumentConfig;
 import ngat.phase2.XInstrumentConfigSelector;
 import ngat.phase2.XIteratorComponent;
 import ngat.phase2.XIteratorRepeatCountCondition;
+import ngat.phase2.XLiricInstrumentConfig;
 import ngat.phase2.XMultipleExposure;
 import ngat.phase2.XPeriodExposure;
 import ngat.phase2.XRotatorConfig;
@@ -399,7 +401,8 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
     /*************************************/
     // OBSERVATION SEQUENCE EXTRACTION
     /*************************************/
-    public ISequenceComponent getObservationSequence() {
+    public ISequenceComponent getObservationSequence() 
+    {
         if (!validObservationSequence()) {
             return null;
         }
@@ -458,6 +461,8 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
         boolean autoguiderIsOn = false;
         boolean isFirstIteration = true;
         XDark dark = null;
+        XBias bias = null;
+        int coaddExposureLength = 100;
         IInstrumentConfig previousInstrumentConfig = null;
 
         //START ITERATION -------
@@ -476,13 +481,20 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
             IInstrumentConfig instrumentConfig = obsSeqTableLineEntry.getInstrumentConfig();
 
             boolean instrumentIsSupirCam = instrumentName.equalsIgnoreCase("SUPIRCAM");
+            boolean instrumentIsLiric = instrumentName.equalsIgnoreCase("LIRIC");
             boolean instrumentHasChanged;
             if (isFirstIteration) {
                 instrumentHasChanged = true;
             } else {
                 instrumentHasChanged = !instrumentConfig.getInstrumentName().equals(previousInstrumentConfig.getInstrumentName());
             }
-
+            // If LIRIC, we need to retrieve the coaddExposureLength to create a DARK
+            if(instrumentIsLiric)
+            {
+                XLiricInstrumentConfig liricConfig = (XLiricInstrumentConfig)instrumentConfig;
+                
+                coaddExposureLength = liricConfig.getCoaddExposureLength();
+            }
             //ACQUISITION CONFIG
             if (isFirstIteration) {
                 IAcquisitionConfig acquisitionConfig= new XAcquisitionConfig(IAcquisitionConfig.INSTRUMENT_CHANGE, instrumentName, null, false, IAcquisitionConfig.PRECISION_NORMAL);
@@ -505,18 +517,33 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
                 }
             }
 
-            //CONFIG INSTRUMENT - if we haven't done one before of if the instrumentConfig is different to the last one
-            if ((previousInstrumentConfig == null) || !instrumentConfig.equals(previousInstrumentConfig)) {
+            //CONFIG INSTRUMENT 
+            // - if we haven't done one before or 
+            // - if the instrumentConfig is different to the last one or
+            // - if the instrument is LIRIC (the bias at the end of the LIRIC Multrun resets the .fmt file for the detector
+            //   so a reconfig is always needed aafter a Liric Bias is taken)
+            if ((previousInstrumentConfig == null) || !instrumentConfig.equals(previousInstrumentConfig) || instrumentIsLiric) 
+            {
                 XInstrumentConfigSelector instrumentConfigSelector = new XInstrumentConfigSelector(instrumentConfig);
                 rootComponent.addElement(new XExecutiveComponent(configNamePrefix + lineCount, instrumentConfigSelector));
                 previousInstrumentConfig = instrumentConfig;
             }
 
             //DARK - if we're using supircam
-            if (instrumentIsSupirCam) {
+            if (instrumentIsSupirCam)
+            {
                 dark = new XDark();
                 dark.setName("DARK");
                 dark.setExposureTime(exposureTime); //dark time is in mS
+                rootComponent.addElement(new XExecutiveComponent("DARK", dark));
+            }
+            
+            //DARK - if we're using liric
+            if (instrumentIsLiric) 
+            {
+                dark = new XDark();
+                dark.setName("DARK");
+                dark.setExposureTime(coaddExposureLength); //dark time is one coadd in mS
                 rootComponent.addElement(new XExecutiveComponent("DARK", dark));
             }
 
@@ -537,6 +564,14 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
             if (instrumentIsSupirCam) {
                 //add the dark again
                 rootComponent.addElement(new XExecutiveComponent("DARK", dark));
+            }
+            
+            // BIAS - if we're using liric
+            if (instrumentIsLiric) 
+            {
+                bias = new XBias();
+                bias.setName("BIAS");
+                rootComponent.addElement(new XExecutiveComponent("BIAS", bias));
             }
 
             lineCount ++;
