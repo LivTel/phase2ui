@@ -538,15 +538,6 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
                 rootComponent.addElement(new XExecutiveComponent("DARK", dark));
             }
             
-            //DARK - if we're using liric
-            if (instrumentIsLiric) 
-            {
-                dark = new XDark();
-                dark.setName("DARK");
-                dark.setExposureTime(coaddExposureLength); //dark time is one coadd in mS
-                rootComponent.addElement(new XExecutiveComponent("DARK", dark));
-            }
-
             //EXPOSE
             if (exposure instanceof XMultipleExposure) {
                 XMultipleExposure multipleExposure = (XMultipleExposure) exposure;
@@ -558,6 +549,17 @@ public class WizardPanelPhotometryPolarimetrySequence extends javax.swing.JPanel
                 periodExposure.setName(exposureNamePrefix + lineCount);
                 periodExposure.setStandard(jcbIsStandard.isSelected());
                 rootComponent.addElement(new XExecutiveComponent(periodExposure.getName(), exposure));
+            }
+
+            //DARK - if we're using liric
+            // We must have the DARK after the exposure with LIRIC, 
+            // as the DARK command internally moves the filter to AuMirror
+            if (instrumentIsLiric) 
+            {
+                dark = new XDark();
+                dark.setName("DARK");
+                dark.setExposureTime(coaddExposureLength); //dark time is one coadd in mS
+                rootComponent.addElement(new XExecutiveComponent("DARK", dark));
             }
 
             //DARK - if we're using supircam
