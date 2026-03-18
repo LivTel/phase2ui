@@ -30,7 +30,10 @@ echo "Store password: ${JARSIGNER_STOREPASS}"
 # Use: keytool -list -v -keystore NONE -storetype PKCS11 -storepass "${JARSIGNER_STOREPASS}" -providerclass sun.security.pkcs11.SunPKCS11 -providerArg eToken.cfg
 # to list the certificate aliases
 #
-set certificate_alias="Liverpool John Moores University/cn=digicert trusted g4 code signing rsa4096 sha384 2021 ca1,o=digicert\, inc.,c=us/5439043687538617454802178638770159896"
+# 2025-2026
+#set certificate_alias="Liverpool John Moores University/cn=digicert trusted g4 code signing rsa4096 sha384 2021 ca1,o=digicert\, inc.,c=us/5439043687538617454802178638770159896"
+# 2026-2027
+set certificate_alias="Liverpool John Moores University/cn=digicert trusted g4 code signing rsa4096 sha384 2021 ca1,o=digicert\, inc.,c=us/17603408839346895531320822124163539138"
 #
 # Construct list of jars to sign
 #
