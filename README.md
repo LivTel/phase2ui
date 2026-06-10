@@ -79,3 +79,8 @@ ltproxy:/usr/local/tomcat/webapps/ROOT/launch_oss. The launch.jnlp in the dist d
 
 There is a copy of the DEPLOY-P2UI.sh in this repo, that should be manually installed in ltproxy:/home/eng/
 
+For first time deployment, the launch_oss directory should also contain:
+* index.html , a copy is stored in the root directory of this repository.
+* launch_phase2gui.jnlp , a copy is stored in the root directory of this repository.
+
+These will currently need to be manually deployed when a new server is setup.
