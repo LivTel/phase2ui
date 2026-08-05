@@ -70,6 +70,8 @@ There is now Linux and Windows support for signing the jars in the dist director
 
 ## Deployment
 
+### javaws Deployment
+
 After copying the dist directory into ltproxy:/home/eng/download/
 The ltproxy:/home/eng/DEPLOY-P2UI.sh script should be run (as root) to deploy the software.
 It is worth backing up ltproxy:/usr/local/tomcat/webapps/ before attempting this.
@@ -84,3 +86,7 @@ For first time deployment, the launch_oss directory should also contain:
 * launch_phase2gui.jnlp , a copy is stored in the root directory of this repository.
 
 These will currently need to be manually deployed when a new server is setup.
+
+# jDeploy Deployment
+
+See the wikiword JDeployPhase2UI : https://telescope.ljmu.ac.uk/wiki/pmwiki.php?n=Main.JDeployPhase2UI
