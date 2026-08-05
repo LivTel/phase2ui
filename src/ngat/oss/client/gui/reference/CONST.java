@@ -20,7 +20,7 @@ import ngat.phase2.XVersion;
  */
 public class CONST {
 
-    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(2, 1, 1, 0);
+    public static final XVersion CURRENT_VERSION_NUMBER = new XVersion(2, 1, 4, 0);
     
     public static final String CURRENT_REVISION_LETTER = ".A";
     
@@ -205,7 +205,7 @@ public class CONST {
     
     // Rotator panel constants
     public static final double INSTRUMENT_OFFSET = Math.toRadians(104);
-    public static final double DOME_LIMIT  = 30.0;
+    public static final double DOME_LIMIT  = 21.0;
     
     public static final String IO_SCHEMATIC_FILE_PATH = "/home/eng/bssgui/resources/IO_Small.png";
     public static final String IO_SCHEMATIC_URL_PATH = "http://telescope.livjm.ac.uk/pics/IO_Small.png";
